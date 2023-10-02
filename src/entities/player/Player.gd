@@ -10,6 +10,7 @@ const SNAP_LENGTH: float = 32.0
 const SLOPE_THRESHOLD: float = deg2rad(46)
 
 onready var floor_raycasts: Array = $FloorRaycasts.get_children()
+onready var budy_color = $Body/ColorSprite
 
 ## Estas variables de exportación podríamos abstraerlas a cada
 ## estado correspondiente de la state machine, pero como queremos
@@ -20,6 +21,8 @@ export (float) var H_SPEED_LIMIT: float = 600.0
 export (int) var jump_speed: int = 500
 export (float) var FRICTION_WEIGHT: float = 0.1
 export (int) var gravity: int = 10
+export (Color) var color: Color = Color.white
+export (String) var id: String = "1"
 
 
 var velocity: Vector2 = Vector2.ZERO
@@ -32,7 +35,7 @@ var dead: bool = false
 
 
 func _ready() -> void:
-	pass
+	budy_color.modulate = color
 
 
 
@@ -40,7 +43,7 @@ func _ready() -> void:
 ## Se extrae el comportamiento del manejo del movimiento horizontal
 ## a una función para ser llamada apropiadamente desde la state machine
 func _handle_move_input() -> void:
-	move_direction = int(Input.is_action_pressed("move_right")) - int(Input.is_action_pressed("move_left"))
+	move_direction = int(Input.is_action_pressed("p"+id+"_move_right")) - int(Input.is_action_pressed("p"+id+"_move_left"))
 	if move_direction != 0:
 		velocity.x = clamp(velocity.x + (move_direction * ACCELERATION), -H_SPEED_LIMIT, H_SPEED_LIMIT)
 

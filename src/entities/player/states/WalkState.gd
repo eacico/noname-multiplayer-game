@@ -7,7 +7,7 @@ func enter() -> void:
 
 
 func handle_input(event:InputEvent) -> void:
-	if event.is_action_pressed("jump") && character.is_on_floor():
+	if event.is_action_pressed("p"+character.id+"_jump") && character.is_on_floor():
 		emit_signal("finished", "jump")
 
 
@@ -37,7 +37,8 @@ func update(delta: float) -> void:
 func handle_event(event: String, value = null) -> void:
 	match event:
 		"dead":
-			character._handle_hit(value)
+#			character._handle_hit(value)
+			character._handle_death()
 			if character.dead:
 				emit_signal("finished", "dead")
 

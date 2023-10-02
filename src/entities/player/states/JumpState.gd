@@ -5,6 +5,7 @@ export (int) var jumps_limit: int = 1
 var jumps: int = 0
 
 func enter() -> void:
+	print("P" + character.id + "_jump_enter")
 	jumps += 1
 	character.snap_vector = Vector2.ZERO
 	character.velocity.y -= character.jump_speed
@@ -12,9 +13,11 @@ func enter() -> void:
 
 func exit() -> void:
 	jumps = 0
+	print("P" + character.id + "_jump_exit")
 	
 func handle_input(event: InputEvent) -> void:
-	if event.is_action_pressed("jump") && jumps < jumps_limit:
+	if event.is_action_pressed("p"+character.id+"_jump") && jumps < jumps_limit:
+		print("P" + character.id + "_jump_enter2")
 		jumps += 1
 		character.velocity.y -= character.jump_speed
 		character._play_animation("jump") 
