@@ -10,7 +10,7 @@ func _ready() -> void:
 
 
 func _on_body_entered(body: Node) -> void:
-	if !won:
+	if !won && body is Player:
 		print("You win!")
 		won = true
 #		portal.play("open")
