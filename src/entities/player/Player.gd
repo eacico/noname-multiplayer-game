@@ -16,12 +16,13 @@ onready var budy_color = $Body/ColorSprite
 ## estado correspondiente de la state machine, pero como queremos
 ## poder modificar estos valores desde afuera de la escena del Player,
 ## los exponemos desde el script de Player.
-export (float) var ACCELERATION: float = 60.0
-export (float) var H_SPEED_LIMIT: float = 600.0
-export (int) var jump_speed: int = 500
-export (float) var FRICTION_WEIGHT: float = 0.1
+export (float) var ACCELERATION: float = 20.0
+export (float) var H_SPEED_LIMIT: float = 250.0
+export (int) var jump_speed: int = 300
+export (float) var JUMP_SPEED_LIMIT: float = 300.0
+export (float) var FALL_SPEED_LIMIT: float = 850.0
+export (float) var FRICTION_WEIGHT: float = 0.15
 export (int) var gravity: int = 10
-export (int) var movement_max_velocity: int = 850
 export (Color) var color: Color = Color.white
 export (String) var id: String = "1"
 
@@ -59,7 +60,7 @@ func _handle_deacceleration() -> void:
 ## Se extrae el comportamiento de la aplicación de gravedad y movimiento
 ## a una función para ser llamada apropiadamente desde la state machine
 func _apply_movement() -> void:
-	velocity.y = clamp(velocity.y + gravity, movement_max_velocity * -1, movement_max_velocity)
+	velocity.y = clamp(velocity.y + gravity, JUMP_SPEED_LIMIT * -1, FALL_SPEED_LIMIT)
 	velocity = move_and_slide_with_snap(
 		velocity, 
 		snap_vector, 
