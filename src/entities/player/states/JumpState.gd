@@ -29,6 +29,8 @@ func update(delta: float) -> void:
 			emit_signal("finished", "idle")
 		else:
 			emit_signal("finished", "walk")
+	elif character.is_on_wall():
+		emit_signal("finished", "wall_slide")
 	else:
 		if character.velocity.y > 0:
 			character._play_animation("fall")

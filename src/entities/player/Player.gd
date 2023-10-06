@@ -25,12 +25,15 @@ export (float) var FRICTION_WEIGHT: float = 0.15
 export (int) var gravity: int = 10
 export (Color) var color: Color = Color.white
 export (String) var id: String = "1"
+export (float) var wall_slide_speed: float = 50.0
+
 
 
 var velocity: Vector2 = Vector2.ZERO
 var snap_vector: Vector2 = SNAP_DIRECTION * SNAP_LENGTH
 var stop_on_slope: bool = true
 var move_direction: int = 0
+var is_wall_sliding: bool = false
 
 ## Flag de ayuda para saber identificar el estado de actividad
 var dead: bool = false
@@ -60,7 +63,10 @@ func _handle_deacceleration() -> void:
 ## Se extrae el comportamiento de la aplicación de gravedad y movimiento
 ## a una función para ser llamada apropiadamente desde la state machine
 func _apply_movement() -> void:
-	velocity.y = clamp(velocity.y + gravity, JUMP_SPEED_LIMIT * -1, FALL_SPEED_LIMIT)
+	if is_wall_sliding:
+		velocity.y = clamp(velocity.y + gravity, JUMP_SPEED_LIMIT * -1, wall_slide_speed)
+	else:
+		velocity.y = clamp(velocity.y + gravity, JUMP_SPEED_LIMIT * -1, FALL_SPEED_LIMIT)
 	velocity = move_and_slide_with_snap(
 		velocity, 
 		snap_vector, 
