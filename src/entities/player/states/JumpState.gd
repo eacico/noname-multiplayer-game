@@ -1,6 +1,6 @@
 extends AbstractState
 
-export (int) var jumps_limit: int = 1
+export (int) var jumps_limit: int = 2
 
 var jumps: int = 0
 
