@@ -2,7 +2,7 @@
 
 [ext_resource path="res://src/entities/player/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://src/Main.gd" type="Script" id=2]
-[ext_resource path="res://assets/textures/tileset/ruins/platforms.png" type="Texture" id=3]
+[ext_resource path="res://assets/textures/tileset/platforms.png" type="Texture" id=3]
 [ext_resource path="res://src/entities/Lava.tscn" type="PackedScene" id=4]
 [ext_resource path="res://assets/textures/tileset/basic_tileset.png" type="Texture" id=5]
 [ext_resource path="res://src/environment/Goal.tscn" type="PackedScene" id=6]
