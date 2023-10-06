@@ -13,4 +13,12 @@ func _ready():
 
 func _input(event: InputEvent) -> void:
 	if event.is_action("reset"):
-		get_tree().reload_current_scene()
+		restart_game()
+
+
+func _on_EndGameMenu_restart_game():
+	restart_game()
+
+func restart_game():
+	print("restart")
+	get_tree().reload_current_scene()

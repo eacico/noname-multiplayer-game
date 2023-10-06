@@ -21,6 +21,7 @@ export (float) var H_SPEED_LIMIT: float = 600.0
 export (int) var jump_speed: int = 500
 export (float) var FRICTION_WEIGHT: float = 0.1
 export (int) var gravity: int = 10
+export (int) var movement_max_velocity: int = 850
 export (Color) var color: Color = Color.white
 export (String) var id: String = "1"
 
@@ -33,6 +34,7 @@ var move_direction: int = 0
 ## Flag de ayuda para saber identificar el estado de actividad
 var dead: bool = false
 
+onready var timer = $Timer
 
 func _ready() -> void:
 	budy_color.modulate = color
@@ -57,7 +59,7 @@ func _handle_deacceleration() -> void:
 ## Se extrae el comportamiento de la aplicación de gravedad y movimiento
 ## a una función para ser llamada apropiadamente desde la state machine
 func _apply_movement() -> void:
-	velocity.y += gravity
+	velocity.y = clamp(velocity.y + gravity, movement_max_velocity * -1, movement_max_velocity)
 	velocity = move_and_slide_with_snap(
 		velocity, 
 		snap_vector, 
@@ -107,3 +109,4 @@ func _remove() -> void:
 ## (en el caso de que necesitemos expandir la lógica o debuggear, por ejemplo)
 func _play_animation(animation: String) -> void:
 	pass
+
