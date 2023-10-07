@@ -16,12 +16,12 @@ onready var budy_color = $Body/ColorSprite
 ## estado correspondiente de la state machine, pero como queremos
 ## poder modificar estos valores desde afuera de la escena del Player,
 ## los exponemos desde el script de Player.
-export (float) var ACCELERATION: float = 20.0
+export (float) var ACCELERATION: float = 30.0
 export (float) var H_SPEED_LIMIT: float = 250.0
 export (int) var jump_speed: int = 300
 export (float) var JUMP_SPEED_LIMIT: float = 300.0
 export (float) var FALL_SPEED_LIMIT: float = 850.0
-export (float) var FRICTION_WEIGHT: float = 0.15
+export (float) var FRICTION_WEIGHT: float = 0.20
 export (int) var gravity: int = 10
 export (Color) var color: Color = Color.white
 export (String) var id: String = "1"

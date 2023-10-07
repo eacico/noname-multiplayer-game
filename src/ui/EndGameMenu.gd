@@ -8,6 +8,7 @@ signal restart_game()
 func _ready():
 	hide()
 	GameState.connect("level_won", self, "_on_level_won")
+	GameState.connect("game_over", self, "_on_level_won")
 
 
 func _on_level_won() -> void:
