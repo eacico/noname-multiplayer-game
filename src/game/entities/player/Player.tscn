@@ -1,14 +1,14 @@
 [gd_scene load_steps=11 format=2]
 
-[ext_resource path="res://assets/textures/player/player_idle.png" type="Texture" id=1]
-[ext_resource path="res://src/entities/player/Player.gd" type="Script" id=2]
-[ext_resource path="res://src/entities/player/states/IdleState.gd" type="Script" id=3]
-[ext_resource path="res://src/entities/player/PlayerStateMachine.gd" type="Script" id=4]
-[ext_resource path="res://src/entities/player/states/WalkState.gd" type="Script" id=5]
-[ext_resource path="res://src/entities/player/states/JumpState.gd" type="Script" id=6]
-[ext_resource path="res://src/entities/player/states/DeadState.gd" type="Script" id=7]
-[ext_resource path="res://assets/textures/player/player_idle_body_color.png" type="Texture" id=8]
-[ext_resource path="res://src/entities/player/states/WallSlideState.gd" type="Script" id=9]
+[ext_resource path="res://src/game/entities/player/states/DeadState.gd" type="Script" id=1]
+[ext_resource path="res://src/game/entities/player/Player.gd" type="Script" id=2]
+[ext_resource path="res://assets/textures/player/player_idle.png" type="Texture" id=3]
+[ext_resource path="res://assets/textures/player/player_idle_body_color.png" type="Texture" id=4]
+[ext_resource path="res://src/game/entities/player/states/JumpState.gd" type="Script" id=5]
+[ext_resource path="res://src/game/entities/player/states/IdleState.gd" type="Script" id=6]
+[ext_resource path="res://src/game/entities/player/PlayerStateMachine.gd" type="Script" id=7]
+[ext_resource path="res://src/game/entities/player/states/WalkState.gd" type="Script" id=8]
+[ext_resource path="res://src/game/entities/player/states/WallSlideState.gd" type="Script" id=9]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 8.5, 18.5 )
@@ -20,25 +20,25 @@ jump_speed = 350
 gravity = 12
 
 [node name="StateMachine" type="Node" parent="."]
-script = ExtResource( 4 )
+script = ExtResource( 7 )
 character_path = NodePath("..")
 START_STATE = NodePath("Idle")
 STATES_LIST = [ NodePath("Idle"), NodePath("Walk"), NodePath("Jump"), NodePath("Dead"), NodePath("WallSlide") ]
 
 [node name="Idle" type="Node" parent="StateMachine"]
-script = ExtResource( 3 )
+script = ExtResource( 6 )
 state_id = "idle"
 
 [node name="Walk" type="Node" parent="StateMachine"]
-script = ExtResource( 5 )
+script = ExtResource( 8 )
 state_id = "walk"
 
 [node name="Jump" type="Node" parent="StateMachine"]
-script = ExtResource( 6 )
+script = ExtResource( 5 )
 state_id = "jump"
 
 [node name="Dead" type="Node" parent="StateMachine"]
-script = ExtResource( 7 )
+script = ExtResource( 1 )
 state_id = "dead"
 
 [node name="WallSlide" type="Node" parent="StateMachine"]
@@ -73,11 +73,11 @@ collision_mask = 4
 
 [node name="ColorSprite" type="Sprite" parent="Body"]
 position = Vector2( 0, -21 )
-texture = ExtResource( 8 )
+texture = ExtResource( 4 )
 
 [node name="BodySprite" type="Sprite" parent="Body"]
 position = Vector2( 0, -21 )
-texture = ExtResource( 1 )
+texture = ExtResource( 3 )
 
 [node name="WallRaycast" type="Node2D" parent="."]
 
@@ -91,5 +91,4 @@ position = Vector2( 8, -10 )
 cast_to = Vector2( 3, 0 )
 collision_mask = 4
 
-[connection signal="dead" from="." to="StateMachine" method="_on_Player_dead"]
 [connection signal="timeout" from="StateMachine/WallSlide/DetachTimer" to="StateMachine/WallSlide" method="_on_DetachTimer_timeout"]
