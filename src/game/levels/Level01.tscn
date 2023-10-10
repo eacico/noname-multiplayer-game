@@ -559,3 +559,5 @@ position = Vector2( 464, -720 )
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="EndGameMenu" parent="CanvasLayer" instance=ExtResource( 3 )]
+
+[connection signal="restart_game" from="CanvasLayer/EndGameMenu" to="." method="_on_restart_requested"]

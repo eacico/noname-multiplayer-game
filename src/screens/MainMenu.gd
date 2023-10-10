@@ -1,24 +1,17 @@
 extends Node
 
-
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
+export (PackedScene) var level_manager_scene: PackedScene
+#export (Texture) var mouse_cursor: Texture
 
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
+func _ready() -> void:
+	pass #Input.set_custom_mouse_cursor(mouse_cursor)
 
 
-func _input(event: InputEvent) -> void:
-	if event.is_action("reset"):
-		restart_game()
+
+func _on_StartButton_pressed() -> void:
+	get_tree().change_scene_to(level_manager_scene)
 
 
-func _on_EndGameMenu_restart_game():
-	restart_game()
-
-func restart_game():
-	print("restart")
-	get_tree().reload_current_scene()
+func _on_ExitButton_pressed() -> void:
+	get_tree().quit()
