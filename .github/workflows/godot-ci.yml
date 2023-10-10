@@ -3,7 +3,7 @@ on: push
 
 env:
   GODOT_VERSION: 3.5.2
-  EXPORT_NAME: tower-escape
+  EXPORT_NAME: tower-escape-game
   PROJECT_PATH: .
   
 jobs:
