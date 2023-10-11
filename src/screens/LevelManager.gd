@@ -5,7 +5,7 @@ extends Node
 ## cargar el siguiente nivel.
 
 export (Array, PackedScene) var levels: Array
-#export (String) var main_menu_path: String
+export (String) var main_menu_path: String
 
 onready var current_level_container: Node = $CurrentLevelContainer
 
@@ -32,25 +32,26 @@ func _setup_level(id: int) -> void:
 		# Inicializa el nivel nuevo y lo agrega al árbol
 		var level_instance: GameLevel = levels[id].instance()
 		current_level_container.add_child(level_instance)
-		level_instance.connect("return_requested", self, "_return_called")
+		level_instance.connect("main_menu_requested", self, "_main_menu_called")
 		level_instance.connect("restart_requested", self, "_restart_called")
 		level_instance.connect("next_level_requested", self, "_next_called")
 
 
 # Callback de regreso al MainMenu.
-func _return_called() -> void:
-	#GameState.weapons_available = []
+func _main_menu_called() -> void:
+	GameState.players_in_goal = []
 	get_tree().paused = false
-	#get_tree().change_scene(main_menu_path)
+	get_tree().change_scene(main_menu_path)
 
 
 # Callback de reinicio del nivel.
 func _restart_called() -> void:
-	#GameState.weapons_available = []
+	GameState.players_in_goal = []
 	_setup_level(level)
 
 
 # Callback de nivel siguiente.
 func _next_called() -> void:
+	GameState.players_in_goal = []
 	level = min(level + 1, levels.size() - 1)
 	_setup_level(level)
