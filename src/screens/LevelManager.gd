@@ -40,6 +40,7 @@ func _setup_level(id: int) -> void:
 # Callback de regreso al MainMenu.
 func _main_menu_called() -> void:
 	GameState.players_in_goal = []
+	GameState.players_dead = []
 	get_tree().paused = false
 	get_tree().change_scene(main_menu_path)
 
@@ -47,11 +48,13 @@ func _main_menu_called() -> void:
 # Callback de reinicio del nivel.
 func _restart_called() -> void:
 	GameState.players_in_goal = []
+	GameState.players_dead = []
 	_setup_level(level)
 
 
 # Callback de nivel siguiente.
 func _next_called() -> void:
 	GameState.players_in_goal = []
+	GameState.players_dead = []
 	level = min(level + 1, levels.size() - 1)
 	_setup_level(level)

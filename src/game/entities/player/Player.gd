@@ -3,6 +3,7 @@ class_name Player
 
 
 signal dead()
+signal respawn()
 
 const FLOOR_NORMAL: Vector2 = Vector2.UP  # Igual a Vector2(0, -1)
 const SNAP_DIRECTION: Vector2 = Vector2.DOWN
@@ -11,6 +12,8 @@ const SLOPE_THRESHOLD: float = deg2rad(46)
 
 onready var floor_raycasts: Array = $FloorRaycasts.get_children()
 onready var budy_color = $Body/ColorSprite
+onready var ghost_body_color = $GhostBody/ColorSprite
+onready var actionable_finder = $ActionableFinder
 
 ## Estas variables de exportación podríamos abstraerlas a cada
 ## estado correspondiente de la state machine, pero como queremos
@@ -34,6 +37,7 @@ var snap_vector: Vector2 = SNAP_DIRECTION * SNAP_LENGTH
 var stop_on_slope: bool = true
 var move_direction: int = 0
 var is_wall_sliding: bool = false
+var ghost_move_direction: Vector2 = Vector2.ZERO
 
 ## Flag de ayuda para saber identificar el estado de actividad
 var dead: bool = false
@@ -42,6 +46,7 @@ onready var timer = $Timer
 
 func _ready() -> void:
 	budy_color.modulate = color
+	ghost_body_color.modulate = color
 
 
 
@@ -76,7 +81,22 @@ func _apply_movement() -> void:
 		SLOPE_THRESHOLD)
 	if is_on_floor() && snap_vector == Vector2.ZERO:
 		snap_vector = SNAP_DIRECTION * SNAP_LENGTH
+	check_nearest_actionable()
 
+func _apply_ghost_movement(delta: float) -> void:
+	
+	ghost_move_direction.x = int(Input.is_action_pressed("p"+id+"_move_right")) - int(Input.is_action_pressed("p"+id+"_move_left"))
+	ghost_move_direction.y = int(Input.is_action_pressed("p"+id+"_move_down")) - int(Input.is_action_pressed("p"+id+"_move_up"))
+	if ghost_move_direction.x != 0:
+		velocity.x = clamp(velocity.x + (ghost_move_direction.x * ACCELERATION), -H_SPEED_LIMIT, H_SPEED_LIMIT)
+	if ghost_move_direction.y != 0:
+		velocity.y = clamp(velocity.y + (ghost_move_direction.y * ACCELERATION), -H_SPEED_LIMIT, H_SPEED_LIMIT)
+		
+	velocity.x = lerp(velocity.x, 0, FRICTION_WEIGHT) if abs(velocity.x) > 1 else 0
+	velocity.y = lerp(velocity.y, 0, FRICTION_WEIGHT) if abs(velocity.y) > 1 else 0
+	
+	position += velocity * delta
+		
 
 ## Función que pisa la función is_on_floor() ya existente
 ## y le agrega el chequeo de raycasts para expandir la ventana
@@ -92,18 +112,19 @@ func is_on_floor() -> bool:
 	return is_colliding
 
 
-func notify_death(amount: int = 1) -> void:
+func notify_death() -> void:
+	dead = true
 	emit_signal("dead")
 
+func notify_respawn() -> void:
+	dead = false
+	emit_signal("respawn")
 
-## Y acá se maneja el hit final. Como aun no tenemos una "cantidad" de HP,
-## sino una flag, el hit nos mata instantaneamente y tiramos una notificación.
-## Esta signal tranquilamente podría llamarse "dead", pero como esa la utilizamos
-## para otras cosas, y como sabemos que incorporaremos una barra de salud después
-## es apropiado manejarlo de esta manera.
+
+
 func _handle_death() -> void:
 	dead = true
-	emit_signal("hp_changed", 0, 1)
+	#emit_signal("hp_changed", 0, 1)
 
 
 # El llamado a remove final
@@ -117,3 +138,34 @@ func _remove() -> void:
 func _play_animation(animation: String) -> void:
 	pass
 
+
+var nearest_actionable: Actionable = null
+onready var own_respawn_actionable = $RespawnActionable
+signal nearest_actionable_changed(actionable)
+
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("p"+id+"_action"):
+		get_viewport().set_input_as_handled()
+		
+		if is_instance_valid(nearest_actionable):
+			nearest_actionable.emit_signal("actioned")
+
+func check_nearest_actionable() -> void:
+	var areas: Array = actionable_finder.get_overlapping_areas()
+	var shortest_distance: float = INF
+	var next_nearest_actionable: Actionable = null
+	for area in areas:
+		var distance: float = area.global_position.distance_to(global_position)
+		if distance < shortest_distance and area != own_respawn_actionable:
+			shortest_distance = distance
+			next_nearest_actionable = area
+	
+	if next_nearest_actionable != nearest_actionable or not is_instance_valid(next_nearest_actionable):
+		#nearest_actionable = next_nearest_actionable
+		emit_signal("nearest_actionable_changed", next_nearest_actionable)
+
+
+func _on_Player_nearest_actionable_changed(actionable: Node):
+	if actionable != null:
+		print("nearest_actionable changed!! [%s]" % [actionable.name])
+	nearest_actionable = actionable

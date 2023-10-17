@@ -19,12 +19,4 @@ func _on_body_entered(body):
 	if body is Player && body.has_method("notify_death"):
 		print("Player " + body.id + " pierde!!")
 		body.notify_death()
-		GameState.notify_player_death()
-		
-
-
-
-
-
-
 
