@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://src/game/entities/player/states/DeadState.gd" type="Script" id=1]
 [ext_resource path="res://src/game/entities/player/Player.gd" type="Script" id=2]
@@ -9,9 +9,18 @@
 [ext_resource path="res://src/game/entities/player/PlayerStateMachine.gd" type="Script" id=7]
 [ext_resource path="res://src/game/entities/player/states/WalkState.gd" type="Script" id=8]
 [ext_resource path="res://src/game/entities/player/states/WallSlideState.gd" type="Script" id=9]
+[ext_resource path="res://assets/textures/player/player_ghost.png" type="Texture" id=10]
+[ext_resource path="res://assets/textures/player/player_ghost_body_color.png" type="Texture" id=11]
+[ext_resource path="res://src/game/partials/Actionable.gd" type="Script" id=12]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 8.5, 18.5 )
+
+[sub_resource type="CapsuleShape2D" id=2]
+radius = 8.0
+height = 12.0
+
+[sub_resource type="CapsuleShape2D" id=3]
 
 [node name="Player" type="KinematicBody2D"]
 collision_mask = 3
@@ -79,6 +88,18 @@ texture = ExtResource( 4 )
 position = Vector2( 0, -21 )
 texture = ExtResource( 3 )
 
+[node name="GhostBody" type="Node2D" parent="."]
+visible = false
+modulate = Color( 1, 1, 1, 0.490196 )
+
+[node name="ColorSprite" type="Sprite" parent="GhostBody"]
+position = Vector2( 0, -21 )
+texture = ExtResource( 11 )
+
+[node name="BodySprite" type="Sprite" parent="GhostBody"]
+position = Vector2( 0, -21 )
+texture = ExtResource( 10 )
+
 [node name="WallRaycast" type="Node2D" parent="."]
 
 [node name="LeftRayCast2D" type="RayCast2D" parent="WallRaycast"]
@@ -91,4 +112,24 @@ position = Vector2( 8, -10 )
 cast_to = Vector2( 3, 0 )
 collision_mask = 4
 
+[node name="RespawnActionable" type="Area2D" parent="."]
+collision_layer = 16
+collision_mask = 0
+script = ExtResource( 12 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RespawnActionable"]
+position = Vector2( 0, -21 )
+shape = SubResource( 2 )
+
+[node name="ActionableFinder" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ActionableFinder"]
+position = Vector2( -7, -20 )
+shape = SubResource( 3 )
+
+[connection signal="dead" from="." to="StateMachine" method="_on_Player_dead"]
+[connection signal="nearest_actionable_changed" from="." to="." method="_on_Player_nearest_actionable_changed"]
 [connection signal="timeout" from="StateMachine/WallSlide/DetachTimer" to="StateMachine/WallSlide" method="_on_DetachTimer_timeout"]
+[connection signal="actioned" from="RespawnActionable" to="StateMachine/Dead" method="_on_RespawnActionable_actioned"]

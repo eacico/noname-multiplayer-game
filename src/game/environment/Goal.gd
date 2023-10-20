@@ -1,7 +1,7 @@
 extends Area2D
 
 
-var won: bool = false
+var players_won: Array = []
 
 
 func _ready() -> void:
@@ -10,9 +10,10 @@ func _ready() -> void:
 
 
 func _on_body_entered(body: Node) -> void:
-	if !won && body is Player:
-		print("You win!")
-		won = true
-#		portal.play("open")
-		GameState.notify_level_won()
+	if  body is Player:
+		if !players_won.has(body.id):
+			players_won.append(body.id)
+			#portal.play("open")
+			#GameState.notify_level_won()
+			GameState.notify_player_reached_goal(body.id)
 
