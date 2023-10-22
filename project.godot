@@ -33,13 +33,19 @@ _global_script_classes=[ {
 "class": "Player",
 "language": "GDScript",
 "path": "res://src/game/entities/player/Player.gd"
+}, {
+"base": "Actionable",
+"class": "Switch",
+"language": "GDScript",
+"path": "res://src/game/entities/interactives/Switch.gd"
 } ]
 _global_script_class_icons={
 "AbstractState": "",
 "AbstractStateMachine": "",
 "Actionable": "",
 "GameLevel": "",
-"Player": ""
+"Player": "",
+"Switch": ""
 }
 
 [application]
