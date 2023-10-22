@@ -9,14 +9,18 @@ export (String) var main_menu_path: String
 
 onready var current_level_container: Node = $CurrentLevelContainer
 
-var level: int = 0
+var level: int = 1
 
 #export (Texture) var mouse_cursor: Texture
 
 
 func _ready() -> void:
-	#Input.set_custom_mouse_cursor(mouse_cursor, Input.CURSOR_ARROW, mouse_cursor.get_size() / 2)
-	call_deferred("_setup_level", level)
+	var selected_level = SceneSwitcher.get_param("level")
+	if !selected_level == null:
+		call_deferred("_setup_level", selected_level)
+	else:
+		#Input.set_custom_mouse_cursor(mouse_cursor, Input.CURSOR_ARROW, mouse_cursor.get_size() / 2)
+		call_deferred("_setup_level", level)
 
 
 func _setup_level(id: int) -> void:
