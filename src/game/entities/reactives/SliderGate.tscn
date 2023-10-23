@@ -1,12 +1,14 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://src/game/entities/reactives/SliderGate.gd" type="Script" id=1]
 [ext_resource path="res://src/game/entities/reactives/SliderGateStateMachine.gd" type="Script" id=2]
 [ext_resource path="res://src/game/entities/reactives/OpenState.gd" type="Script" id=3]
 [ext_resource path="res://src/game/entities/reactives/ClosedState.gd" type="Script" id=4]
+[ext_resource path="res://assets/textures/reactives/slider_gate.png" type="Texture" id=5]
+[ext_resource path="res://assets/textures/reactives/slider_gate_rail.png" type="Texture" id=6]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 54.5, 7.5 )
+extents = Vector2( 47, 8 )
 
 [node name="SliderGate" type="Node2D"]
 script = ExtResource( 1 )
@@ -25,21 +27,15 @@ state_id = "open"
 script = ExtResource( 4 )
 state_id = "closed"
 
-[node name="Rail" type="ColorRect" parent="."]
-modulate = Color( 0.329412, 0.368627, 0.572549, 1 )
-margin_right = 216.0
-margin_bottom = 19.0
+[node name="Rail" type="Sprite" parent="."]
+texture = ExtResource( 6 )
 
 [node name="Gate" type="StaticBody2D" parent="."]
 collision_layer = 8
 
-[node name="ColorRect" type="ColorRect" parent="Gate"]
-modulate = Color( 0.321569, 0.219608, 0.411765, 1 )
-margin_left = 1.0
-margin_top = 2.0
-margin_right = 110.0
-margin_bottom = 17.0
+[node name="ColorRect" type="Sprite" parent="Gate"]
+scale = Vector2( 0.98, 0.95 )
+texture = ExtResource( 5 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Gate"]
-position = Vector2( 55.5, 9.5 )
 shape = SubResource( 1 )

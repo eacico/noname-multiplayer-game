@@ -24,10 +24,10 @@ func _on_finished(next_state_name):
 		slide_gate_closed()
 
 func slide_gate_open() -> void:
-	gate.position.x = 100
+	gate.position.x = 47
 	
 func slide_gate_closed() -> void:
-	gate.position.x = 0
+	gate.position.x = -47
 
 func _play_animation(animation: String) -> void:
 	pass

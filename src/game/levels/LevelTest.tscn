@@ -554,7 +554,7 @@ light_mask = 0
 [node name="Puzzles" type="Node2D" parent="Environment"]
 
 [node name="SliderGate" parent="Environment/Puzzles" instance=ExtResource( 10 )]
-position = Vector2( 208, 224 )
+position = Vector2( 306, 232 )
 switches = [ NodePath("../Switch"), NodePath("../Switch2") ]
 
 [node name="InteractionTiles" type="TileMap" parent="Environment/Puzzles"]
