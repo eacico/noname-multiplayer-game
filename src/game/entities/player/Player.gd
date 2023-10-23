@@ -14,6 +14,7 @@ onready var floor_raycasts: Array = $FloorRaycasts.get_children()
 onready var budy_color = $Body/ColorSprite
 onready var ghost_body_color = $GhostBody/ColorSprite
 onready var actionable_finder = $ActionableFinder
+onready var action_alert = $Body/ActionAlert
 
 ## Estas variables de exportación podríamos abstraerlas a cada
 ## estado correspondiente de la state machine, pero como queremos
@@ -168,4 +169,7 @@ func check_nearest_actionable() -> void:
 func _on_Player_nearest_actionable_changed(actionable: Node):
 	if actionable != null:
 		print("nearest_actionable changed!! [%s]" % [actionable.name])
+		action_alert.show()
+	else:
+		action_alert.hide()
 	nearest_actionable = actionable

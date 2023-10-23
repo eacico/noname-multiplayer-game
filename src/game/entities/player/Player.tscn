@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://src/game/entities/player/states/DeadState.gd" type="Script" id=1]
 [ext_resource path="res://src/game/entities/player/Player.gd" type="Script" id=2]
@@ -12,6 +12,7 @@
 [ext_resource path="res://assets/textures/player/player_ghost.png" type="Texture" id=10]
 [ext_resource path="res://assets/textures/player/player_ghost_body_color.png" type="Texture" id=11]
 [ext_resource path="res://src/game/partials/Actionable.gd" type="Script" id=12]
+[ext_resource path="res://assets/textures/player/player_action_alert.png" type="Texture" id=13]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 8.5, 18.5 )
@@ -90,6 +91,10 @@ texture = ExtResource( 4 )
 [node name="BodySprite" type="Sprite" parent="Body"]
 position = Vector2( 0, -21 )
 texture = ExtResource( 3 )
+
+[node name="ActionAlert" type="Sprite" parent="Body"]
+position = Vector2( 0, -21 )
+texture = ExtResource( 13 )
 
 [node name="GhostBody" type="Node2D" parent="."]
 visible = false
