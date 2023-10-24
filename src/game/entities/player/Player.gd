@@ -157,7 +157,7 @@ func check_nearest_actionable() -> void:
 	var next_nearest_actionable: Actionable = null
 	for area in areas:
 		var distance: float = area.global_position.distance_to(global_position)
-		if distance < shortest_distance and area != own_respawn_actionable:
+		if distance < shortest_distance and area != own_respawn_actionable and area.monitorable:
 			shortest_distance = distance
 			next_nearest_actionable = area
 	
