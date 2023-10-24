@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://src/game/levels/LevelDefault.gd" type="Script" id=1]
 [ext_resource path="res://src/game/environment/Lava.tscn" type="PackedScene" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://src/game/entities/player/Player.tscn" type="PackedScene" id=5]
 [ext_resource path="res://assets/textures/tileset/basic_tileset.png" type="Texture" id=6]
 [ext_resource path="res://assets/textures/tileset/platforms.png" type="Texture" id=7]
+[ext_resource path="res://src/game/levels/Camera.gd" type="Script" id=8]
 
 [sub_resource type="ConvexPolygonShape2D" id=54]
 points = PoolVector2Array( 16, 7, 0, 7, 0, 0, 16, 0 )
@@ -395,9 +396,11 @@ scale = Vector2( 14.0606, 5.91304 )
 z_index = 1
 VELOCITY = 15.0
 
-[node name="Camera2D" type="Camera2D" parent="Environment/Entities/Lava"]
-position = Vector2( 0.213362, -34.6691 )
+[node name="Camera2D" type="Camera2D" parent="Environment/Entities"]
+position = Vector2( 267, 573 )
+scale = Vector2( 14.0606, 5.91304 )
 current = true
+script = ExtResource( 8 )
 
 [node name="TowerTiles" type="TileMap" parent="Environment"]
 tile_set = SubResource( 53 )
