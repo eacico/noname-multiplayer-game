@@ -10,8 +10,8 @@ func _ready() -> void:
 
 
 func _on_body_entered(body: Node) -> void:
-	if  body is Player:
-		if !players_won.has(body.id):
+	if body is Player:
+		if body.find_node("StateMachine").current_state.state_id != "dead" and !players_won.has(body.id):
 			players_won.append(body.id)
 			#portal.play("open")
 			#GameState.notify_level_won()
