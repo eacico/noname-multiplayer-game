@@ -149,10 +149,15 @@ func _unhandled_input(event: InputEvent) -> void:
 		get_viewport().set_input_as_handled()
 		
 		if is_instance_valid(nearest_actionable):
-			nearest_actionable.emit_signal("actioned")
+			nearest_actionable.emit_signal("actioned", self)
 
 func check_nearest_actionable() -> void:
 	var areas: Array = actionable_finder.get_overlapping_areas()
+	for body in actionable_finder.get_overlapping_bodies():
+		for body_child in body.get_children():
+			if body_child is Actionable:
+				areas.append(body_child)
+				break
 	var shortest_distance: float = INF
 	var next_nearest_actionable: Actionable = null
 	for area in areas:

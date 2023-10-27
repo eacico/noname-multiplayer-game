@@ -24,6 +24,16 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/game/partials/Actionable.gd"
 }, {
+"base": "Node2D",
+"class": "EnergyConnector",
+"language": "GDScript",
+"path": "res://src/game/entities/interactives/energy_connector/EnergyConnector.gd"
+}, {
+"base": "RigidBody2D",
+"class": "EnergyPlug",
+"language": "GDScript",
+"path": "res://src/game/entities/interactives/energy_connector/EnergyPlug.gd"
+}, {
 "base": "Node",
 "class": "GameLevel",
 "language": "GDScript",
@@ -35,6 +45,16 @@ _global_script_classes=[ {
 "path": "res://src/game/entities/player/Player.gd"
 }, {
 "base": "Node2D",
+"class": "Rope",
+"language": "GDScript",
+"path": "res://src/game/entities/rope/Rope.gd"
+}, {
+"base": "RigidBody2D",
+"class": "RopePiece",
+"language": "GDScript",
+"path": "res://src/game/entities/rope/RopePiece.gd"
+}, {
+"base": "Node2D",
 "class": "SliderGate",
 "language": "GDScript",
 "path": "res://src/game/entities/reactives/SliderGate.gd"
@@ -42,14 +62,18 @@ _global_script_classes=[ {
 "base": "Actionable",
 "class": "Switch",
 "language": "GDScript",
-"path": "res://src/game/entities/interactives/Switch.gd"
+"path": "res://src/game/entities/interactives/switch/Switch.gd"
 } ]
 _global_script_class_icons={
 "AbstractState": "",
 "AbstractStateMachine": "",
 "Actionable": "",
+"EnergyConnector": "",
+"EnergyPlug": "",
 "GameLevel": "",
 "Player": "",
+"Rope": "",
+"RopePiece": "",
 "SliderGate": "",
 "Switch": ""
 }
