@@ -1,5 +1,5 @@
-extends KinematicBody2D
-class_name Player_back
+extends RigidBody2D
+class_name Player
 
 
 signal dead()
@@ -11,6 +11,7 @@ const SNAP_LENGTH: float = 32.0
 const SLOPE_THRESHOLD: float = deg2rad(46)
 
 onready var floor_raycasts: Array = $FloorRaycasts.get_children()
+onready var wall_raycasts: Array  = $WallRaycast.get_children()
 onready var budy_color = $Body/ColorSprite
 onready var ghost_body_color = $GhostBody/ColorSprite
 onready var actionable_finder = $ActionableFinder
@@ -22,8 +23,8 @@ onready var action_alert = $Body/ActionAlert
 ## los exponemos desde el script de Player.
 export (float) var ACCELERATION: float = 30.0
 export (float) var H_SPEED_LIMIT: float = 250.0
-export (int) var jump_speed: int = 300
-export (float) var JUMP_SPEED_LIMIT: float = 300.0
+export (int) var jump_force: int = 1300 #jump_speed: int = 300
+#export (float) var JUMP_SPEED_LIMIT: float = 300.0
 export (float) var FALL_SPEED_LIMIT: float = 850.0
 export (float) var FRICTION_WEIGHT: float = 0.20
 export (int) var gravity: int = 10
@@ -50,7 +51,6 @@ func _ready() -> void:
 
 
 
-
 ## Se extrae el comportamiento del manejo del movimiento horizontal
 ## a una función para ser llamada apropiadamente desde la state machine
 func _handle_move_input() -> void:
@@ -65,23 +65,9 @@ func _handle_deacceleration() -> void:
 	velocity.x = lerp(velocity.x, 0, FRICTION_WEIGHT) if abs(velocity.x) > 1 else 0
 
 
-## Se extrae el comportamiento de la aplicación de gravedad y movimiento
-## a una función para ser llamada apropiadamente desde la state machine
-func _apply_movement() -> void:
-	if is_wall_sliding:
-		velocity.y = clamp(velocity.y + gravity, JUMP_SPEED_LIMIT * -1, wall_slide_speed)
-	else:
-		velocity.y = clamp(velocity.y + gravity, JUMP_SPEED_LIMIT * -1, FALL_SPEED_LIMIT)
-	velocity = move_and_slide_with_snap(
-		velocity, 
-		snap_vector, 
-		FLOOR_NORMAL, 
-		stop_on_slope, 
-		4, 
-		SLOPE_THRESHOLD)
-	if is_on_floor() && snap_vector == Vector2.ZERO:
-		snap_vector = SNAP_DIRECTION * SNAP_LENGTH
-	check_nearest_actionable()
+func _integrate_forces(state: Physics2DDirectBodyState) -> void:
+	state.linear_velocity.x = velocity.x
+
 
 func _apply_ghost_movement(delta: float) -> void:
 	
@@ -102,7 +88,7 @@ func _apply_ghost_movement(delta: float) -> void:
 ## y le agrega el chequeo de raycasts para expandir la ventana
 ## de chequeo de piso
 func is_on_floor() -> bool:
-	var is_colliding: bool = .is_on_floor()
+	var is_colliding: bool = false#.is_on_floor()
 	for raycast in floor_raycasts:
 		## Al tener deshabilitados los raycasts por default
 		## ya que queremos que solamente se procesen en esta
@@ -111,6 +97,12 @@ func is_on_floor() -> bool:
 		is_colliding = is_colliding || raycast.is_colliding()
 	return is_colliding
 
+func is_on_wall() -> bool:
+	var is_colliding: bool = false
+	for raycast in wall_raycasts:
+		raycast.force_raycast_update()
+		is_colliding = is_colliding || raycast.is_colliding()
+	return is_colliding
 
 func notify_death() -> void:
 	dead = true
@@ -177,3 +169,4 @@ func _on_Player_nearest_actionable_changed(actionable: Node):
 	else:
 		action_alert.hide()
 	nearest_actionable = actionable
+

@@ -37,15 +37,17 @@ func _ready() -> void:
 
 func _initialize() -> void:
 	# Se mapean los estados con sus ids correspondientes (sin ids repetidos)
+	#print("%s.StateMachine._initialize(STATES_LIST.size() = %s)" % [get_parent().name, STATES_LIST.size()])
 	for state_path in STATES_LIST:
 		var state: AbstractState = get_node(state_path)
-#		print("seteo states_map con state " + state.name)
+		#print("%s.StateMachine._initialize(%s = %s)" % [get_parent().name, state.state_id, state.name])
 		states_map[state.state_id] = state
 	
 	# Se chequea que se haya asignado un character a controlar
 	if !character_path.is_empty():
 		var ch: Node = get_node_or_null(character_path)
 		if ch != null:
+			#print("%s.state_machine._initialize()" % [ch.name])
 			self.character = ch
 
 
@@ -54,9 +56,10 @@ func _set_character(_character: Node) -> void:
 	character = _character
 	if not START_STATE:
 		START_STATE = get_child(0).get_path()
+	#print("%s.StateMachine._set_character() - setting %s states" % [_character.name, states_map.values().size()])
 	for state in states_map.values():
 		state.connect("finished", self, "_change_state")
-#		print("seteo character " + character.name + " al state " + state.name)
+		#print("%s.StateMachine._set_character(%s.character)" % [_character.name, state.name])
 		state.character = character
 	initialize(get_node(START_STATE))
 
@@ -95,7 +98,7 @@ func _on_animation_finished(anim_name: String = "") -> void:
 
 # Función de cambio de estado
 func _change_state(state_name: String) -> void:
-	#print("P"+character.id+"._change_state("+state_name+")")
+	print("P"+character.id+"._change_state("+state_name+")")
 	if !_active:
 		return
 	# Sale del estado actual activo
