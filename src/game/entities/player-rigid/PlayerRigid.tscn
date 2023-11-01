@@ -15,10 +15,10 @@
 [ext_resource path="res://assets/textures/player/player_action_alert.png" type="Texture" id=13]
 
 [sub_resource type="PhysicsMaterial" id=4]
-friction = 0.5
+friction = 0.01
 
-[sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 8.5, 18.5 )
+[sub_resource type="RectangleShape2D" id=5]
+extents = Vector2( 7.5, 18 )
 
 [sub_resource type="CapsuleShape2D" id=2]
 radius = 8.0
@@ -30,7 +30,7 @@ height = 12.0
 
 [node name="Player" type="RigidBody2D"]
 collision_layer = 9
-collision_mask = 3
+collision_mask = 0
 mode = 2
 mass = 4.59184
 physics_material_override = SubResource( 4 )
@@ -73,8 +73,8 @@ wait_time = 0.5
 one_shot = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( -0.5, -18.5 )
-shape = SubResource( 1 )
+position = Vector2( -0.5, -18 )
+shape = SubResource( 5 )
 
 [node name="FloorRaycasts" type="Node2D" parent="."]
 

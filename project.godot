@@ -34,13 +34,23 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/game/entities/interactives/energy_connector/EnergyPlug.gd"
 }, {
+"base": "RigidBody2D",
+"class": "EnergySocket",
+"language": "GDScript",
+"path": "res://src/game/entities/interactives/energy_connector/EnergySocket.gd"
+}, {
 "base": "Node",
 "class": "GameLevel",
 "language": "GDScript",
 "path": "res://src/game/levels/LevelDefault.gd"
 }, {
-"base": "KinematicBody2D",
+"base": "RigidBody2D",
 "class": "Player",
+"language": "GDScript",
+"path": "res://src/game/entities/player-rigid/PlayerRigid.gd"
+}, {
+"base": "KinematicBody2D",
+"class": "Player_back",
 "language": "GDScript",
 "path": "res://src/game/entities/player/Player.gd"
 }, {
@@ -70,8 +80,10 @@ _global_script_class_icons={
 "Actionable": "",
 "EnergyConnector": "",
 "EnergyPlug": "",
+"EnergySocket": "",
 "GameLevel": "",
 "Player": "",
+"Player_back": "",
 "Rope": "",
 "RopePiece": "",
 "SliderGate": "",
@@ -91,9 +103,11 @@ SceneSwitcher="*res://src/game/singletons/SceneSwitcher.gd"
 
 [display]
 
-window/size/width=640
-window/size/height=360
+window/size/width=896
+window/size/height=504
 window/stretch/mode="2d"
+window/stretch/aspect="keep"
+window/stretch/shrink=1.4
 
 [gui]
 

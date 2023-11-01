@@ -40,6 +40,7 @@ var stop_on_slope: bool = true
 var move_direction: int = 0
 var is_wall_sliding: bool = false
 var ghost_move_direction: Vector2 = Vector2.ZERO
+var carrying: Array = []
 
 ## Flag de ayuda para saber identificar el estado de actividad
 var dead: bool = false
@@ -142,13 +143,27 @@ func _unhandled_input(event: InputEvent) -> void:
 		if is_instance_valid(nearest_actionable):
 			nearest_actionable.emit_signal("actioned", self)
 
+var recognizable_actionables = [ "Player", "Switch", "EnergyPlug" ]
+
+func is_recognizable_actionable(obj) -> bool:
+	return recognizable_actionables.has(obj.get_class())
+
 func check_nearest_actionable() -> void:
-	var areas: Array = actionable_finder.get_overlapping_areas()
+	if carrying:
+		carrying[0].check_nearest_actionable(self)
+		return
+		
+	var areas: Array = []
+	for area in actionable_finder.get_overlapping_areas():
+		if is_recognizable_actionable(area):
+			areas.append(area)
 	for body in actionable_finder.get_overlapping_bodies():
-		for body_child in body.get_children():
-			if body_child is Actionable:
-				areas.append(body_child)
-				break
+		if is_recognizable_actionable(body):
+			for body_child in body.get_children():
+				if body_child is Actionable:
+					areas.append(body_child)
+					break
+	
 	var shortest_distance: float = INF
 	var next_nearest_actionable: Actionable = null
 	for area in areas:
