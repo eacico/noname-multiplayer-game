@@ -79,11 +79,11 @@ func get_Connection_TileMap() -> TileMap:
 
 
 func turn_socket_on() -> void:
-	#emit_signal("switched", true)
+	emit_signal("switched", true)
 	if Connection_TileMap:
 		get_Connection_TileMap().set_modulate(Color(0.255,0.392,0.255))
 	
 func turn_socket_off() -> void:
-	#emit_signal("switched", false)
+	emit_signal("switched", false)
 	if Connection_TileMap:
 		get_Connection_TileMap().set_modulate(Color(0.45,0.216,0.216))

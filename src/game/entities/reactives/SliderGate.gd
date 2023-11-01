@@ -21,7 +21,7 @@ func _physics_process(delta: float) -> void:
 
 func _initialize() -> void:
 	for i in range(switches.size()):
-		var switch: Switch = get_node(switches[i])
+		var switch = get_node(switches[i])
 		state_machine.switch_states.append(false)
 		switch.connect("switched", state_machine, "_on_switched", [i])
 

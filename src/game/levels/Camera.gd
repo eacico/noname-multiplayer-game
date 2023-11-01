@@ -1,7 +1,7 @@
 extends Camera2D
 
-onready var player1: Player = get_parent().get_node("Player1")
-onready var player2: Player = get_parent().get_node("Player2")
+onready var player1 = get_parent().get_node("Player1")
+onready var player2 = get_parent().get_node("Player2")
 
 export (float) var min_zoom: float = 1.0
 export (float) var max_zoom: float = 2.0

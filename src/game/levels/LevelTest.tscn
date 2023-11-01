@@ -614,6 +614,10 @@ Connection_TileMap = NodePath("../InteractionTiles2")
 
 [node name="Puzzle2" type="Node2D" parent="Environment/Puzzles"]
 
+[node name="SliderGate2" parent="Environment/Puzzles/Puzzle2" instance=ExtResource( 10 )]
+position = Vector2( 192, 312 )
+switches = [ NodePath("../EnergyConnector/EnergySocket2") ]
+
 [node name="EnergyConnector" parent="Environment/Puzzles/Puzzle2" instance=ExtResource( 11 )]
 
 [node name="EnergySocket" parent="Environment/Puzzles/Puzzle2/EnergyConnector" instance=ExtResource( 13 )]
@@ -643,13 +647,15 @@ cell_quadrant_size = 8
 collision_layer = 0
 collision_mask = 0
 format = 1
-tile_data = PoolIntArray( 2424866, 0, 65537, 2490402, 0, 196611, 2555938, 0, 196611, 2621474, 0, 196611, 2687010, 0, 196611, 2752546, 0, 196611, 2818082, 0, 196611, 2883618, 0, 196611, 2949154, 0, 196611, 3014690, 0, 196611, 3080226, 0, 196611, 3145762, 0, 196611, 3211298, 0, 196611, 3276834, 0, 196611, 3342370, 0, 196611, 3407906, 0, 196611, 3473442, 0, 196611, 3538971, 0, 196612, 3538978, 0, 196611, 3604508, 0, 1, 3604509, 0, 131075, 3604510, 0, 131075, 3604511, 0, 131075, 3604512, 0, 131075, 3604513, 0, 131075, 3604514, 0, 65540 )
+tile_data = PoolIntArray( 2621474, 0, 65537, 2687010, 0, 196611, 2752546, 0, 196611, 2818082, 0, 196611, 2883618, 0, 196611, 2949154, 0, 196611, 3014690, 0, 196611, 3080226, 0, 196611, 3145762, 0, 196611, 3211298, 0, 196611, 3276834, 0, 196611, 3342370, 0, 196611, 3407906, 0, 196611, 3473442, 0, 196611, 3538971, 0, 196612, 3538978, 0, 196611, 3604508, 0, 1, 3604509, 0, 131075, 3604510, 0, 131075, 3604511, 0, 131075, 3604512, 0, 131075, 3604513, 0, 131075, 3604514, 0, 65540 )
 
-[node name="EnergySocket" parent="Environment/Puzzles/Puzzle2" instance=ExtResource( 13 )]
+[node name="Tests" type="Node2D" parent="Environment"]
+
+[node name="EnergySocket" parent="Environment/Tests" instance=ExtResource( 13 )]
 position = Vector2( 170, 396 )
 Connection_TileMap = NodePath("../InteractionTiles5")
 
-[node name="InteractionTiles5" type="TileMap" parent="Environment/Puzzles/Puzzle2"]
+[node name="InteractionTiles5" type="TileMap" parent="Environment/Tests"]
 position = Vector2( -2, 0 )
 tile_set = SubResource( 54 )
 cell_size = Vector2( 8, 8 )
@@ -659,7 +665,7 @@ collision_mask = 0
 format = 1
 tile_data = PoolIntArray( 3145749, 0, 196612 )
 
-[node name="Switch" parent="Environment/Puzzles/Puzzle2" instance=ExtResource( 9 )]
+[node name="Switch" parent="Environment/Tests" instance=ExtResource( 9 )]
 position = Vector2( 203, 405 )
 
 [node name="Entities" type="Node2D" parent="Environment"]
