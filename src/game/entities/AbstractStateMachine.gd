@@ -98,7 +98,8 @@ func _on_animation_finished(anim_name: String = "") -> void:
 
 # Función de cambio de estado
 func _change_state(state_name: String) -> void:
-	print("P"+character.id+"._change_state("+state_name+")")
+	if character is Player:
+		print("P"+character.id+"._change_state("+state_name+")")
 	if !_active:
 		return
 	# Sale del estado actual activo

@@ -57,9 +57,9 @@ func set_active_rope_id(value:int):
 #	create_rope(pieces_amount, rope_start_piece, end_pos, spawn_angle)
 
 
-func spawn_rope(rsp, rep):
-	rope_start_piece = rsp 
-	rope_end_piece = rep
+func spawn_rope(_rope_start_piece, _rope_end_piece):
+	rope_start_piece = _rope_start_piece 
+	rope_end_piece = _rope_end_piece
 	rope_start_joint = rope_start_piece.get_node("C/J")
 	rope_end_joint = rope_end_piece.get_node("C/J")
 	var start_pos = rope_start_joint.global_position

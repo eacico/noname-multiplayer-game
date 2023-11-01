@@ -12,6 +12,8 @@ onready var switch_off_sprite = $SwitchOffSprite
 func _ready():
 	turn_switch_off()
 
+func get_class(): return "Switch"
+
 func _on_finished(next_state_name):
 	if next_state_name == "on":
 		turn_switch_on()
@@ -26,13 +28,15 @@ func get_Connection_TileMap() -> TileMap:
 
 func turn_switch_on() -> void:
 	emit_signal("switched", true)
-	get_Connection_TileMap().set_modulate(Color(0.255,0.392,0.255))
+	if Connection_TileMap:
+		get_Connection_TileMap().set_modulate(Color(0.255,0.392,0.255))
 	switch_on_sprite.show()
 	switch_off_sprite.hide()
 	
 func turn_switch_off() -> void:
 	emit_signal("switched", false)
-	get_Connection_TileMap().set_modulate(Color(0.45,0.216,0.216))
+	if Connection_TileMap:
+		get_Connection_TileMap().set_modulate(Color(0.45,0.216,0.216))
 	switch_on_sprite.hide()
 	switch_off_sprite.show()
 

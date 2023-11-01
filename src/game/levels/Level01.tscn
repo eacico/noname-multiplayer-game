@@ -384,11 +384,13 @@ light_mask = 0
 [node name="Entities" type="Node2D" parent="Environment"]
 
 [node name="Player1" parent="Environment/Entities" instance=ExtResource( 5 )]
+unique_name_in_owner = true
 position = Vector2( 308, 503 )
 collision_mask = 2
 color = Color( 0.156863, 0.156863, 1, 1 )
 
 [node name="Player2" parent="Environment/Entities" instance=ExtResource( 5 )]
+unique_name_in_owner = true
 position = Vector2( 365, 502 )
 collision_mask = 2
 color = Color( 1, 0.156863, 0.156863, 1 )
