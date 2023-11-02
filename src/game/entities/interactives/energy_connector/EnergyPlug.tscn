@@ -26,10 +26,6 @@ shape = SubResource( 3 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 2 )
 
-[node name="Polygon2D" type="Polygon2D" parent="."]
-color = Color( 0, 0.294118, 0.576471, 1 )
-polygon = PoolVector2Array( -4, -4, 0, -5, 4, -4, 4, 4, -4, 4 )
-
 [node name="Actionable" type="Area2D" parent="."]
 collision_layer = 0
 collision_mask = 0
@@ -37,5 +33,13 @@ script = ExtResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Actionable"]
 shape = SubResource( 1 )
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+color = Color( 0.172549, 0.235294, 0.298039, 1 )
+polygon = PoolVector2Array( -2, -4, -4, -2, -4, 2, -2, 4, 2, 4, 4, 2, 4, -2, 2, -4 )
+
+[node name="Polygon2D2" type="Polygon2D" parent="."]
+color = Color( 0.130203, 0.168617, 0.207031, 1 )
+polygon = PoolVector2Array( -2, -3, -3, -2, -3, 2, -2, 3, 2, 3, 3, 2, 3, -2, 2, -3 )
 
 [connection signal="actioned" from="Actionable" to="." method="_on_EnergyPlug_actioned"]
