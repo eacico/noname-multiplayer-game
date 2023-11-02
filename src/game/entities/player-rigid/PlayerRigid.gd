@@ -41,6 +41,7 @@ var move_direction: int = 0
 var is_wall_sliding: bool = false
 var ghost_move_direction: Vector2 = Vector2.ZERO
 var carrying: Array = []
+var recognizable_actionables = [ "Player", "Switch", "EnergyPlug" ]
 
 ## Flag de ayuda para saber identificar el estado de actividad
 var dead: bool = false
@@ -50,6 +51,7 @@ func _ready() -> void:
 	budy_color.modulate = color
 	ghost_body_color.modulate = color
 
+func get_class(): return "Player"
 
 
 ## Se extrae el comportamiento del manejo del movimiento horizontal
@@ -143,38 +145,12 @@ func _unhandled_input(event: InputEvent) -> void:
 		if is_instance_valid(nearest_actionable):
 			nearest_actionable.emit_signal("actioned", self)
 
-var recognizable_actionables = [ "Player", "Switch", "EnergyPlug" ]
-
-func is_recognizable_actionable(obj) -> bool:
-	return recognizable_actionables.has(obj.get_class())
 
 func check_nearest_actionable() -> void:
 	if carrying:
 		carrying[0].check_nearest_actionable(self)
-		return
-		
-	var areas: Array = []
-	for area in actionable_finder.get_overlapping_areas():
-		if is_recognizable_actionable(area):
-			areas.append(area)
-	for body in actionable_finder.get_overlapping_bodies():
-		if is_recognizable_actionable(body):
-			for body_child in body.get_children():
-				if body_child is Actionable:
-					areas.append(body_child)
-					break
-	
-	var shortest_distance: float = INF
-	var next_nearest_actionable: Actionable = null
-	for area in areas:
-		var distance: float = area.global_position.distance_to(global_position)
-		if distance < shortest_distance and area != own_respawn_actionable and area.monitorable:
-			shortest_distance = distance
-			next_nearest_actionable = area
-	
-	if next_nearest_actionable != nearest_actionable or not is_instance_valid(next_nearest_actionable):
-		#nearest_actionable = next_nearest_actionable
-		emit_signal("nearest_actionable_changed", next_nearest_actionable)
+	else:
+		Utils.check_nearest_actionable(self, recognizable_actionables)
 
 
 func _on_Player_nearest_actionable_changed(actionable: Node):

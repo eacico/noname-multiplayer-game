@@ -4,6 +4,13 @@ onready var body = $"../../Body"
 onready var ghost_body = $"../../GhostBody"
 onready var respawn_actionable = $"../../RespawnActionable"
 
+enum Mode {
+	MODE_RIGID = 0
+	MODE_STATIC = 1
+	MODE_CHARACTER = 2
+	MODE_KINEMATIC = 3
+}
+
 
 ## Al ser un estado de finalización (es decir, no se sale
 ## a ningun otro estado), vamos a procesar todo lo necesario
@@ -15,7 +22,7 @@ func enter() -> void:
 	body.hide()
 	ghost_body.show()
 	respawn_actionable.set_deferred("monitorable", true)
-	
+	character.set_deferred("mode", Mode.MODE_STATIC)
 
 
 ## Y en update solo manejamos la fricción y movimiento
@@ -30,7 +37,7 @@ func _on_animation_finished(anim_name:String) -> void:
 	character._remove()
 
 
-func _on_RespawnActionable_actioned():
+func _on_RespawnActionable_actioned(player):
 	if character.dead:
 		print("Respawned!!")
 		GameState.notify_player_respawn(character)
@@ -38,4 +45,5 @@ func _on_RespawnActionable_actioned():
 		body.show()
 		ghost_body.hide()
 		respawn_actionable.set_deferred("monitorable", false)
+		character.set_deferred("mode", Mode.MODE_CHARACTER)
 		emit_signal("finished", "idle")

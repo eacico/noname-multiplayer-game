@@ -41,30 +41,8 @@ func _on_EnergyPlug_actioned(player: Player):
 
 var recognizable_actionables = [ "Player", "Switch", "EnergySocket" ]
 
-func is_recognizable_actionable(obj) -> bool:
-	return recognizable_actionables.has(obj.get_class())
-
-func check_nearest_actionable(player: Player) -> void:
-	var areas: Array = []
-	for area in player.actionable_finder.get_overlapping_areas():
-		if is_recognizable_actionable(area):
-			areas.append(area)
-	for body in player.actionable_finder.get_overlapping_bodies():
-		if is_recognizable_actionable(body):
-			for body_child in body.get_children():
-				if body_child is Actionable:
-					areas.append(body_child)
-					break
-	var shortest_distance: float = INF
-	var next_nearest_actionable: Actionable = null
-	for area in areas:
-		var distance: float = area.global_position.distance_to(global_position)
-		if distance < shortest_distance and area != player.own_respawn_actionable and area.monitorable:
-			shortest_distance = distance
-			next_nearest_actionable = area
-	
-	if next_nearest_actionable != player.nearest_actionable or not is_instance_valid(next_nearest_actionable):
-		player.emit_signal("nearest_actionable_changed", next_nearest_actionable)
+func check_nearest_actionable(player) -> void:
+	Utils.check_nearest_actionable(player, recognizable_actionables)
 
 func set_monitorable(value: bool) -> void:
 	set_collision_layer_bit(4, value)
