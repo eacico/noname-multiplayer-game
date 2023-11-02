@@ -24,8 +24,7 @@ func propagate_energy() -> void:
 		other_end_plug.socket.evaluate_energy_state()
 
 func _on_EnergyPlug_actioned(player: Player):
-	var pick_position = player.global_position
-	pick_position.y = pick_position.y - player.get_node("CollisionShape2D").get_shape().get_extents().y
+	var pick_position = player.get_node("PickPosition").global_position
 	global_position = pick_position
 	joint.global_position = pick_position
 	

@@ -16,6 +16,8 @@ func exit() -> void:
 	
 func handle_input(event: InputEvent) -> void:
 	if event.is_action_pressed("p"+character.id+"_jump") && player_is_detaching():
+		detach_timer.stop()
+		character.velocity.x = 0
 		emit_signal("finished", "jump")
 	
 func update(delta: float) -> void:

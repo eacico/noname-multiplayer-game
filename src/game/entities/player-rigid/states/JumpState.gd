@@ -5,6 +5,7 @@ onready var starting_timer = $StartingTimer
 export (int) var jumps_limit: int = 2
 
 var jumps: int = 0
+var detached_from_wall: bool
 
 func enter() -> void:
 	jumps += 1
@@ -13,6 +14,7 @@ func enter() -> void:
 	starting_timer.start()
 	character.apply_central_impulse(Vector2.UP * character.jump_force)
 	character._play_animation("jump") 
+	detached_from_wall = false
 
 func exit() -> void:
 	jumps = 0
@@ -25,6 +27,9 @@ func handle_input(event: InputEvent) -> void:
 		character._play_animation("jump") 
 	
 func update(delta: float) -> void:
+	var character_is_on_wall = character.is_on_wall()
+	detached_from_wall = detached_from_wall or !character_is_on_wall
+	
 	character._handle_move_input()
 	if character.move_direction == 0:
 		character._handle_deacceleration()
@@ -34,7 +39,7 @@ func update(delta: float) -> void:
 			emit_signal("finished", "idle")
 		else:
 			emit_signal("finished", "walk")
-	elif character.is_on_wall():
+	elif character_is_on_wall and starting_timer.is_stopped() and detached_from_wall:
 		emit_signal("finished", "wall_slide")
 	else:
 		if character.velocity.y > 0:

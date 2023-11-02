@@ -24,7 +24,7 @@ onready var action_alert = $Body/ActionAlert
 export (float) var ACCELERATION: float = 30.0
 export (float) var H_SPEED_LIMIT: float = 250.0
 export (int) var jump_force: int = 1300 #jump_speed: int = 300
-#export (float) var JUMP_SPEED_LIMIT: float = 300.0
+export (float) var JUMP_SPEED_LIMIT: float = 300.0
 export (float) var FALL_SPEED_LIMIT: float = 850.0
 export (float) var FRICTION_WEIGHT: float = 0.20
 export (int) var gravity: int = 10
@@ -69,7 +69,14 @@ func _handle_deacceleration() -> void:
 
 
 func _integrate_forces(state: Physics2DDirectBodyState) -> void:
-	state.linear_velocity.x = velocity.x
+	
+	if is_wall_sliding:
+		velocity.y = clamp(state.linear_velocity.y, -JUMP_SPEED_LIMIT, wall_slide_speed)
+	else:
+		velocity.y = clamp(state.linear_velocity.y, -JUMP_SPEED_LIMIT, FALL_SPEED_LIMIT)
+		
+	state.linear_velocity = velocity
+	velocity = state.linear_velocity
 
 
 func _apply_ghost_movement(delta: float) -> void:
