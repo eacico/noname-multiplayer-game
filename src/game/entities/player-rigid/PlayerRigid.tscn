@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://src/game/entities/player-rigid/states/DeadState.gd" type="Script" id=1]
 [ext_resource path="res://src/game/entities/player-rigid/states/WallSlideState.gd" type="Script" id=2]
@@ -14,11 +14,20 @@
 [ext_resource path="res://src/game/partials/Actionable.gd" type="Script" id=12]
 [ext_resource path="res://assets/textures/player/player_action_alert.png" type="Texture" id=13]
 
-[sub_resource type="PhysicsMaterial" id=4]
-friction = 0.01
+[sub_resource type="PhysicsMaterial" id=9]
+friction = 0.0
 
 [sub_resource type="RectangleShape2D" id=5]
-extents = Vector2( 7.5, 18 )
+extents = Vector2( 7.5, 17.5 )
+
+[sub_resource type="RayShape2D" id=6]
+length = 4.0
+
+[sub_resource type="RayShape2D" id=7]
+length = 4.0
+
+[sub_resource type="RayShape2D" id=8]
+length = 4.0
 
 [sub_resource type="CapsuleShape2D" id=2]
 radius = 8.0
@@ -33,7 +42,7 @@ collision_layer = 25
 collision_mask = 0
 mode = 2
 mass = 4.59184
-physics_material_override = SubResource( 4 )
+physics_material_override = SubResource( 9 )
 gravity_scale = 8.0
 script = ExtResource( 6 )
 gravity = 1
@@ -73,8 +82,26 @@ wait_time = 0.5
 one_shot = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( -0.5, -18 )
+position = Vector2( -0.5, -18.5 )
 shape = SubResource( 5 )
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
+position = Vector2( -6, -4 )
+shape = SubResource( 6 )
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="."]
+position = Vector2( 4, -4 )
+shape = SubResource( 6 )
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="."]
+position = Vector2( 4, -14 )
+rotation = -1.5708
+shape = SubResource( 7 )
+
+[node name="CollisionShape2D5" type="CollisionShape2D" parent="."]
+position = Vector2( -5, -14 )
+rotation = -4.71239
+shape = SubResource( 8 )
 
 [node name="FloorRaycasts" type="Node2D" parent="."]
 
