@@ -1,13 +1,15 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://src/game/levels/Level01.tscn" type="PackedScene" id=1]
 [ext_resource path="res://src/screens/LevelManager.gd" type="Script" id=2]
 [ext_resource path="res://src/game/levels/LevelTest.tscn" type="PackedScene" id=3]
 [ext_resource path="res://src/game/levels/LevelTutorial01.tscn" type="PackedScene" id=4]
+[ext_resource path="res://src/game/levels/LevelTutorial02.tscn" type="PackedScene" id=5]
+[ext_resource path="res://src/game/levels/LevelTutorial03.tscn" type="PackedScene" id=6]
 
 [node name="LevelManager" type="Node"]
 script = ExtResource( 2 )
-levels = [ ExtResource( 3 ), ExtResource( 4 ), ExtResource( 1 ) ]
+levels = [ ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ), ExtResource( 1 ) ]
 main_menu_path = "res://src/screens/MainMenu.tscn"
 
 [node name="CurrentLevelContainer" type="Node" parent="."]
