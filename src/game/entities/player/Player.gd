@@ -1,5 +1,5 @@
 extends KinematicBody2D
-class_name Player
+class_name Player_back
 
 
 signal dead()
@@ -14,6 +14,7 @@ onready var floor_raycasts: Array = $FloorRaycasts.get_children()
 onready var budy_color = $Body/ColorSprite
 onready var ghost_body_color = $GhostBody/ColorSprite
 onready var actionable_finder = $ActionableFinder
+onready var action_alert = $Body/ActionAlert
 
 ## Estas variables de exportación podríamos abstraerlas a cada
 ## estado correspondiente de la state machine, pero como queremos
@@ -42,7 +43,6 @@ var ghost_move_direction: Vector2 = Vector2.ZERO
 ## Flag de ayuda para saber identificar el estado de actividad
 var dead: bool = false
 
-onready var timer = $Timer
 
 func _ready() -> void:
 	budy_color.modulate = color
@@ -148,15 +148,20 @@ func _unhandled_input(event: InputEvent) -> void:
 		get_viewport().set_input_as_handled()
 		
 		if is_instance_valid(nearest_actionable):
-			nearest_actionable.emit_signal("actioned")
+			nearest_actionable.emit_signal("actioned", self)
 
 func check_nearest_actionable() -> void:
 	var areas: Array = actionable_finder.get_overlapping_areas()
+	for body in actionable_finder.get_overlapping_bodies():
+		for body_child in body.get_children():
+			if body_child is Actionable:
+				areas.append(body_child)
+				break
 	var shortest_distance: float = INF
 	var next_nearest_actionable: Actionable = null
 	for area in areas:
 		var distance: float = area.global_position.distance_to(global_position)
-		if distance < shortest_distance and area != own_respawn_actionable:
+		if distance < shortest_distance and area != own_respawn_actionable and area.monitorable:
 			shortest_distance = distance
 			next_nearest_actionable = area
 	
@@ -168,4 +173,7 @@ func check_nearest_actionable() -> void:
 func _on_Player_nearest_actionable_changed(actionable: Node):
 	if actionable != null:
 		print("nearest_actionable changed!! [%s]" % [actionable.name])
+		action_alert.show()
+	else:
+		action_alert.hide()
 	nearest_actionable = actionable

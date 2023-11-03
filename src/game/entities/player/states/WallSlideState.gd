@@ -20,7 +20,7 @@ func handle_input(event: InputEvent) -> void:
 	
 func update(delta: float) -> void:
 	character._apply_movement()
-	if character.is_on_floor():
+	if character.is_on_floor() or !player_is_near_wall():
 		emit_signal("finished", "idle")
 	elif player_is_detaching() && detach_timer.is_stopped():
 		detach_timer.start()
@@ -45,8 +45,13 @@ func detect_wall_side() -> void:
 func player_is_detaching() -> bool:
 	return (wall_side == Vector2.LEFT && !(player_move_drection() < 0)) || (wall_side == Vector2.RIGHT && !(player_move_drection() > 0))
 
+func player_is_near_wall() -> bool:
+	left_wall_ray_cast.force_raycast_update()
+	right_wall_ray_cast.force_raycast_update()
+	return left_wall_ray_cast.is_colliding() or right_wall_ray_cast.is_colliding()
+
 func player_move_drection() -> int:
 	return int(Input.is_action_pressed("p"+character.id+"_move_right")) - int(Input.is_action_pressed("p"+character.id+"_move_left"))
 
 func _on_DetachTimer_timeout():
-	emit_signal("finished", "walk")
+	emit_signal("finished", "idle")

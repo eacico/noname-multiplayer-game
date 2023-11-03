@@ -1,8 +1,8 @@
 extends Node
 class_name GameLevel
 
-onready var player_1 = $Environment/Entities/Player1
-onready var player_2 = $Environment/Entities/Player2
+onready var player_1 = $"%Player1"
+onready var player_2 = $"%Player2"
 
 
 # Regresa al menu principal

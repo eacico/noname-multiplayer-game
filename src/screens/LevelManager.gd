@@ -9,12 +9,15 @@ export (String) var main_menu_path: String
 
 onready var current_level_container: Node = $CurrentLevelContainer
 
-var level: int = 0
+var level: int = 1
 
 #export (Texture) var mouse_cursor: Texture
 
 
 func _ready() -> void:
+	var selected_level = SceneSwitcher.get_param("level")
+	if selected_level != null:
+		level = selected_level
 	#Input.set_custom_mouse_cursor(mouse_cursor, Input.CURSOR_ARROW, mouse_cursor.get_size() / 2)
 	call_deferred("_setup_level", level)
 
@@ -42,7 +45,8 @@ func _main_menu_called() -> void:
 	GameState.players_in_goal = []
 	GameState.players_dead = []
 	get_tree().paused = false
-	get_tree().change_scene(main_menu_path)
+	#get_tree().change_scene(main_menu_path)
+	SceneSwitcher.change_scene(main_menu_path, {"start_on_test_scene": false})
 
 
 # Callback de reinicio del nivel.
@@ -58,3 +62,8 @@ func _next_called() -> void:
 	GameState.players_dead = []
 	level = min(level + 1, levels.size() - 1)
 	_setup_level(level)
+
+
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_released("reset"):
+		_restart_called()

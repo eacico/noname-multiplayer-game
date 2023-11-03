@@ -1,0 +1,41 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://src/game/entities/reactives/SliderGate.gd" type="Script" id=1]
+[ext_resource path="res://src/game/entities/reactives/SliderGateStateMachine.gd" type="Script" id=2]
+[ext_resource path="res://src/game/entities/reactives/OpenState.gd" type="Script" id=3]
+[ext_resource path="res://src/game/entities/reactives/ClosedState.gd" type="Script" id=4]
+[ext_resource path="res://assets/textures/reactives/slider_gate.png" type="Texture" id=5]
+[ext_resource path="res://assets/textures/reactives/slider_gate_rail.png" type="Texture" id=6]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 47, 8 )
+
+[node name="SliderGate" type="Node2D"]
+script = ExtResource( 1 )
+
+[node name="StateMachine" type="Node" parent="."]
+script = ExtResource( 2 )
+character_path = NodePath("..")
+START_STATE = NodePath("Closed")
+STATES_LIST = [ NodePath("Open"), NodePath("Closed") ]
+
+[node name="Open" type="Node" parent="StateMachine"]
+script = ExtResource( 3 )
+state_id = "open"
+
+[node name="Closed" type="Node" parent="StateMachine"]
+script = ExtResource( 4 )
+state_id = "closed"
+
+[node name="Rail" type="Sprite" parent="."]
+texture = ExtResource( 6 )
+
+[node name="Gate" type="StaticBody2D" parent="."]
+collision_layer = 8
+
+[node name="ColorRect" type="Sprite" parent="Gate"]
+scale = Vector2( 0.98, 0.95 )
+texture = ExtResource( 5 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Gate"]
+shape = SubResource( 1 )

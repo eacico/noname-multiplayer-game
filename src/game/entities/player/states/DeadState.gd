@@ -14,7 +14,7 @@ func enter() -> void:
 	character._play_animation("die")
 	body.hide()
 	ghost_body.show()
-	#respawn_actionable.monitorable = true
+	respawn_actionable.set_deferred("monitorable", true)
 	
 
 
@@ -37,5 +37,5 @@ func _on_RespawnActionable_actioned():
 		character.notify_respawn()
 		body.show()
 		ghost_body.hide()
-		#respawn_actionable.monitorable = false
+		respawn_actionable.set_deferred("monitorable", false)
 		emit_signal("finished", "idle")

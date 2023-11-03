@@ -24,22 +24,70 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/game/partials/Actionable.gd"
 }, {
+"base": "Node2D",
+"class": "EnergyConnector",
+"language": "GDScript",
+"path": "res://src/game/entities/interactives/energy_connector/EnergyConnector.gd"
+}, {
+"base": "RigidBody2D",
+"class": "EnergyPlug",
+"language": "GDScript",
+"path": "res://src/game/entities/interactives/energy_connector/EnergyPlug.gd"
+}, {
+"base": "RigidBody2D",
+"class": "EnergySocket",
+"language": "GDScript",
+"path": "res://src/game/entities/interactives/energy_connector/EnergySocket.gd"
+}, {
 "base": "Node",
 "class": "GameLevel",
 "language": "GDScript",
 "path": "res://src/game/levels/LevelDefault.gd"
 }, {
-"base": "KinematicBody2D",
+"base": "RigidBody2D",
 "class": "Player",
 "language": "GDScript",
+"path": "res://src/game/entities/player-rigid/PlayerRigid.gd"
+}, {
+"base": "KinematicBody2D",
+"class": "Player_back",
+"language": "GDScript",
 "path": "res://src/game/entities/player/Player.gd"
+}, {
+"base": "Node2D",
+"class": "Rope",
+"language": "GDScript",
+"path": "res://src/game/entities/rope/Rope.gd"
+}, {
+"base": "RigidBody2D",
+"class": "RopePiece",
+"language": "GDScript",
+"path": "res://src/game/entities/rope/RopePiece.gd"
+}, {
+"base": "Node2D",
+"class": "SliderGate",
+"language": "GDScript",
+"path": "res://src/game/entities/reactives/SliderGate.gd"
+}, {
+"base": "Actionable",
+"class": "Switch",
+"language": "GDScript",
+"path": "res://src/game/entities/interactives/switch/Switch.gd"
 } ]
 _global_script_class_icons={
 "AbstractState": "",
 "AbstractStateMachine": "",
 "Actionable": "",
+"EnergyConnector": "",
+"EnergyPlug": "",
+"EnergySocket": "",
 "GameLevel": "",
-"Player": ""
+"Player": "",
+"Player_back": "",
+"Rope": "",
+"RopePiece": "",
+"SliderGate": "",
+"Switch": ""
 }
 
 [application]
@@ -51,12 +99,16 @@ config/icon="res://icon.png"
 [autoload]
 
 GameState="*res://src/game/singletons/GameState.gd"
+SceneSwitcher="*res://src/game/singletons/SceneSwitcher.gd"
+Utils="*res://src/game/singletons/Utils.gd"
 
 [display]
 
-window/size/width=640
-window/size/height=360
+window/size/width=896
+window/size/height=504
 window/stretch/mode="2d"
+window/stretch/aspect="keep"
+window/stretch/shrink=1.4
 
 [gui]
 
@@ -135,6 +187,7 @@ p2_action={
 "deadzone": 0.5,
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777350,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
 , Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777357,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+, Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777238,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
  ]
 }
 reset={
@@ -143,11 +196,18 @@ reset={
 , Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":0,"button_index":10,"pressure":0.0,"pressed":false,"script":null)
  ]
 }
+test_level={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":84,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+ ]
+}
 
 [layer_names]
 
 2d_physics/layer_1="Player"
 2d_physics/layer_2="Platform"
+2d_physics/layer_3="Wall"
+2d_physics/layer_4="Gate"
 2d_physics/layer_5="Actionable"
 
 [physics]

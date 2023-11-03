@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://src/game/entities/player/states/DeadState.gd" type="Script" id=1]
 [ext_resource path="res://src/game/entities/player/Player.gd" type="Script" id=2]
@@ -12,6 +12,7 @@
 [ext_resource path="res://assets/textures/player/player_ghost.png" type="Texture" id=10]
 [ext_resource path="res://assets/textures/player/player_ghost_body_color.png" type="Texture" id=11]
 [ext_resource path="res://src/game/partials/Actionable.gd" type="Script" id=12]
+[ext_resource path="res://assets/textures/player/player_action_alert.png" type="Texture" id=13]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 8.5, 18.5 )
@@ -21,8 +22,11 @@ radius = 8.0
 height = 12.0
 
 [sub_resource type="CapsuleShape2D" id=3]
+radius = 14.0
+height = 12.0
 
 [node name="Player" type="KinematicBody2D"]
+collision_layer = 9
 collision_mask = 3
 script = ExtResource( 2 )
 jump_speed = 350
@@ -88,6 +92,10 @@ texture = ExtResource( 4 )
 position = Vector2( 0, -21 )
 texture = ExtResource( 3 )
 
+[node name="ActionAlert" type="Sprite" parent="Body"]
+position = Vector2( 0, -21 )
+texture = ExtResource( 13 )
+
 [node name="GhostBody" type="Node2D" parent="."]
 visible = false
 modulate = Color( 1, 1, 1, 0.490196 )
@@ -115,6 +123,7 @@ collision_mask = 4
 [node name="RespawnActionable" type="Area2D" parent="."]
 collision_layer = 16
 collision_mask = 0
+monitorable = false
 script = ExtResource( 12 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RespawnActionable"]
@@ -126,7 +135,7 @@ collision_layer = 0
 collision_mask = 16
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ActionableFinder"]
-position = Vector2( -7, -20 )
+position = Vector2( -2, -20 )
 shape = SubResource( 3 )
 
 [connection signal="dead" from="." to="StateMachine" method="_on_Player_dead"]
