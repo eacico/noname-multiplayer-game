@@ -8,34 +8,10 @@
 [ext_resource path="res://assets/textures/tileset/basic_tileset.png" type="Texture" id=6]
 [ext_resource path="res://assets/textures/tileset/platforms.png" type="Texture" id=7]
 [ext_resource path="res://src/game/levels/Camera.gd" type="Script" id=8]
-[ext_resource path="res://src/game/entities/interactives/switch/Switch.tscn" type="PackedScene" id=9]
+[ext_resource path="res://src/game/entities/interactives/energy_connector/EnergySocket.tscn" type="PackedScene" id=9]
 [ext_resource path="res://src/game/entities/reactives/SliderGate.tscn" type="PackedScene" id=10]
 [ext_resource path="res://assets/textures/tileset/switch_connector_tileset.png" type="Texture" id=11]
-
-[sub_resource type="TileSet" id=56]
-0/name = "switch_connector_tileset.png 0"
-0/texture = ExtResource( 11 )
-0/tex_offset = Vector2( 0, 0 )
-0/modulate = Color( 1, 1, 1, 1 )
-0/region = Rect2( 8, 8, 56, 56 )
-0/tile_mode = 1
-0/autotile/bitmask_mode = 1
-0/autotile/bitmask_flags = [ Vector2( 0, 0 ), 18, Vector2( 0, 1 ), 24, Vector2( 1, 0 ), 48, Vector2( 1, 1 ), 144, Vector2( 3, 0 ), 176, Vector2( 3, 1 ), 50, Vector2( 3, 2 ), 56, Vector2( 3, 3 ), 146, Vector2( 4, 0 ), 152, Vector2( 4, 1 ), 26, Vector2( 4, 2 ), 16, Vector2( 4, 3 ), 16 ]
-0/autotile/icon_coordinate = Vector2( 0, 0 )
-0/autotile/tile_size = Vector2( 8, 8 )
-0/autotile/spacing = 0
-0/autotile/occluder_map = [  ]
-0/autotile/navpoly_map = [  ]
-0/autotile/priority_map = [  ]
-0/autotile/z_index_map = [  ]
-0/occluder_offset = Vector2( 0, 0 )
-0/navigation_offset = Vector2( 0, 0 )
-0/shape_offset = Vector2( 0, 0 )
-0/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
-0/shape_one_way = false
-0/shape_one_way_margin = 0.0
-0/shapes = [  ]
-0/z_index = 0
+[ext_resource path="res://src/game/entities/interactives/energy_connector/EnergyConnector.tscn" type="PackedScene" id=12]
 
 [sub_resource type="TileSet" id=57]
 0/name = "switch_connector_tileset.png 0"
@@ -436,24 +412,25 @@ light_mask = 0
 
 [node name="SliderGate" parent="Environment/Puzzles/Puzzle1" instance=ExtResource( 10 )]
 position = Vector2( 401, 200 )
-switches = [ NodePath("../Switch"), NodePath("../Switch2") ]
+switches = [ NodePath("../EnergySocket4") ]
 
 [node name="SliderGate2" parent="Environment/Puzzles/Puzzle1" instance=ExtResource( 10 )]
 position = Vector2( 127, 200 )
-switches = [ NodePath("../Switch"), NodePath("../Switch2") ]
+switches = [ NodePath("../EnergySocket4") ]
 
-[node name="InteractionTiles" type="TileMap" parent="Environment/Puzzles/Puzzle1"]
-tile_set = SubResource( 56 )
+[node name="InteractionTiles3" type="TileMap" parent="Environment/Puzzles/Puzzle1"]
+tile_set = SubResource( 57 )
 cell_size = Vector2( 8, 8 )
 cell_quadrant_size = 8
 collision_layer = 0
 collision_mask = 0
 format = 1
-tile_data = PoolIntArray( 1703940, 0, 65537, 1703952, 0, 131076, 1703977, 0, 65537, 1703986, 0, 131076, 1769476, 0, 196611, 1769513, 0, 196611, 1835012, 0, 196611, 1835049, 0, 196611, 1900548, 0, 65539, 1900549, 0, 131075, 1900550, 0, 131075, 1900551, 0, 131075, 1900552, 0, 131075, 1900553, 0, 131075, 1900554, 0, 131075, 1900555, 0, 131075, 1900556, 0, 131075, 1900557, 0, 131075, 1900558, 0, 131075, 1900559, 0, 131075, 1900560, 0, 131075, 1900561, 0, 131075, 1900562, 0, 131075, 1900563, 0, 131075, 1900564, 0, 131075, 1900565, 0, 131075, 1900566, 0, 131075, 1900567, 0, 131075, 1900568, 0, 131075, 1900569, 0, 131075, 1900570, 0, 131075, 1900571, 0, 131075, 1900572, 0, 131075, 1900573, 0, 131075, 1900574, 0, 131075, 1900575, 0, 4, 1900585, 0, 196611, 1966111, 0, 196611, 1966121, 0, 196611, 2031647, 0, 196611, 2031657, 0, 196611, 2097183, 0, 65539, 2097184, 0, 131075, 2097185, 0, 131075, 2097186, 0, 131075, 2097187, 0, 131075, 2097188, 0, 131075, 2097189, 0, 131075, 2097190, 0, 131075, 2097191, 0, 131075, 2097192, 0, 131075, 2097193, 0, 65540, 2228255, 0, 3, 2228256, 0, 131075, 2228257, 0, 131075, 2228258, 0, 65536, 2293791, 0, 196611, 2359327, 0, 196611, 2424863, 0, 196611, 2490399, 0, 196611, 2555935, 0, 196611, 2621471, 0, 196611, 2687007, 0, 0 )
+tile_data = PoolIntArray( 2752542, 0, 196612 )
 
-[node name="Switch" parent="Environment/Puzzles/Puzzle1" instance=ExtResource( 9 )]
-position = Vector2( 252, 343 )
-Connection_TileMap = NodePath("../InteractionTiles")
+[node name="EnergySocket3" parent="Environment/Puzzles/Puzzle1" instance=ExtResource( 9 )]
+position = Vector2( 244, 348 )
+is_energy_source = true
+Connection_TileMap = NodePath("../InteractionTiles3")
 
 [node name="InteractionTiles2" type="TileMap" parent="Environment/Puzzles/Puzzle1"]
 tile_set = SubResource( 57 )
@@ -462,11 +439,39 @@ cell_quadrant_size = 8
 collision_layer = 0
 collision_mask = 0
 format = 1
-tile_data = PoolIntArray( 1703941, 0, 65537, 1703953, 0, 131076, 1703974, 0, 65537, 1703987, 0, 131076, 1769477, 0, 196611, 1769510, 0, 196611, 1835013, 0, 65539, 1835014, 0, 131075, 1835015, 0, 131075, 1835016, 0, 131075, 1835017, 0, 131075, 1835018, 0, 131075, 1835019, 0, 131075, 1835020, 0, 131075, 1835021, 0, 131075, 1835022, 0, 131075, 1835023, 0, 131075, 1835024, 0, 131075, 1835025, 0, 131075, 1835026, 0, 131075, 1835027, 0, 131075, 1835028, 0, 131075, 1835029, 0, 131075, 1835030, 0, 131075, 1835031, 0, 131075, 1835032, 0, 131075, 1835033, 0, 131075, 1835034, 0, 131075, 1835035, 0, 131075, 1835036, 0, 131075, 1835037, 0, 131075, 1835038, 0, 131075, 1835039, 0, 131075, 1835040, 0, 4, 1835045, 0, 1, 1835046, 0, 65540, 1900576, 0, 196611, 1966112, 0, 65539, 1966113, 0, 131075, 1966114, 0, 131075, 1966115, 0, 131075, 1966116, 0, 131075, 1966117, 0, 131075, 1966118, 0, 131075, 1966119, 0, 4, 2031655, 0, 196611, 2097191, 0, 196611, 2162727, 0, 196611, 2228263, 0, 196611, 2293799, 0, 196611, 2359335, 0, 196611, 2424871, 0, 196611, 2490407, 0, 196611, 2555943, 0, 196611, 2621479, 0, 65539, 2621480, 0, 4, 2687016, 0, 0 )
+tile_data = PoolIntArray( 1703941, 0, 65537, 1703975, 0, 65537, 1769477, 0, 196611, 1769509, 0, 3, 1769510, 0, 131075, 1769511, 0, 65540, 1835013, 0, 65539, 1835014, 0, 131075, 1835015, 0, 131075, 1835016, 0, 131075, 1835017, 0, 131075, 1835018, 0, 131075, 1835019, 0, 131075, 1835020, 0, 131075, 1835021, 0, 131075, 1835022, 0, 131075, 1835023, 0, 131075, 1835024, 0, 131075, 1835025, 0, 131075, 1835026, 0, 131075, 1835027, 0, 131075, 1835028, 0, 131075, 1835029, 0, 131075, 1835030, 0, 131075, 1835031, 0, 131075, 1835032, 0, 131075, 1835033, 0, 131075, 1835034, 0, 131075, 1835035, 0, 131075, 1835036, 0, 131075, 1835037, 0, 131075, 1835038, 0, 131075, 1835039, 0, 131075, 1835040, 0, 4, 1835042, 0, 65537, 1835044, 0, 1, 1835045, 0, 0, 1900576, 0, 65539, 1900577, 0, 131075, 1900578, 0, 65540, 1900581, 0, 65539, 1900582, 0, 4, 1966115, 0, 131076, 1966118, 0, 196611, 2031654, 0, 196611, 2097190, 0, 196611, 2162726, 0, 196611, 2228262, 0, 196611, 2293798, 0, 196611, 2359334, 0, 196611, 2424870, 0, 196611, 2490406, 0, 196611, 2555942, 0, 196611, 2621478, 0, 196611, 2687014, 0, 196611, 2752550, 0, 196611, 2818086, 0, 65539, 2818087, 0, 65536 )
 
-[node name="Switch2" parent="Environment/Puzzles/Puzzle1" instance=ExtResource( 9 )]
-position = Vector2( 324, 343 )
+[node name="EnergySocket4" parent="Environment/Puzzles/Puzzle1" instance=ExtResource( 9 )]
+position = Vector2( 325, 348 )
 Connection_TileMap = NodePath("../InteractionTiles2")
+
+[node name="EnergyConnector" parent="Environment/Puzzles/Puzzle1" instance=ExtResource( 12 )]
+
+[node name="EnergySocket" parent="Environment/Puzzles/Puzzle1/EnergyConnector" instance=ExtResource( 9 )]
+position = Vector2( 180, 276 )
+Connection_TileMap = NodePath("../InteractionTiles5")
+
+[node name="InteractionTiles5" type="TileMap" parent="Environment/Puzzles/Puzzle1/EnergyConnector"]
+tile_set = SubResource( 57 )
+cell_size = Vector2( 8, 8 )
+cell_quadrant_size = 8
+collision_layer = 0
+collision_mask = 0
+format = 1
+tile_data = PoolIntArray( 2162710, 0, 131076 )
+
+[node name="EnergySocket2" parent="Environment/Puzzles/Puzzle1/EnergyConnector" instance=ExtResource( 9 )]
+position = Vector2( 364, 292 )
+Connection_TileMap = NodePath("../InteractionTiles4")
+
+[node name="InteractionTiles4" type="TileMap" parent="Environment/Puzzles/Puzzle1/EnergyConnector"]
+tile_set = SubResource( 57 )
+cell_size = Vector2( 8, 8 )
+cell_quadrant_size = 8
+collision_layer = 0
+collision_mask = 0
+format = 1
+tile_data = PoolIntArray( 2293805, 0, 131076 )
 
 [node name="Entities" type="Node2D" parent="Environment"]
 

@@ -5,7 +5,7 @@ export (PackedScene) var level_manager_scene: PackedScene
 
 var start_on_test_scene: bool = false
 var level_tutorial_01_id = 1
-var level_01_id = 2
+var level_01_id = 5
 
 func _ready() -> void:
 	if SceneSwitcher.get_param("start_on_test_scene") != null:
