@@ -24,7 +24,7 @@ onready var action_alert = $Body/ActionAlert
 export (float) var ACCELERATION: float = 30.0
 export (float) var H_SPEED_LIMIT: float = 250.0
 export (int) var jump_force: int = 1300 #jump_speed: int = 300
-export (float) var JUMP_SPEED_LIMIT: float = 300.0
+export (float) var JUMP_SPEED_LIMIT: float = 350.0
 export (float) var FALL_SPEED_LIMIT: float = 850.0
 export (float) var FRICTION_WEIGHT: float = 0.20
 export (int) var gravity: int = 10
@@ -162,7 +162,7 @@ func check_nearest_actionable() -> void:
 
 func _on_Player_nearest_actionable_changed(actionable: Node):
 	if actionable != null:
-		print("nearest_actionable changed!! [%s]" % [actionable.name])
+		#print("nearest_actionable changed!! [%s]" % [actionable.name])
 		action_alert.show()
 	else:
 		action_alert.hide()

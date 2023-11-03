@@ -16,4 +16,5 @@ func _on_body_entered(body: Node) -> void:
 			#portal.play("open")
 			#GameState.notify_level_won()
 			GameState.notify_player_reached_goal(body.id)
+			body.set_deferred("mode", 1) #MODE_STATIC
 

@@ -1,7 +1,6 @@
 extends AbstractState
 
 func enter() -> void:
-	print("%s.enter()" % self.state_id)
 	character._play_animation("closed")
 	character.slide_gate_closed()
 

@@ -20,7 +20,7 @@ func _physics_process(delta: float) -> void:
 	if map_left_margin != 0 and map_right_margin != 0: 
 		left_end_corner = Vector2(min(left_end_corner.x, map_left_margin), left_end_corner.y)
 		right_end_corner = Vector2(max(right_end_corner.x, map_right_margin), right_end_corner.y)
-		print(left_end_corner)
+		#print(left_end_corner)
 	
 	var average_position = (left_end_corner + right_end_corner) / 2
 	var distance = Vector2(abs(left_end_corner.x - right_end_corner.x) , abs(left_end_corner.y - right_end_corner.y))

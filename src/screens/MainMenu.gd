@@ -3,7 +3,9 @@ extends Node
 export (PackedScene) var level_manager_scene: PackedScene
 #export (Texture) var mouse_cursor: Texture
 
-var start_on_test_scene: bool = true
+var start_on_test_scene: bool = false
+var level_tutorial_01_id = 1
+var level_01_id = 2
 
 func _ready() -> void:
 	if SceneSwitcher.get_param("start_on_test_scene") != null:
@@ -20,8 +22,12 @@ func _unhandled_input(event: InputEvent) -> void:
 		
 func _on_StartButton_pressed() -> void:
 	#get_tree().change_scene_to(level_manager_scene)
-	SceneSwitcher.change_scene(level_manager_scene.resource_path)
+	SceneSwitcher.change_scene(level_manager_scene.resource_path, {"level": level_01_id})
 
 
 func _on_ExitButton_pressed() -> void:
 	get_tree().quit()
+
+
+func _on_StartTutorialButton_pressed():
+	SceneSwitcher.change_scene(level_manager_scene.resource_path, {"level": level_tutorial_01_id})
