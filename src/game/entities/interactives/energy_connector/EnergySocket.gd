@@ -65,7 +65,8 @@ func set_connected_plug(plug) -> void:
 	evaluate_energy_state()
 
 func remove_plug() -> void:
-	connected_plug.other_end_plug.socket.evaluate_energy_state()
+	if connected_plug.other_end_plug.socket:
+		connected_plug.other_end_plug.socket.evaluate_energy_state()
 	set_connected_plug(null)
 
 

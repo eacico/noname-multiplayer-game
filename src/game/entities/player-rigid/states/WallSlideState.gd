@@ -17,7 +17,7 @@ func exit() -> void:
 func handle_input(event: InputEvent) -> void:
 	if event.is_action_pressed("p"+character.id+"_jump") && player_is_detaching():
 		detach_timer.stop()
-		character.velocity.x = 0
+		character.velocity.x = character.H_SPEED_LIMIT * 0.75 * jump_direction()
 		emit_signal("finished", "jump")
 	
 func update(delta: float) -> void:
@@ -54,6 +54,8 @@ func player_is_near_wall() -> bool:
 
 func player_move_drection() -> int:
 	return int(Input.is_action_pressed("p"+character.id+"_move_right")) - int(Input.is_action_pressed("p"+character.id+"_move_left"))
+
+func jump_direction(): return int(wall_side == Vector2.LEFT) - int(wall_side == Vector2.RIGHT)
 
 func _on_DetachTimer_timeout():
 	emit_signal("finished", "idle")

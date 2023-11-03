@@ -58,4 +58,37 @@ func create_rope() -> void:
 		add_child(joint1)
 		add_child(joint2)
 		
+		create_leash(ep1, ep2)
 		
+func create_leash(ep1: EnergyPlug, ep2: EnergyPlug) -> void:
+	var pos1 = ep1.global_position
+	var pos2 = ep2.global_position
+	
+	var distance = pos1.distance_to(pos2)
+	var spawn_angle = (pos2-pos1).angle() - PI/2
+	
+	var groove_joint = GrooveJoint2D.new()
+	groove_joint.global_position = pos1
+	groove_joint.set_length(distance * 1.1)
+	groove_joint.set_initial_offset(distance)
+	groove_joint.set_rotation(spawn_angle)
+	groove_joint.set_node_a(ep1.get_path())
+	groove_joint.set_node_b(ep2.get_path())
+	
+	add_child(groove_joint)
+	
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
