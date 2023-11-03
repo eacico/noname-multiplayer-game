@@ -14,7 +14,6 @@ func _ready():
 
 
 func create_rope() -> void:
-	var desired_children = []
 	var energy_sockets: Array = []
 	for child in get_children():
 		if child is EnergySocket:

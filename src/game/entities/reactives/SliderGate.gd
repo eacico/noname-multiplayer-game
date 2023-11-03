@@ -24,6 +24,8 @@ func _initialize() -> void:
 		var switch = get_node(switches[i])
 		state_machine.switch_states.append(false)
 		switch.connect("switched", state_machine, "_on_switched", [i])
+	
+	evaluate_switches_state()
 
 func _on_finished(next_state_name):
 	if next_state_name == "open":
@@ -40,3 +42,8 @@ func slide_gate_closed() -> void:
 func _play_animation(animation: String) -> void:
 	pass
 
+func evaluate_switches_state():
+	for i in range(switches.size()):
+		var switch = get_node(switches[i])
+		if switch is EnergySocket:
+			switch.evaluate_energy_state()

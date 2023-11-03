@@ -14,7 +14,7 @@ export (Array, Array, Array) var parameters: Array
 
 
 func _ready() -> void:
-	connect("body_entered", self, "_on_body_entered")
+	pass #connect("body_entered", self, "_on_body_entered")
 
 
 func _on_body_entered(body: Node) -> void:
@@ -22,11 +22,18 @@ func _on_body_entered(body: Node) -> void:
 		var node: Node = get_node(nodes_affected[i])
 		var methods: PoolStringArray = methods_list[i]
 		var params: Array = parameters[i]
+		console_log("%s (methods: %s, params: %s):" % [node.name, methods.size(), params.size()])
 		for m in methods.size():
 			var method: String = methods[m]
 			if node.has_method(method):
-				print("callv %s(%s)" % [method, params[m]])
+				console_log("  callv %s(%s)" % [method, params[m]])
 				node.callv(method, params[m])
 			elif method in node && !params[m].empty():
-				print("set %s = %s" % [method, params[m][0]])
+				console_log("  set %s = %s" % [method, params[m][0]])
 				node.set(method, params[m][0])
+			else:
+				console_log("  method '%s' NOT FOUND!!" % [method])
+
+func console_log(message, available = false):
+	if available:
+		print(message)

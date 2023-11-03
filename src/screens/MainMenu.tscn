@@ -6,6 +6,7 @@
 [node name="MainMenu" type="Node"]
 script = ExtResource( 7 )
 level_manager_scene = ExtResource( 1 )
+level_to_test = 0
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 

@@ -653,6 +653,16 @@ collision_mask = 0
 format = 1
 tile_data = PoolIntArray( 2621474, 0, 65537, 2687010, 0, 196611, 2752546, 0, 196611, 2818082, 0, 196611, 2883618, 0, 196611, 2949154, 0, 196611, 3014690, 0, 196611, 3080226, 0, 196611, 3145762, 0, 196611, 3211298, 0, 196611, 3276834, 0, 196611, 3342370, 0, 196611, 3407906, 0, 196611, 3473442, 0, 196611, 3538971, 0, 196612, 3538978, 0, 196611, 3604508, 0, 1, 3604509, 0, 131075, 3604510, 0, 131075, 3604511, 0, 131075, 3604512, 0, 131075, 3604513, 0, 131075, 3604514, 0, 65540 )
 
+[node name="EnergyConnector2" parent="Environment/Puzzles/Puzzle2" instance=ExtResource( 11 )]
+position = Vector2( -86, -61 )
+
+[node name="EnergySocket" parent="Environment/Puzzles/Puzzle2/EnergyConnector2" instance=ExtResource( 13 )]
+position = Vector2( 138, 444 )
+is_energy_source = true
+
+[node name="EnergySocket2" parent="Environment/Puzzles/Puzzle2/EnergyConnector2" instance=ExtResource( 13 )]
+position = Vector2( 218, 444 )
+
 [node name="Tests" type="Node2D" parent="Environment"]
 
 [node name="EnergySocket" parent="Environment/Tests" instance=ExtResource( 13 )]
@@ -713,6 +723,15 @@ node_a = NodePath("../RigidBody2D")
 node_b = NodePath("../RigidBody2D2")
 length = 78.0
 initial_offset = 74.0
+
+[node name="EnergyConnector" parent="Environment/Tests" instance=ExtResource( 11 )]
+position = Vector2( 123, 335 )
+
+[node name="EnergySocket" parent="Environment/Tests/EnergyConnector" instance=ExtResource( 13 )]
+position = Vector2( -30, -4 )
+
+[node name="EnergySocket2" parent="Environment/Tests/EnergyConnector" instance=ExtResource( 13 )]
+position = Vector2( 43, -4 )
 
 [node name="Entities" type="Node2D" parent="Environment"]
 

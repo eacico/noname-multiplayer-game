@@ -70,7 +70,9 @@ func spawn_rope(_rope_start_piece, _rope_end_piece):
 	var pieces_amount = round(distance / piece_length)
 	var spawn_angle = (end_pos-start_pos).angle() - PI/2
 	
+	console_log("create_rope(%s[%s] - %s[%s])" % [rope_start_piece,start_pos,rope_end_piece,end_pos])
 	create_rope(pieces_amount, rope_start_piece, end_pos, spawn_angle)
+	console_log("  - rope created from %s to %s" % [rope_start_piece.global_position,rope_end_piece.global_position])
 
 func create_rope(pieces_amount:int, parent:Object, end_pos:Vector2, spawn_angle:float) -> void:
 	rope_colors.append(color1)
@@ -82,6 +84,7 @@ func create_rope(pieces_amount:int, parent:Object, end_pos:Vector2, spawn_angle:
 		parent = add_piece(parent, i, spawn_angle)
 		parent.set_name("rope_piece_"+str(i))
 		rope_parts.append(parent)
+		console_log("  add_piece(pos: %s)" % [parent.global_position])
 		
 		var joint_pos = parent.get_node("C/J").global_position
 		if joint_pos.distance_to(end_pos) < rope_close_tolerance:
@@ -97,11 +100,11 @@ func create_rope(pieces_amount:int, parent:Object, end_pos:Vector2, spawn_angle:
 func add_piece(parent:Object, id:int, spawn_angle:float) -> RopePiece:
 	var joint : PinJoint2D = parent.get_node("C/J") as PinJoint2D
 	var piece : RopePiece = RopePiece.instance() as RopePiece
+	add_child(piece)
 	piece.global_position = joint.global_position
 	piece.rotation = spawn_angle
 	piece.parent = self
 	piece.id = id
-	add_child(piece)
 	joint.node_a = parent.get_path()
 	joint.node_b = piece.get_path()
 	return piece
@@ -117,3 +120,8 @@ func get_rope_points() -> void:
 func _draw():
 	if rope_points.size() > 2:
 		draw_polyline_colors(rope_points, rope_colors, 2.0, false)
+
+
+func console_log(message, available = false):
+	if available:
+		print(message)
