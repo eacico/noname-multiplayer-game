@@ -110,11 +110,12 @@ func add_piece(parent:Object, id:int, spawn_angle:float) -> RopePiece:
 	return piece
 
 func get_rope_points() -> void:
+	var _parent_pos = get_parent().global_position
 	rope_points = []
-	rope_points.append( rope_start_joint.global_position )
+	rope_points.append( rope_start_joint.global_position - _parent_pos)
 	for r in rope_parts:
-		rope_points.append( r.global_position )
-	rope_points.append( rope_end_joint.global_position )
+		rope_points.append( r.global_position - _parent_pos)
+	rope_points.append( rope_end_joint.global_position - _parent_pos)
 
 
 func _draw():
