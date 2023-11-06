@@ -1,7 +1,7 @@
 extends Node2D
-class_name Rope
+class_name Rope_bak
 
-var RopePiece = preload("res://src/game/entities/rope/RopePiece.tscn")
+var RopePiece = preload("res://src/game/entities/rope_bak/RopePiece.tscn")
 var piece_length := 6.0
 var rope_parts := []
 var rope_close_tolerance := 8.0
@@ -110,11 +110,12 @@ func add_piece(parent:Object, id:int, spawn_angle:float) -> RopePiece:
 	return piece
 
 func get_rope_points() -> void:
+	var _parent_pos = get_parent().global_position
 	rope_points = []
-	rope_points.append( rope_start_joint.global_position )
+	rope_points.append( rope_start_joint.global_position - _parent_pos)
 	for r in rope_parts:
-		rope_points.append( r.global_position )
-	rope_points.append( rope_end_joint.global_position )
+		rope_points.append( r.global_position - _parent_pos)
+	rope_points.append( rope_end_joint.global_position - _parent_pos)
 
 
 func _draw():
