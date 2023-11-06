@@ -1,17 +1,21 @@
-[gd_scene load_steps=69 format=2]
+[gd_scene load_steps=73 format=2]
 
 [ext_resource path="res://src/game/levels/LevelDefault.gd" type="Script" id=1]
 [ext_resource path="res://src/game/environment/Lava.tscn" type="PackedScene" id=2]
 [ext_resource path="res://src/game/ui/EndGameMenu.tscn" type="PackedScene" id=3]
 [ext_resource path="res://src/game/environment/Goal.tscn" type="PackedScene" id=4]
+[ext_resource path="res://icon.png" type="Texture" id=5]
 [ext_resource path="res://assets/textures/tileset/basic_tileset.png" type="Texture" id=6]
 [ext_resource path="res://assets/textures/tileset/platforms.png" type="Texture" id=7]
 [ext_resource path="res://assets/textures/tileset/switch_connector_tileset.png" type="Texture" id=8]
 [ext_resource path="res://src/game/entities/interactives/switch/Switch.tscn" type="PackedScene" id=9]
 [ext_resource path="res://src/game/entities/reactives/SliderGate.tscn" type="PackedScene" id=10]
 [ext_resource path="res://src/game/entities/interactives/energy_connector/EnergyConnector.tscn" type="PackedScene" id=11]
+[ext_resource path="res://addons/ropesim/RopeHandle.gd" type="Script" id=12]
 [ext_resource path="res://src/game/entities/interactives/energy_connector/EnergySocket.tscn" type="PackedScene" id=13]
 [ext_resource path="res://src/game/entities/player-rigid/PlayerRigid.tscn" type="PackedScene" id=14]
+[ext_resource path="res://addons/ropesim/Rope.gd" type="Script" id=15]
+[ext_resource path="res://addons/ropesim/RopeRendererLine2D.gd" type="Script" id=16]
 
 [sub_resource type="TileSet" id=54]
 0/name = "switch_connector_tileset.png 0"
@@ -653,21 +657,7 @@ collision_mask = 0
 format = 1
 tile_data = PoolIntArray( 2621474, 0, 65537, 2687010, 0, 196611, 2752546, 0, 196611, 2818082, 0, 196611, 2883618, 0, 196611, 2949154, 0, 196611, 3014690, 0, 196611, 3080226, 0, 196611, 3145762, 0, 196611, 3211298, 0, 196611, 3276834, 0, 196611, 3342370, 0, 196611, 3407906, 0, 196611, 3473442, 0, 196611, 3538971, 0, 196612, 3538978, 0, 196611, 3604508, 0, 1, 3604509, 0, 131075, 3604510, 0, 131075, 3604511, 0, 131075, 3604512, 0, 131075, 3604513, 0, 131075, 3604514, 0, 65540 )
 
-[node name="EnergyConnector2" parent="Environment/Puzzles/Puzzle2" instance=ExtResource( 11 )]
-position = Vector2( -17, -18 )
-
-[node name="EnergySocket" parent="Environment/Puzzles/Puzzle2/EnergyConnector2" instance=ExtResource( 13 )]
-position = Vector2( 69, 401 )
-is_energy_source = true
-
-[node name="EnergySocket2" parent="Environment/Puzzles/Puzzle2/EnergyConnector2" instance=ExtResource( 13 )]
-position = Vector2( 149, 401 )
-
 [node name="Tests" type="Node2D" parent="Environment"]
-
-[node name="EnergySocket" parent="Environment/Tests" instance=ExtResource( 13 )]
-position = Vector2( 170, 396 )
-Connection_TileMap = NodePath("../InteractionTiles5")
 
 [node name="InteractionTiles5" type="TileMap" parent="Environment/Tests"]
 position = Vector2( -2, 0 )
@@ -721,6 +711,33 @@ position = Vector2( -30, -4 )
 
 [node name="EnergySocket2" parent="Environment/Tests/EnergyConnector" instance=ExtResource( 13 )]
 position = Vector2( 43, -4 )
+
+[node name="Rope" type="Node2D" parent="Environment/Tests"]
+position = Vector2( 94, 394 )
+script = ExtResource( 15 )
+__meta__ = {
+"_edit_group_": true
+}
+stiffness = 10.0
+damping = 10.0
+render_line = false
+
+[node name="RopeRendererLine2D" type="Line2D" parent="Environment/Tests/Rope"]
+show_behind_parent = true
+points = PoolVector2Array( 0, 0, 0, 10, 0, 20, 0, 30, 0, 40, 0, 50, 0, 60, 0, 70, 0, 80, 0, 90, 0, 100 )
+default_color = Color( 1, 1, 1, 1 )
+texture = ExtResource( 5 )
+texture_mode = 1
+script = ExtResource( 16 )
+
+[node name="RopeHandle" type="Position2D" parent="Environment/Tests"]
+position = Vector2( 170, 396 )
+script = ExtResource( 12 )
+rope_path = NodePath("../Rope")
+
+[node name="EnergySocket" parent="Environment/Tests" instance=ExtResource( 13 )]
+position = Vector2( 170, 396 )
+Connection_TileMap = NodePath("../InteractionTiles5")
 
 [node name="Entities" type="Node2D" parent="Environment"]
 

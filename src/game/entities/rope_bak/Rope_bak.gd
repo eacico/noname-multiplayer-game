@@ -1,7 +1,7 @@
 extends Node2D
-class_name Rope
+class_name Rope_bak
 
-var RopePiece = preload("res://src/game/entities/rope/RopePiece.tscn")
+var RopePiece = preload("res://src/game/entities/rope_bak/RopePiece.tscn")
 var piece_length := 6.0
 var rope_parts := []
 var rope_close_tolerance := 8.0
