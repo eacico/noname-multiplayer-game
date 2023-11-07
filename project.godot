@@ -54,40 +54,10 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/game/entities/player/Player.gd"
 }, {
-"base": "Node2D",
-"class": "Rope",
-"language": "GDScript",
-"path": "res://addons/ropesim/Rope.gd"
-}, {
-"base": "Position2D",
-"class": "RopeAnchor",
-"language": "GDScript",
-"path": "res://addons/ropesim/RopeAnchor.gd"
-}, {
-"base": "Node",
-"class": "RopeCollisionShapeGenerator",
-"language": "GDScript",
-"path": "res://addons/ropesim/RopeCollisionShapeGenerator.gd"
-}, {
-"base": "Position2D",
-"class": "RopeHandle",
-"language": "GDScript",
-"path": "res://addons/ropesim/RopeHandle.gd"
-}, {
 "base": "RigidBody2D",
 "class": "RopePiece",
 "language": "GDScript",
 "path": "res://src/game/entities/rope_bak/RopePiece.gd"
-}, {
-"base": "Line2D",
-"class": "RopeRendererLine2D",
-"language": "GDScript",
-"path": "res://addons/ropesim/RopeRendererLine2D.gd"
-}, {
-"base": "Node",
-"class": "RopeToolHelper",
-"language": "GDScript",
-"path": "res://addons/ropesim/RopeToolHelper.gd"
 }, {
 "base": "Node2D",
 "class": "Rope_bak",
@@ -114,13 +84,7 @@ _global_script_class_icons={
 "GameLevel": "",
 "Player": "",
 "Player_back": "",
-"Rope": "",
-"RopeAnchor": "",
-"RopeCollisionShapeGenerator": "",
-"RopeHandle": "",
 "RopePiece": "",
-"RopeRendererLine2D": "",
-"RopeToolHelper": "",
 "Rope_bak": "",
 "SliderGate": "",
 "Switch": ""
@@ -137,7 +101,6 @@ config/icon="res://icon.png"
 GameState="*res://src/game/singletons/GameState.gd"
 SceneSwitcher="*res://src/game/singletons/SceneSwitcher.gd"
 Utils="*res://src/game/singletons/Utils.gd"
-NativeRopeServer="*res://addons/ropesim/NativeRopeServer.gdns"
 
 [display]
 
@@ -149,7 +112,7 @@ window/stretch/shrink=1.4
 
 [editor_plugins]
 
-enabled=PoolStringArray( "res://addons/ropesim/plugin.cfg" )
+enabled=PoolStringArray(  )
 
 [gui]
 
