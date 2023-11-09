@@ -696,7 +696,6 @@ shape = SubResource( 57 )
 position = Vector2( 0, -1 )
 rotation = 0.546288
 node_a = NodePath("..")
-node_b = NodePath("../../../Entities/Player2")
 length = 98.0
 initial_offset = 92.0
 
