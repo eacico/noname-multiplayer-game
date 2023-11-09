@@ -35,6 +35,10 @@ func create_rope() -> void:
 		ep2.other_end_plug = ep1
 		ep1.socket = socket1
 		ep2.socket = socket2
+		ep1.set_mass(5)
+		ep2.set_mass(5)
+		ep1.set_gravity_scale(9)
+		ep2.set_gravity_scale(9)
 		socket1.set_connected_plug(ep1)
 		socket2.set_connected_plug(ep2)
 		socket1.set_monitorable(false)
