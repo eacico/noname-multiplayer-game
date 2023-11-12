@@ -3,12 +3,12 @@ class_name EnergyConnector
 
 export (float, 0, 1) var slack_percentage:float = 0.1
 
-var Rope = preload("res://src/game/entities/rope_bak/Rope_bak.tscn")
+var Rope = preload("res://src/game/entities/rope/Rope_bak.tscn")
 #const EnergySocketResource = preload("res://src/game/entities/interactives/energy_connector/EnergySocket.tscn")
 const EnergyPlugResource = preload("res://src/game/entities/interactives/energy_connector/EnergyPlug.tscn")
 var energy_plugs: Array = []
 
-var rope_instance: Rope_bak
+var rope_instance: Rope
 
 func _ready():
 	if rope_instance == null:
