@@ -2,6 +2,8 @@ extends Node2D
 class_name EnergyConnector
 
 export (float, 0, 1) var slack_percentage:float = 0.1
+export (Color) var color1 := Color.gold
+export (Color) var color2 := Color.black
 
 var Rope = preload("res://src/game/entities/rope/Rope.tscn")
 #const EnergySocketResource = preload("res://src/game/entities/interactives/energy_connector/EnergySocket.tscn")
@@ -47,6 +49,8 @@ func create_rope() -> void:
 		socket2.set_monitorable(false)
 		
 		rope_instance = Rope.instance()
+		rope_instance.color1 = color1
+		rope_instance.color2 = color2
 		add_child(rope_instance)
 		rope_instance.spawn_rope(ep1, ep2, slack_percentage)
 		

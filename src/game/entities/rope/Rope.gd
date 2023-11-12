@@ -10,8 +10,8 @@ var rope_colors : PoolColorArray = []
 var rope_to_left := true
 var active_rope_id : int = -INF setget set_active_rope_id
 
-var color1 := Color.darkorange
-var color2 := Color.darkgoldenrod
+var color1 := Color.gold
+var color2 := Color.black
 
 #onready var rope_start_piece = $RopeStartPiece
 #onready var rope_end_piece = $RopeEndPiece
