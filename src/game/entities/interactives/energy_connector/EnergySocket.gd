@@ -9,6 +9,8 @@ export (bool) var is_energy_source: bool = false
 export (NodePath) var Connection_TileMap setget set_Connection_TileMap, get_Connection_TileMap
 
 var connected_plug: Object = null setget set_connected_plug  #EnergyPlug
+var color_on = Color(0.255,0.392,0.255)
+var color_off = Color(0.45,0.216,0.216)
 
 func _ready():
 	evaluate_energy_state()
@@ -80,11 +82,12 @@ func get_Connection_TileMap() -> TileMap:
 
 
 func turn_socket_on() -> void:
+	#print("socket -> switched(on)")
 	emit_signal("switched", true)
 	if Connection_TileMap:
-		get_Connection_TileMap().set_modulate(Color(0.255,0.392,0.255))
+		get_Connection_TileMap().set_modulate(color_on)
 	
 func turn_socket_off() -> void:
 	emit_signal("switched", false)
 	if Connection_TileMap:
-		get_Connection_TileMap().set_modulate(Color(0.45,0.216,0.216))
+		get_Connection_TileMap().set_modulate(color_off)

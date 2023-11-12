@@ -14,7 +14,7 @@ func handle_input(event: InputEvent) -> void:
 # En esta función vamos a manejar las acciones apropiadas para este estado
 func update(delta: float) -> void:
 	
-	character._handle_move_input()
+	character._handle_horizontal_move_input()
 	# Para chequear si se realiza un movimiento
 	if character.move_direction != 0:
 		# Y cambiamos el estado a walk

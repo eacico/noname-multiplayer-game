@@ -22,8 +22,9 @@ onready var action_alert = $Body/ActionAlert
 ## poder modificar estos valores desde afuera de la escena del Player,
 ## los exponemos desde el script de Player.
 export (float) var ACCELERATION: float = 30.0
+export (float) var AIR_ACCELERATION: float = 13.0
 export (float) var H_SPEED_LIMIT: float = 250.0
-export (int) var jump_force: int = 1300 #jump_speed: int = 300
+export (int) var jump_speed: int = 300
 export (float) var JUMP_SPEED_LIMIT: float = 350.0
 export (float) var FALL_SPEED_LIMIT: float = 850.0
 export (float) var FRICTION_WEIGHT: float = 0.20
@@ -35,6 +36,7 @@ export (float) var wall_slide_speed: float = 50.0
 
 
 var velocity: Vector2 = Vector2.ZERO
+var added_velocity: Vector2 = Vector2.ZERO
 var snap_vector: Vector2 = SNAP_DIRECTION * SNAP_LENGTH
 var stop_on_slope: bool = true
 var move_direction: int = 0
@@ -56,27 +58,27 @@ func get_class(): return "Player"
 
 ## Se extrae el comportamiento del manejo del movimiento horizontal
 ## a una función para ser llamada apropiadamente desde la state machine
-func _handle_move_input() -> void:
+func _handle_horizontal_move_input() -> void:
 	move_direction = int(Input.is_action_pressed("p"+id+"_move_right")) - int(Input.is_action_pressed("p"+id+"_move_left"))
-	if move_direction != 0:
-		velocity.x = clamp(velocity.x + (move_direction * ACCELERATION), -H_SPEED_LIMIT, H_SPEED_LIMIT)
+	#if move_direction != 0:
+	added_velocity.x = move_direction * (ACCELERATION if is_on_floor() else AIR_ACCELERATION)
 
 
 ## Se extrae el comportamiento del manejo de la aplicación de fricción
 ## a una función para ser llamada apropiadamente desde la state machine
 func _handle_deacceleration() -> void:
-	velocity.x = lerp(velocity.x, 0, FRICTION_WEIGHT) if abs(velocity.x) > 1 else 0
+	added_velocity.x = -linear_velocity.x + lerp(linear_velocity.x, 0, FRICTION_WEIGHT) if abs(linear_velocity.x) > 1 else -linear_velocity.x
 
 
 func _integrate_forces(state: Physics2DDirectBodyState) -> void:
-	
-	if is_wall_sliding:
-		velocity.y = clamp(state.linear_velocity.y, -JUMP_SPEED_LIMIT, wall_slide_speed)
-	else:
-		velocity.y = clamp(state.linear_velocity.y, -JUMP_SPEED_LIMIT, FALL_SPEED_LIMIT)
-		
-	state.linear_velocity = velocity
 	velocity = state.linear_velocity
+	
+	velocity.y = clamp(velocity.y + added_velocity.y, -JUMP_SPEED_LIMIT, wall_slide_speed if is_wall_sliding else FALL_SPEED_LIMIT)
+	velocity.x = clamp(velocity.x + added_velocity.x, -H_SPEED_LIMIT, H_SPEED_LIMIT)
+	
+	state.linear_velocity = velocity
+	added_velocity = Vector2.ZERO
+	
 
 
 func _apply_ghost_movement(delta: float) -> void:

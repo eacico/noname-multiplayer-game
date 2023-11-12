@@ -4,3 +4,5 @@
 
 [node name="EnergyConnector" type="Node2D"]
 script = ExtResource( 1 )
+color1 = Color( 0.85098, 0.839216, 0.152941, 1 )
+color2 = Color( 0.6, 0.568627, 0.231373, 1 )

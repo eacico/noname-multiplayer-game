@@ -18,7 +18,7 @@
 friction = 0.0
 
 [sub_resource type="RectangleShape2D" id=5]
-extents = Vector2( 7.5, 17.5 )
+extents = Vector2( 7.5, 9 )
 
 [sub_resource type="RayShape2D" id=6]
 length = 4.0
@@ -41,7 +41,7 @@ height = 12.0
 collision_layer = 25
 collision_mask = 0
 mode = 2
-mass = 4.59184
+mass = 50.0
 physics_material_override = SubResource( 9 )
 gravity_scale = 9.0
 script = ExtResource( 6 )
@@ -78,11 +78,11 @@ script = ExtResource( 2 )
 state_id = "wall_slide"
 
 [node name="DetachTimer" type="Timer" parent="StateMachine/WallSlide"]
-wait_time = 0.5
+wait_time = 0.3
 one_shot = true
 
 [node name="CollisionCore" type="CollisionShape2D" parent="."]
-position = Vector2( -0.5, -18.5 )
+position = Vector2( -0.5, -11 )
 shape = SubResource( 5 )
 
 [node name="CollisionBottom1" type="CollisionShape2D" parent="."]
@@ -93,13 +93,23 @@ shape = SubResource( 6 )
 position = Vector2( 6, -4 )
 shape = SubResource( 6 )
 
-[node name="CollisionRight" type="CollisionShape2D" parent="."]
-position = Vector2( 4, -14 )
+[node name="CollisionRight1" type="CollisionShape2D" parent="."]
+position = Vector2( 4, -2 )
 rotation = -1.5708
 shape = SubResource( 7 )
 
-[node name="CollisionLeft" type="CollisionShape2D" parent="."]
-position = Vector2( -5, -14 )
+[node name="CollisionRight2" type="CollisionShape2D" parent="."]
+position = Vector2( 4, -18 )
+rotation = -1.5708
+shape = SubResource( 7 )
+
+[node name="CollisionLeft1" type="CollisionShape2D" parent="."]
+position = Vector2( -5, -18 )
+rotation = -4.71239
+shape = SubResource( 8 )
+
+[node name="CollisionLeft2" type="CollisionShape2D" parent="."]
+position = Vector2( -5, -2 )
 rotation = -4.71239
 shape = SubResource( 8 )
 
@@ -108,17 +118,17 @@ shape = SubResource( 8 )
 [node name="RayCast2D" type="RayCast2D" parent="FloorRaycasts"]
 position = Vector2( 0, -1 )
 cast_to = Vector2( 0, 1 )
-collision_mask = 4
+collision_mask = 14
 
 [node name="RayCast2D2" type="RayCast2D" parent="FloorRaycasts"]
 position = Vector2( -7, -1 )
 cast_to = Vector2( 0, 1 )
-collision_mask = 4
+collision_mask = 14
 
 [node name="RayCast2D3" type="RayCast2D" parent="FloorRaycasts"]
 position = Vector2( 5, -1 )
 cast_to = Vector2( 0, 1 )
-collision_mask = 4
+collision_mask = 14
 
 [node name="Body" type="Node2D" parent="."]
 
