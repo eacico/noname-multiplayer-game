@@ -113,6 +113,6 @@ func _change_state(state_name: String) -> void:
 	current_state.enter()
 
 
-func console_log(message, available = true):
+func console_log(message, available = false):
 	if available:
 		print(message)

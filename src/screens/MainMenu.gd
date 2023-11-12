@@ -4,7 +4,7 @@ export (PackedScene) var level_manager_scene: PackedScene
 #export (Texture) var mouse_cursor: Texture
 
 export (bool) var start_on_test_scene: bool = false
-export (int) var level_to_test = 6
+export (int) var level_to_test = 0
 export (int) var level_tutorial_01_id = 1
 export (int) var level_01_id = 5
 

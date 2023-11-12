@@ -10,7 +10,7 @@ func _ready():
 
 
 func _on_switched(state: bool, switch_id: int) -> void:
-	#print("_on_switched(state: %s, switch_id: %s)" % [state,switch_id])
+	#print("SliderGate.State.Machine._on_switched(state: %s, switch_id: %s)" % [state,switch_id])
 	switch_states[switch_id] = state
 	if not current_state == null:
 		if switch_states.count(true) == switch_states.size():
