@@ -78,7 +78,7 @@ script = ExtResource( 2 )
 state_id = "wall_slide"
 
 [node name="DetachTimer" type="Timer" parent="StateMachine/WallSlide"]
-wait_time = 0.5
+wait_time = 0.3
 one_shot = true
 
 [node name="CollisionCore" type="CollisionShape2D" parent="."]
