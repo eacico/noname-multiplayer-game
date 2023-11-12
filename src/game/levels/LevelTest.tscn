@@ -621,7 +621,7 @@ position = Vector2( 192, 312 )
 switches = [ NodePath("../EnergyConnector/EnergySocket2") ]
 
 [node name="EnergyConnector" parent="Environment/Puzzles/Puzzle2" instance=ExtResource( 11 )]
-slack_percentage = 0.19
+slack_percentage = 0.14
 
 [node name="EnergySocket" parent="Environment/Puzzles/Puzzle2/EnergyConnector" instance=ExtResource( 13 )]
 position = Vector2( 138, 444 )
@@ -669,6 +669,7 @@ position = Vector2( 203, 405 )
 
 [node name="EnergyConnector" parent="Environment/Tests" instance=ExtResource( 11 )]
 position = Vector2( 123, 335 )
+slack_percentage = 0.0
 
 [node name="EnergySocket" parent="Environment/Tests/EnergyConnector" instance=ExtResource( 13 )]
 position = Vector2( -30, -4 )

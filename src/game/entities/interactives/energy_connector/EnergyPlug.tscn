@@ -23,6 +23,8 @@ script = ExtResource( 1 )
 shape = SubResource( 3 )
 
 [node name="J" type="PinJoint2D" parent="C"]
+bias = 0.9
+softness = 16.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 2 )
