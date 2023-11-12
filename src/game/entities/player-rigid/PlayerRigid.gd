@@ -22,7 +22,7 @@ onready var action_alert = $Body/ActionAlert
 ## poder modificar estos valores desde afuera de la escena del Player,
 ## los exponemos desde el script de Player.
 export (float) var ACCELERATION: float = 30.0
-export (float) var AIR_ACCELERATION: float = 15.0
+export (float) var AIR_ACCELERATION: float = 13.0
 export (float) var H_SPEED_LIMIT: float = 250.0
 export (int) var jump_speed: int = 300
 export (float) var JUMP_SPEED_LIMIT: float = 350.0

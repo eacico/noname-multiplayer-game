@@ -1,4 +1,4 @@
-[gd_scene load_steps=71 format=2]
+[gd_scene load_steps=68 format=2]
 
 [ext_resource path="res://src/game/levels/LevelDefault.gd" type="Script" id=1]
 [ext_resource path="res://src/game/environment/Lava.tscn" type="PackedScene" id=2]
@@ -62,13 +62,6 @@
 0/shape_one_way_margin = 0.0
 0/shapes = [  ]
 0/z_index = 0
-
-[sub_resource type="CircleShape2D" id=56]
-
-[sub_resource type="PhysicsMaterial" id=58]
-friction = 0.0
-
-[sub_resource type="CircleShape2D" id=57]
 
 [sub_resource type="ConvexPolygonShape2D" id=2]
 points = PoolVector2Array( 16, 7, 0, 7, 0, 0, 16, 0 )
@@ -628,6 +621,7 @@ position = Vector2( 192, 312 )
 switches = [ NodePath("../EnergyConnector/EnergySocket2") ]
 
 [node name="EnergyConnector" parent="Environment/Puzzles/Puzzle2" instance=ExtResource( 11 )]
+slack_percentage = 0.19
 
 [node name="EnergySocket" parent="Environment/Puzzles/Puzzle2/EnergyConnector" instance=ExtResource( 13 )]
 position = Vector2( 138, 444 )
@@ -672,37 +666,6 @@ tile_data = PoolIntArray( 3145749, 0, 196612 )
 
 [node name="Switch" parent="Environment/Tests" instance=ExtResource( 9 )]
 position = Vector2( 203, 405 )
-
-[node name="StaticBody2D" type="StaticBody2D" parent="Environment/Tests"]
-position = Vector2( 366, 434 )
-collision_layer = 0
-collision_mask = 0
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/Tests/StaticBody2D"]
-shape = SubResource( 56 )
-
-[node name="RigidBody2D" type="RigidBody2D" parent="Environment/Tests"]
-position = Vector2( 366, 435 )
-collision_layer = 0
-collision_mask = 0
-mass = 5.0
-physics_material_override = SubResource( 58 )
-gravity_scale = 9.0
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/Tests/RigidBody2D"]
-shape = SubResource( 57 )
-
-[node name="GrooveJoint2D" type="GrooveJoint2D" parent="Environment/Tests/RigidBody2D"]
-position = Vector2( 0, -1 )
-rotation = 0.546288
-node_a = NodePath("..")
-length = 98.0
-initial_offset = 92.0
-
-[node name="PinJoint2D" type="PinJoint2D" parent="Environment/Tests"]
-position = Vector2( 366, 434 )
-node_a = NodePath("../StaticBody2D")
-node_b = NodePath("../RigidBody2D")
 
 [node name="EnergyConnector" parent="Environment/Tests" instance=ExtResource( 11 )]
 position = Vector2( 123, 335 )

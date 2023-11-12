@@ -57,7 +57,7 @@ func set_active_rope_id(value:int):
 #	create_rope(pieces_amount, rope_start_piece, end_pos, spawn_angle)
 
 
-func spawn_rope(_rope_start_piece, _rope_end_piece):
+func spawn_rope(_rope_start_piece, _rope_end_piece, slack_percentage: float):
 	rope_start_piece = _rope_start_piece 
 	rope_end_piece = _rope_end_piece
 	rope_start_joint = rope_start_piece.get_node("C/J")
@@ -66,15 +66,28 @@ func spawn_rope(_rope_start_piece, _rope_end_piece):
 	var end_pos = rope_end_joint.global_position
 	rope_to_left = start_pos.x < end_pos.x
 	
-	var distance = start_pos.distance_to(end_pos)
-	var pieces_amount = round(distance / piece_length)
-	var spawn_angle = (end_pos-start_pos).angle() - PI/2
-	
-	console_log("create_rope(%s[%s] - %s[%s])" % [rope_start_piece,start_pos,rope_end_piece,end_pos])
-	create_rope(pieces_amount, rope_start_piece, end_pos, spawn_angle)
-	console_log("  - rope created from %s to %s" % [rope_start_piece.global_position,rope_end_piece.global_position])
+	#print("slack_percentage: %s - AB_distance: %s - ACB_distance: %s" % [slack_percentage, start_pos.distance_to(end_pos), start_pos.distance_to(end_pos) * (1+slack_percentage)])
+	var mid_pos = Utils.calculateTrianglePoint(start_pos, end_pos, piece_length, start_pos.distance_to(end_pos) * (1+slack_percentage))
 
-func create_rope(pieces_amount:int, parent:Object, end_pos:Vector2, spawn_angle:float) -> void:
+	var distance1 = start_pos.distance_to(mid_pos)
+	var pieces_amount1 = round(distance1 / piece_length)
+	var spawn_angle1 = (mid_pos-start_pos).angle() - PI/2
+	var last_piece1 = create_rope(pieces_amount1, rope_start_piece, mid_pos, spawn_angle1)
+
+	var distance2 = mid_pos.distance_to(end_pos)
+	var pieces_amount2 = round(distance2 / piece_length)
+	var spawn_angle2 = (end_pos-mid_pos).angle() - PI/2
+	var last_piece2 = create_rope(pieces_amount2, last_piece1, end_pos, spawn_angle2)
+	if !last_piece2:
+		last_piece2 = last_piece1
+	rope_end_joint.node_a = rope_end_piece.get_path()
+	rope_end_joint.node_b = last_piece2.get_path()
+
+#	console_log("create_rope(%s[%s] - %s[%s])" % [rope_start_piece,start_pos,rope_end_piece,end_pos])
+#	create_rope(pieces_amount, rope_start_piece, end_pos, spawn_angle)
+#	console_log("  - rope created from %s to %s" % [rope_start_piece.global_position,rope_end_piece.global_position])
+
+func create_rope(pieces_amount:int, parent:Object, end_pos:Vector2, spawn_angle:float) -> RopePiece:
 	rope_colors.append(color1)
 	var last_color
 	for i in pieces_amount:
@@ -92,9 +105,12 @@ func create_rope(pieces_amount:int, parent:Object, end_pos:Vector2, spawn_angle:
 	
 	last_color = color1 if last_color == color2 else color2
 	rope_colors.append(last_color)
-	
-	rope_end_joint.node_a = rope_end_piece.get_path()
-	rope_end_joint.node_b = rope_parts[-1].get_path()
+
+#	rope_end_joint.node_a = rope_end_piece.get_path()
+#	rope_end_joint.node_b = rope_parts[-1].get_path()
+	if rope_parts.size() > 0:
+		return rope_parts[-1]
+	return null
 	
 
 func add_piece(parent:Object, id:int, spawn_angle:float) -> RopePiece:
