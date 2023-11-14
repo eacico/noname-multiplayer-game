@@ -398,7 +398,7 @@ id = "2"
 
 [node name="Lava" parent="Environment/Entities" instance=ExtResource( 2 )]
 position = Vector2( 264, 778 )
-scale = Vector2( 14.0606, 5.91304 )
+scale = Vector2( 15.5, 5.913 )
 z_index = 1
 VELOCITY = 15.0
 

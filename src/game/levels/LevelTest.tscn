@@ -1008,9 +1008,8 @@ scale = Vector2( 14.0606, 5.91304 )
 current = true
 
 [node name="Lava" parent="Environment/Entities" instance=ExtResource( 2 )]
-position = Vector2( 264, 607 )
-scale = Vector2( 14.0606, 5.91304 )
-z_index = 1
+position = Vector2( 269, 599 )
+scale = Vector2( 16, 5.913 )
 VELOCITY = 0.0
 
 [node name="TowerTilesPlatfors" type="TileMap" parent="Environment"]
