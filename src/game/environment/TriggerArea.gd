@@ -27,7 +27,7 @@ func _on_body_entered(body: Node) -> void:
 			var method: String = methods[m]
 			if node.has_method(method):
 				console_log("  callv %s(%s)" % [method, params[m]])
-				node.callv(method, params[m])
+				node.callv(method, [body] + params[m])
 			elif method in node && !params[m].empty():
 				console_log("  set %s = %s" % [method, params[m][0]])
 				node.set(method, params[m][0])

@@ -142,6 +142,7 @@ texture = ExtResource( 3 )
 
 [node name="ActionAlert" type="Sprite" parent="Body"]
 position = Vector2( 0, -21 )
+z_index = 1
 texture = ExtResource( 13 )
 
 [node name="GhostBody" type="Node2D" parent="."]
