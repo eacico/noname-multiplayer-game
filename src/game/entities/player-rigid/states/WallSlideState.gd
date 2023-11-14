@@ -9,7 +9,7 @@ var wall_side: Vector2 = Vector2.ZERO
 func enter() -> void:
 	character.is_wall_sliding = true
 	detect_wall_side()
-	character._play_animation("wall_slide") 
+	character._play_animation("slide") 
 
 func exit() -> void:
 	character.is_wall_sliding = false

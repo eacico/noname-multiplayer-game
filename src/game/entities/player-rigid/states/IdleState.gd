@@ -26,7 +26,8 @@ func update(delta: float) -> void:
 		
 		# Y aplicamos la animación apropiada, ya sea idle o saltar/caer
 		if character.is_on_floor():
-			character._play_animation("idle")
+			#character._play_animation("idle")
+			pass
 		else:
 			if character.velocity.y > 0:
 				character._play_animation("fall")
