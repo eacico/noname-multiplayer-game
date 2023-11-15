@@ -14,7 +14,7 @@ func enter() -> void:
 	starting_timer.start()
 	#character.apply_central_impulse(Vector2.UP * character.jump_force)
 	character.added_velocity.y = -character.jump_speed - character.linear_velocity.y
-	character._play_animation("jump") 
+	character._play_animation("jump")
 	detached_from_wall = false
 
 func exit() -> void:
@@ -26,7 +26,7 @@ func handle_input(event: InputEvent) -> void:
 		#character.velocity.y -= character.jump_speed
 		#character.apply_central_impulse(Vector2.UP * character.jump_force)
 		character.added_velocity.y = -character.jump_speed - character.linear_velocity.y
-		character._play_animation("jump") 
+		character._play_animation("jump")
 	
 func update(delta: float) -> void:
 	var character_is_on_wall = character.is_on_wall()
@@ -46,8 +46,8 @@ func update(delta: float) -> void:
 	else:
 		if character.velocity.y > 0:
 			character._play_animation("fall")
-		else:
-			character._play_animation("jump")
+		#else:
+		#	character._play_animation("jump")
 	
 
 func handle_event(event: String, value = null) -> void:

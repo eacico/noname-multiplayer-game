@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=2]
+[gd_scene load_steps=31 format=2]
 
 [ext_resource path="res://src/game/entities/player-rigid/states/DeadState.gd" type="Script" id=1]
 [ext_resource path="res://src/game/entities/player-rigid/states/WallSlideState.gd" type="Script" id=2]
@@ -74,6 +74,39 @@ tracks/0/keys = {
 "transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1 ),
 "update": 1,
 "values": [ 48, 49, 50, 51, 52, 53, 54, 55 ]
+}
+
+[sub_resource type="Animation" id=18]
+resource_name = "fall"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("BodySprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 9 ]
+}
+
+[sub_resource type="Animation" id=19]
+resource_name = "ghost"
+length = 0.4
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("BodySprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 56, 57 ]
 }
 
 [sub_resource type="Animation" id=10]
@@ -264,6 +297,8 @@ root_node = NodePath("../BodyPivot")
 anims/RESET = SubResource( 11 )
 anims/action = SubResource( 12 )
 anims/enter = SubResource( 13 )
+anims/fall = SubResource( 18 )
+anims/ghost = SubResource( 19 )
 anims/idle = SubResource( 10 )
 anims/jump = SubResource( 14 )
 anims/slide = SubResource( 16 )
@@ -281,10 +316,10 @@ unique_name_in_owner = true
 position = Vector2( -1, -19 )
 texture = ExtResource( 3 )
 hframes = 8
-vframes = 7
+vframes = 8
 
 [node name="ActionAlert" type="Sprite" parent="BodyPivot"]
-position = Vector2( 0, -21 )
+position = Vector2( -7, -32 )
 z_index = 1
 texture = ExtResource( 13 )
 

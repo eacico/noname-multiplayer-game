@@ -146,11 +146,11 @@ func _remove() -> void:
 ## Wrapper sobre el llamado a animación para tener un solo punto de entrada controlable
 ## (en el caso de que necesitemos expandir la lógica o debuggear, por ejemplo)
 func _play_animation(animation: String) -> void:
-	if body_animations.has_animation(animation):
+	if body_animations.has_animation(animation) and body_animations.get_assigned_animation() != animation:
 		body_animations.play(animation)
-		#print("animacion: '%s'" % [animation])
-	else:
-		print("ALERTA: animacion no reconocida '%s'" % [animation])
+#		#print("animacion: '%s'" % [animation])
+#	else:
+#		print("ALERTA: animacion no reconocida '%s'" % [animation])
 
 func _on_animation_finished(anim_name: String = "") -> void:
 	if anim_name == "action":
