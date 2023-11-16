@@ -12,12 +12,11 @@ const SLOPE_THRESHOLD: float = deg2rad(46)
 
 onready var floor_raycasts: Array = $FloorRaycasts.get_children()
 onready var wall_raycasts: Array  = $WallRaycast.get_children()
-onready var budy_color = $BodyPivot/ColorSprite
 onready var ghost_body_color = $GhostBody/ColorSprite
 onready var actionable_finder = $ActionableFinder
 onready var action_alert = $BodyPivot/ActionAlert
 onready var body_animations = $BodyAnimations
-onready var body_sprite = $"%BodySprite"
+onready var body_color = $"%ColorSprite"
 onready var body_pivot = $BodyPivot
 onready var alert_sfx = $"%AlertSFX"
 
@@ -54,7 +53,7 @@ var dead: bool = false
 
 
 func _ready() -> void:
-	budy_color.modulate = color
+	body_color.modulate = color
 	ghost_body_color.modulate = color
 
 func get_class(): return "Player"

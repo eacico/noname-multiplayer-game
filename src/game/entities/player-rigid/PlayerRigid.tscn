@@ -2,8 +2,8 @@
 
 [ext_resource path="res://src/game/entities/player-rigid/states/DeadState.gd" type="Script" id=1]
 [ext_resource path="res://src/game/entities/player-rigid/states/WallSlideState.gd" type="Script" id=2]
-[ext_resource path="res://assets/textures/player/player-spritesheet.png" type="Texture" id=3]
-[ext_resource path="res://assets/textures/player/player_idle_body_color.png" type="Texture" id=4]
+[ext_resource path="res://assets/textures/player/player-spritesheet_hollow.png" type="Texture" id=3]
+[ext_resource path="res://assets/textures/player/player-spritesheet_color.png" type="Texture" id=4]
 [ext_resource path="res://src/game/entities/player-rigid/states/IdleState.gd" type="Script" id=5]
 [ext_resource path="res://src/game/entities/player-rigid/PlayerRigid.gd" type="Script" id=6]
 [ext_resource path="res://src/game/entities/player-rigid/PlayerRigidStateMachine.gd" type="Script" id=7]
@@ -39,6 +39,18 @@ tracks/0/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 0,
 "values": [ 0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("ColorSprite:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 9 ]
 }
 
 [sub_resource type="Animation" id=12]
@@ -88,6 +100,18 @@ tracks/0/keys = {
 "update": 1,
 "values": [ 9 ]
 }
+tracks/1/type = "value"
+tracks/1/path = NodePath("ColorSprite:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 9 ]
+}
 
 [sub_resource type="Animation" id=19]
 resource_name = "ghost"
@@ -122,6 +146,18 @@ tracks/0/keys = {
 "update": 1,
 "values": [ 0, 1, 2, 3, 4, 5 ]
 }
+tracks/1/type = "value"
+tracks/1/path = NodePath("ColorSprite:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6, 0.8, 1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 3, 4, 5 ]
+}
 
 [sub_resource type="Animation" id=14]
 resource_name = "jump"
@@ -133,6 +169,18 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 8, 9 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("ColorSprite:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
 "times": PoolRealArray( 0, 0.1 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 1,
@@ -216,6 +264,18 @@ tracks/2/keys = {
 "transitions": PoolRealArray(  ),
 "update": 0,
 "values": [  ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("ColorSprite:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 16, 17, 18, 19, 20, 21 ]
 }
 
 [sub_resource type="CapsuleShape2D" id=2]
@@ -303,7 +363,7 @@ _db_volumes = [ -15.0 ]
 _pitch_scales = [ [ 2.0 ] ]
 
 [node name="PlayerSFX" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 14 )
+stream = ExtResource( 15 )
 volume_db = -5.0
 bus = "Player"
 
@@ -323,8 +383,12 @@ anims/walk = SubResource( 15 )
 [node name="BodyPivot" type="Node2D" parent="."]
 
 [node name="ColorSprite" type="Sprite" parent="BodyPivot"]
-position = Vector2( 0, -21 )
+unique_name_in_owner = true
+position = Vector2( -1, -19 )
 texture = ExtResource( 4 )
+hframes = 8
+vframes = 8
+frame = 9
 
 [node name="BodySprite" type="Sprite" parent="BodyPivot"]
 unique_name_in_owner = true
@@ -380,6 +444,7 @@ cast_to = Vector2( 3, 0 )
 collision_mask = 4
 
 [node name="RespawnActionable" type="Area2D" parent="."]
+visible = false
 collision_layer = 16
 collision_mask = 0
 monitorable = false
@@ -390,6 +455,7 @@ position = Vector2( 0, -21 )
 shape = SubResource( 2 )
 
 [node name="ActionableFinder" type="Area2D" parent="."]
+visible = false
 collision_layer = 0
 collision_mask = 16
 
@@ -398,6 +464,7 @@ position = Vector2( -2, -20 )
 shape = SubResource( 3 )
 
 [node name="CollisionCore" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2( -0.5, -11 )
 shape = SubResource( 5 )
 

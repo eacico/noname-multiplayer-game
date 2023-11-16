@@ -703,12 +703,12 @@ Connection_TileMap = NodePath("../InteractionTiles5")
 [node name="Player1" parent="Environment/Entities" instance=ExtResource( 14 )]
 unique_name_in_owner = true
 position = Vector2( 249, 527 )
-color = Color( 0.156863, 0.156863, 1, 1 )
+color = Color( 1, 0.913725, 0, 1 )
 
 [node name="Player2" parent="Environment/Entities" instance=ExtResource( 14 )]
 unique_name_in_owner = true
 position = Vector2( 318, 526 )
-color = Color( 1, 0, 0, 1 )
+color = Color( 0.25098, 0.737255, 1, 1 )
 id = "2"
 
 [node name="Camera2D" type="Camera2D" parent="Environment/Entities/Player2"]
