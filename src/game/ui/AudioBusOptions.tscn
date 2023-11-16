@@ -1,0 +1,61 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://src/game/ui/AudioBusOptions.gd" type="Script" id=1]
+
+[node name="AudioBusOptions" type="PanelContainer"]
+margin_right = 264.0
+margin_bottom = 23.0
+script = ExtResource( 1 )
+bus_name = "General"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 257.0
+margin_bottom = 41.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer"]
+margin_right = 123.0
+margin_bottom = 34.0
+size_flags_horizontal = 3
+
+[node name="BusNameLabel" type="Label" parent="HBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+margin_top = 10.0
+margin_right = 50.0
+margin_bottom = 24.0
+text = "General"
+
+[node name="MuteButton" type="Button" parent="HBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+margin_left = 78.0
+margin_right = 123.0
+margin_bottom = 34.0
+size_flags_horizontal = 10
+toggle_mode = true
+text = "Mute"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
+margin_left = 127.0
+margin_right = 250.0
+margin_bottom = 34.0
+size_flags_horizontal = 3
+
+[node name="Volume" type="Label" parent="HBoxContainer/VBoxContainer"]
+margin_right = 123.0
+margin_bottom = 14.0
+text = "Volume"
+align = 1
+valign = 1
+
+[node name="SoundSlider" type="HSlider" parent="HBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
+margin_top = 18.0
+margin_right = 123.0
+margin_bottom = 34.0
+size_flags_horizontal = 3
+min_value = -80.0
+max_value = 0.0
+
+[connection signal="toggled" from="HBoxContainer/HBoxContainer/MuteButton" to="." method="_on_MuteButton_toggled"]
+[connection signal="value_changed" from="HBoxContainer/VBoxContainer/SoundSlider" to="." method="_on_SoundSlider_value_changed"]
