@@ -107,7 +107,7 @@ anchor_bottom = 1.0
 color = Color( 0.862745, 1, 0.956863, 1 )
 
 [node name="StarsLayer" type="ParallaxLayer" parent="."]
-motion_scale = Vector2( 0.005, 0 )
+motion_scale = Vector2( 0.005, 0.005 )
 motion_mirroring = Vector2( 288, 0 )
 
 [node name="Sprite" type="Sprite" parent="StarsLayer"]

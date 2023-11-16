@@ -19,6 +19,7 @@ onready var action_alert = $BodyPivot/ActionAlert
 onready var body_animations = $BodyAnimations
 onready var body_sprite = $"%BodySprite"
 onready var body_pivot = $BodyPivot
+onready var alert_sfx = $"%AlertSFX"
 
 ## Estas variables de exportación podríamos abstraerlas a cada
 ## estado correspondiente de la state machine, pero como queremos
@@ -148,9 +149,9 @@ func _remove() -> void:
 func _play_animation(animation: String) -> void:
 	if body_animations.has_animation(animation) and body_animations.get_assigned_animation() != animation:
 		body_animations.play(animation)
-#		#print("animacion: '%s'" % [animation])
-#	else:
-#		print("ALERTA: animacion no reconocida '%s'" % [animation])
+
+func get_current_animation() -> String:
+	return body_animations.current_animation
 
 func _on_animation_finished(anim_name: String = "") -> void:
 	if anim_name == "action":
@@ -180,6 +181,7 @@ func _on_Player_nearest_actionable_changed(actionable: Node):
 	if actionable != null:
 		#print("nearest_actionable changed!! [%s]" % [actionable.name])
 		action_alert.show()
+		alert_sfx.play()
 	else:
 		action_alert.hide()
 	nearest_actionable = actionable

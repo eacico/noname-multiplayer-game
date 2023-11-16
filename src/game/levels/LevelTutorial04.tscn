@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://src/game/levels/LevelDefault.gd" type="Script" id=1]
 [ext_resource path="res://src/game/environment/Lava.tscn" type="PackedScene" id=2]
@@ -13,6 +13,7 @@
 [ext_resource path="res://assets/textures/tileset/switch_connector_tileset.png" type="Texture" id=11]
 [ext_resource path="res://src/game/entities/interactives/energy_connector/EnergyConnector.tscn" type="PackedScene" id=12]
 [ext_resource path="res://assets/textures/background/tower_back_wall.png" type="Texture" id=13]
+[ext_resource path="res://assets/sound/textures/desert-ambient.wav" type="AudioStream" id=14]
 
 [sub_resource type="TileSet" id=57]
 0/name = "switch_connector_tileset.png 0"
@@ -40,7 +41,7 @@
 0/z_index = 0
 
 [sub_resource type="ConvexPolygonShape2D" id=54]
-points = PoolVector2Array( 16, 7, 0, 7, 0, 0, 16, 0 )
+points = PoolVector2Array( 16, 1, 0, 1, 0, 0, 16, 0 )
 
 [sub_resource type="TileSet" id=58]
 0/name = "platforms.png 0"
@@ -412,6 +413,13 @@ script = ExtResource( 1 )
 light_mask = 0
 texture = ExtResource( 13 )
 polygon = PoolVector2Array( 16, 603, 19, 123, 515, 126, 515, 603 )
+
+[node name="BGM" type="Node" parent="."]
+
+[node name="Foley" type="AudioStreamPlayer" parent="BGM"]
+stream = ExtResource( 14 )
+autoplay = true
+bus = "Foley"
 
 [node name="Environment" type="Node2D" parent="."]
 light_mask = 0

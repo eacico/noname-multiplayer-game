@@ -4,6 +4,8 @@ class_name EnergySocket
 signal switched(state)
 
 onready var actionable = $Actionable
+onready var plugged_sfx = $PluggedSFX
+onready var unplugged_sfx = $UnpluggedSFX
 
 export (bool) var is_energy_source: bool = false
 export (NodePath) var Connection_TileMap setget set_Connection_TileMap, get_Connection_TileMap
@@ -56,9 +58,11 @@ func set_connected_plug(plug) -> void:
 	if plug:
 		plug.socket = self
 		plug.propagate_energy()
+		plugged_sfx.play()
 	elif connected_plug:
 		connected_plug.socket = null
 		connected_plug.propagate_energy()
+		unplugged_sfx.play()
 		
 	connected_plug = plug
 	

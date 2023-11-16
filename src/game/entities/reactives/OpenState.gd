@@ -1,9 +1,11 @@
 extends AbstractState
 
+onready var open_sfx = $OpenSFX
+
 func enter() -> void:
 	character._play_animation("open")
 	character.slide_gate_open()
-
+	open_sfx.play()
 
 func handle_input(event: InputEvent) -> void:
 	pass

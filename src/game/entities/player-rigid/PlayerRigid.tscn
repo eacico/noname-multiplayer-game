@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=2]
+[gd_scene load_steps=40 format=2]
 
 [ext_resource path="res://src/game/entities/player-rigid/states/DeadState.gd" type="Script" id=1]
 [ext_resource path="res://src/game/entities/player-rigid/states/WallSlideState.gd" type="Script" id=2]
@@ -13,21 +13,18 @@
 [ext_resource path="res://assets/textures/player/player_ghost_body_color.png" type="Texture" id=11]
 [ext_resource path="res://src/game/partials/Actionable.gd" type="Script" id=12]
 [ext_resource path="res://assets/textures/player/player_action_alert.png" type="Texture" id=13]
+[ext_resource path="res://assets/sound/sfx/movement/16_human_walk_stone_1.wav" type="AudioStream" id=14]
+[ext_resource path="res://assets/sound/sfx/movement/16_human_walk_stone_2.wav" type="AudioStream" id=15]
+[ext_resource path="res://src/game/utils/AudioHandler.tscn" type="PackedScene" id=16]
+[ext_resource path="res://assets/sound/sfx/jump/13_human_jump_land_1.wav" type="AudioStream" id=17]
+[ext_resource path="res://assets/sound/sfx/jump/13_human_jump_land_2.wav" type="AudioStream" id=18]
+[ext_resource path="res://assets/sound/sfx/jump/12_human_jump_2.wav" type="AudioStream" id=19]
+[ext_resource path="res://assets/sound/sfx/jump/12_human_jump_1.wav" type="AudioStream" id=20]
+[ext_resource path="res://assets/sound/sfx/jump/12_human_jump_3.wav" type="AudioStream" id=21]
+[ext_resource path="res://assets/sound/sfx/actionable/actionable_found.wav" type="AudioStream" id=22]
 
 [sub_resource type="PhysicsMaterial" id=9]
 friction = 0.0
-
-[sub_resource type="RectangleShape2D" id=5]
-extents = Vector2( 7.5, 9 )
-
-[sub_resource type="RayShape2D" id=6]
-length = 4.0
-
-[sub_resource type="RayShape2D" id=7]
-length = 4.0
-
-[sub_resource type="RayShape2D" id=8]
-length = 4.0
 
 [sub_resource type="Animation" id=11]
 length = 0.001
@@ -190,6 +187,36 @@ tracks/0/keys = {
 "update": 1,
 "values": [ 16, 17, 18, 19, 20, 21 ]
 }
+tracks/1/type = "audio"
+tracks/1/path = NodePath("../PlayerSFX")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"clips": [ {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource( 14 )
+}, {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource( 15 )
+} ],
+"times": PoolRealArray( 0.1, 0.4 )
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("../PlayerSFX:volume_db")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray(  ),
+"transitions": PoolRealArray(  ),
+"update": 0,
+"values": [  ]
+}
 
 [sub_resource type="CapsuleShape2D" id=2]
 radius = 8.0
@@ -198,6 +225,18 @@ height = 12.0
 [sub_resource type="CapsuleShape2D" id=3]
 radius = 14.0
 height = 12.0
+
+[sub_resource type="RectangleShape2D" id=5]
+extents = Vector2( 7.5, 9 )
+
+[sub_resource type="RayShape2D" id=6]
+length = 4.0
+
+[sub_resource type="RayShape2D" id=7]
+length = 4.0
+
+[sub_resource type="RayShape2D" id=8]
+length = 4.0
 
 [node name="Player" type="RigidBody2D"]
 collision_layer = 25
@@ -231,6 +270,12 @@ state_id = "jump"
 wait_time = 0.1
 one_shot = true
 
+[node name="JumpSFX" parent="StateMachine/Jump" instance=ExtResource( 16 )]
+_audio_bus = "Player"
+_audio_references = [ ExtResource( 20 ), ExtResource( 19 ), ExtResource( 21 ) ]
+_db_volumes = [ -5.0, -5.0, -5.0 ]
+_pitch_scales = [ [ 1.5 ], [ 1.5 ], [ 1.5 ] ]
+
 [node name="Dead" type="Node" parent="StateMachine"]
 script = ExtResource( 1 )
 state_id = "dead"
@@ -243,54 +288,24 @@ state_id = "wall_slide"
 wait_time = 0.3
 one_shot = true
 
-[node name="CollisionCore" type="CollisionShape2D" parent="."]
-position = Vector2( -0.5, -11 )
-shape = SubResource( 5 )
+[node name="LandSFX" parent="." instance=ExtResource( 16 )]
+unique_name_in_owner = true
+_audio_bus = "Player"
+_audio_references = [ ExtResource( 17 ), ExtResource( 18 ) ]
+_db_volumes = [ -15.0, -15.0 ]
+_pitch_scales = [ [ 2.0 ], [ 2.0 ] ]
 
-[node name="CollisionBottom1" type="CollisionShape2D" parent="."]
-position = Vector2( -7, -4 )
-shape = SubResource( 6 )
+[node name="AlertSFX" parent="." instance=ExtResource( 16 )]
+unique_name_in_owner = true
+_audio_bus = "Player"
+_audio_references = [ ExtResource( 22 ) ]
+_db_volumes = [ -15.0 ]
+_pitch_scales = [ [ 2.0 ] ]
 
-[node name="CollisionBottom2" type="CollisionShape2D" parent="."]
-position = Vector2( 6, -4 )
-shape = SubResource( 6 )
-
-[node name="CollisionRight1" type="CollisionShape2D" parent="."]
-position = Vector2( 4, -2 )
-rotation = -1.5708
-shape = SubResource( 7 )
-
-[node name="CollisionRight2" type="CollisionShape2D" parent="."]
-position = Vector2( 4, -18 )
-rotation = -1.5708
-shape = SubResource( 7 )
-
-[node name="CollisionLeft1" type="CollisionShape2D" parent="."]
-position = Vector2( -5, -18 )
-rotation = -4.71239
-shape = SubResource( 8 )
-
-[node name="CollisionLeft2" type="CollisionShape2D" parent="."]
-position = Vector2( -5, -2 )
-rotation = -4.71239
-shape = SubResource( 8 )
-
-[node name="FloorRaycasts" type="Node2D" parent="."]
-
-[node name="RayCast2D" type="RayCast2D" parent="FloorRaycasts"]
-position = Vector2( 0, -1 )
-cast_to = Vector2( 0, 1 )
-collision_mask = 14
-
-[node name="RayCast2D2" type="RayCast2D" parent="FloorRaycasts"]
-position = Vector2( -7, -1 )
-cast_to = Vector2( 0, 1 )
-collision_mask = 14
-
-[node name="RayCast2D3" type="RayCast2D" parent="FloorRaycasts"]
-position = Vector2( 5, -1 )
-cast_to = Vector2( 0, 1 )
-collision_mask = 14
+[node name="PlayerSFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 14 )
+volume_db = -5.0
+bus = "Player"
 
 [node name="BodyAnimations" type="AnimationPlayer" parent="."]
 root_node = NodePath("../BodyPivot")
@@ -335,6 +350,23 @@ texture = ExtResource( 11 )
 position = Vector2( 0, -21 )
 texture = ExtResource( 10 )
 
+[node name="FloorRaycasts" type="Node2D" parent="."]
+
+[node name="RayCast2D" type="RayCast2D" parent="FloorRaycasts"]
+position = Vector2( 0, -1 )
+cast_to = Vector2( 0, 1 )
+collision_mask = 14
+
+[node name="RayCast2D2" type="RayCast2D" parent="FloorRaycasts"]
+position = Vector2( -7, -1 )
+cast_to = Vector2( 0, 1 )
+collision_mask = 14
+
+[node name="RayCast2D3" type="RayCast2D" parent="FloorRaycasts"]
+position = Vector2( 5, -1 )
+cast_to = Vector2( 0, 1 )
+collision_mask = 14
+
 [node name="WallRaycast" type="Node2D" parent="."]
 
 [node name="LeftRayCast2D" type="RayCast2D" parent="WallRaycast"]
@@ -364,6 +396,38 @@ collision_mask = 16
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ActionableFinder"]
 position = Vector2( -2, -20 )
 shape = SubResource( 3 )
+
+[node name="CollisionCore" type="CollisionShape2D" parent="."]
+position = Vector2( -0.5, -11 )
+shape = SubResource( 5 )
+
+[node name="CollisionBottom1" type="CollisionShape2D" parent="."]
+position = Vector2( -7, -4 )
+shape = SubResource( 6 )
+
+[node name="CollisionBottom2" type="CollisionShape2D" parent="."]
+position = Vector2( 6, -4 )
+shape = SubResource( 6 )
+
+[node name="CollisionRight1" type="CollisionShape2D" parent="."]
+position = Vector2( 4, -2 )
+rotation = -1.5708
+shape = SubResource( 7 )
+
+[node name="CollisionRight2" type="CollisionShape2D" parent="."]
+position = Vector2( 4, -18 )
+rotation = -1.5708
+shape = SubResource( 7 )
+
+[node name="CollisionLeft1" type="CollisionShape2D" parent="."]
+position = Vector2( -5, -18 )
+rotation = -4.71239
+shape = SubResource( 8 )
+
+[node name="CollisionLeft2" type="CollisionShape2D" parent="."]
+position = Vector2( -5, -2 )
+rotation = -4.71239
+shape = SubResource( 8 )
 
 [node name="PickPosition" type="Position2D" parent="."]
 position = Vector2( 0, -14 )

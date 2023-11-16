@@ -1,4 +1,4 @@
-[gd_scene load_steps=70 format=2]
+[gd_scene load_steps=71 format=2]
 
 [ext_resource path="res://src/game/levels/LevelDefault.gd" type="Script" id=1]
 [ext_resource path="res://src/game/environment/Lava.tscn" type="PackedScene" id=2]
@@ -14,6 +14,7 @@
 [ext_resource path="res://assets/textures/background/tower_back_wall.png" type="Texture" id=12]
 [ext_resource path="res://src/game/entities/interactives/energy_connector/EnergySocket.tscn" type="PackedScene" id=13]
 [ext_resource path="res://src/game/entities/player-rigid/PlayerRigid.tscn" type="PackedScene" id=14]
+[ext_resource path="res://assets/sound/textures/desert-ambient.wav" type="AudioStream" id=15]
 
 [sub_resource type="TileSet" id=54]
 0/name = "switch_connector_tileset.png 0"
@@ -66,16 +67,16 @@
 0/z_index = 0
 
 [sub_resource type="ConvexPolygonShape2D" id=2]
-points = PoolVector2Array( 16, 7, 0, 7, 0, 0, 16, 0 )
+points = PoolVector2Array( 16, 1, 0, 1, 0, 0, 16, 0 )
 
 [sub_resource type="ConvexPolygonShape2D" id=3]
-points = PoolVector2Array( 16, 7, 0, 7, 0, 0, 16, 0 )
+points = PoolVector2Array( 16, 1, 0, 1, 0, 0, 16, 0 )
 
 [sub_resource type="ConvexPolygonShape2D" id=4]
-points = PoolVector2Array( 16, 7, 0, 7, 0, 0, 16, 0 )
+points = PoolVector2Array( 16, 1, 0, 1, 0, 0, 16, 0 )
 
 [sub_resource type="ConvexPolygonShape2D" id=5]
-points = PoolVector2Array( 16, 7, 0, 7, 0, 0, 16, 0 )
+points = PoolVector2Array( 16, 1, 0, 1, 0, 0, 16, 0 )
 
 [sub_resource type="TileSet" id=59]
 0/name = "platforms.png 0"
@@ -585,6 +586,13 @@ script = ExtResource( 1 )
 light_mask = 0
 texture = ExtResource( 12 )
 polygon = PoolVector2Array( 20, 608, 17, -19, 514, -18, 514, 606 )
+
+[node name="BGM" type="Node" parent="."]
+
+[node name="Foley" type="AudioStreamPlayer" parent="BGM"]
+stream = ExtResource( 15 )
+autoplay = true
+bus = "Foley"
 
 [node name="Environment" type="Node2D" parent="."]
 light_mask = 0

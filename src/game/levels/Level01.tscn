@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=2]
+[gd_scene load_steps=28 format=2]
 
 [ext_resource path="res://src/game/levels/LevelDefault.gd" type="Script" id=1]
 [ext_resource path="res://src/game/environment/Lava.tscn" type="PackedScene" id=2]
@@ -17,6 +17,9 @@
 [ext_resource path="res://src/game/levels/Level01Environment.gd" type="Script" id=15]
 [ext_resource path="res://src/game/environment/DefaultBackground.tscn" type="PackedScene" id=16]
 [ext_resource path="res://assets/textures/background/tower_back_wall.png" type="Texture" id=17]
+[ext_resource path="res://assets/sound/textures/desert-ambient.wav" type="AudioStream" id=18]
+[ext_resource path="res://src/game/utils/BGMManager.gd" type="Script" id=19]
+[ext_resource path="res://assets/sound/bgm/Tracks/Ambience 1.ogg" type="AudioStream" id=20]
 
 [sub_resource type="TileSet" id=57]
 0/name = "switch_connector_tileset.png 0"
@@ -69,7 +72,7 @@
 0/z_index = 0
 
 [sub_resource type="ConvexPolygonShape2D" id=54]
-points = PoolVector2Array( 16, 7, 0, 7, 0, 0, 16, 0 )
+points = PoolVector2Array( 16, 1, 0, 1, 0, 0, 16, 0 )
 
 [sub_resource type="TileSet" id=59]
 0/name = "platforms.png 0"
@@ -447,6 +450,17 @@ light_mask = 0
 texture = ExtResource( 17 )
 polygon = PoolVector2Array( 16, 802, 13, 670, -433, 670, -433, 497, 17, 497, 13, -819, 270, -820, 272, -902, 512, -898, 512, 802 )
 
+[node name="BGM" type="Node" parent="."]
+
+[node name="Foley" type="AudioStreamPlayer" parent="BGM"]
+stream = ExtResource( 18 )
+autoplay = true
+bus = "Foley"
+
+[node name="BGMManager" type="Node" parent="BGM"]
+script = ExtResource( 19 )
+starting_bgm = ExtResource( 20 )
+
 [node name="Environment" type="Node2D" parent="."]
 light_mask = 0
 script = ExtResource( 15 )
@@ -694,9 +708,9 @@ shape = SubResource( 56 )
 
 [node name="TriggerArea2" parent="Environment/Triggers" instance=ExtResource( 9 )]
 position = Vector2( 264, -233 )
-nodes_affected = [ NodePath("../../Entities/Lava") ]
-methods_list = [ PoolStringArray( "VELOCITY" ) ]
-parameters = [ [ [ 0.0 ] ] ]
+nodes_affected = [ NodePath("../../Entities/Lava"), NodePath("../..") ]
+methods_list = [ PoolStringArray( "VELOCITY" ), PoolStringArray( "_play_track" ) ]
+parameters = [ [ [ 0.0 ] ], [ [ ExtResource( 20 ), -5.0, 1.0, 5.0 ] ] ]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/Triggers/TriggerArea2"]
 shape = SubResource( 56 )

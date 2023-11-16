@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://src/game/levels/LevelDefault.gd" type="Script" id=1]
 [ext_resource path="res://src/game/environment/Lava.tscn" type="PackedScene" id=2]
@@ -9,9 +9,10 @@
 [ext_resource path="res://assets/textures/tileset/platforms.png" type="Texture" id=7]
 [ext_resource path="res://src/game/levels/Camera.gd" type="Script" id=8]
 [ext_resource path="res://assets/textures/background/tower_back_wall.png" type="Texture" id=9]
+[ext_resource path="res://assets/sound/textures/desert-ambient.wav" type="AudioStream" id=10]
 
 [sub_resource type="ConvexPolygonShape2D" id=54]
-points = PoolVector2Array( 16, 7, 0, 7, 0, 0, 16, 0 )
+points = PoolVector2Array( 16, 1, 0, 1, 0, 0, 16, 0 )
 
 [sub_resource type="TileSet" id=56]
 0/name = "platforms.png 0"
@@ -383,6 +384,13 @@ script = ExtResource( 1 )
 light_mask = 0
 texture = ExtResource( 9 )
 polygon = PoolVector2Array( 15, 607, 18, 128, 309, 103, 511, 96, 514, 605 )
+
+[node name="BGM" type="Node" parent="."]
+
+[node name="Foley" type="AudioStreamPlayer" parent="BGM"]
+stream = ExtResource( 10 )
+autoplay = true
+bus = "Foley"
 
 [node name="Environment" type="Node2D" parent="."]
 light_mask = 0

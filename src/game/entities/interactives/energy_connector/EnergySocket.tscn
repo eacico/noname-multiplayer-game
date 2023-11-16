@@ -1,7 +1,10 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://src/game/partials/Actionable.gd" type="Script" id=1]
 [ext_resource path="res://src/game/entities/interactives/energy_connector/EnergySocket.gd" type="Script" id=2]
+[ext_resource path="res://assets/sound/sfx/actionable/energy_socket_disconnected.wav" type="AudioStream" id=3]
+[ext_resource path="res://assets/sound/sfx/actionable/energy_socket_connected.wav" type="AudioStream" id=4]
+[ext_resource path="res://src/game/utils/AudioHandler.tscn" type="PackedScene" id=5]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 3, 3 )
@@ -47,5 +50,17 @@ polygon = PoolVector2Array( 7, -2, 7, 2, 6, 2, 6, -2 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false
 shape = SubResource( 2 )
+
+[node name="PluggedSFX" parent="." instance=ExtResource( 5 )]
+_audio_bus = "Interactives"
+_audio_references = [ ExtResource( 4 ) ]
+_db_volumes = [ -15.0 ]
+_pitch_scales = [ [ 2.0 ] ]
+
+[node name="UnpluggedSFX" parent="." instance=ExtResource( 5 )]
+_audio_bus = "Interactives"
+_audio_references = [ ExtResource( 3 ) ]
+_db_volumes = [ -15.0 ]
+_pitch_scales = [ [ 2.0 ] ]
 
 [connection signal="actioned" from="Actionable" to="." method="_on_EnergySocket_actioned"]

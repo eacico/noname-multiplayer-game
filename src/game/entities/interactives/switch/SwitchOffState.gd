@@ -1,7 +1,10 @@
 extends AbstractState
 
+onready var off_sfx = $OffSFX
+
 func enter() -> void:
 	character._play_animation("off")
+	off_sfx.play()
 
 
 func handle_input(event: InputEvent) -> void:
