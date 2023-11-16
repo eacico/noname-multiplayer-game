@@ -1,6 +1,7 @@
 extends Area2D
 
 onready var tumbler_sfx = $TumblerSFX
+onready var filler = $Sprite/Filler
 
 export (float) var VELOCITY:float = 10.0 setget set_velocity
 
@@ -13,6 +14,8 @@ func _ready():
 
 func _physics_process(delta):
 	position += direction * VELOCITY * delta
+	filler.polygon[2] -= (direction * VELOCITY * delta)/4
+	filler.polygon[3] -= (direction * VELOCITY * delta)/4
 	
 
 
