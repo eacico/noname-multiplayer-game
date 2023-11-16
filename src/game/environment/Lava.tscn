@@ -29,5 +29,5 @@ texture = ExtResource( 1 )
 [node name="TumblerSFX" parent="." instance=ExtResource( 4 )]
 _audio_bus = "Player"
 _audio_references = [ ExtResource( 5 ) ]
-_db_volumes = [ -15.0 ]
-_pitch_scales = [ [ 2.0 ] ]
+_db_volumes = [ -12.0 ]
+_pitch_scales = [ [ 0.0 ] ]

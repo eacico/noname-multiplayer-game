@@ -29,7 +29,7 @@ state_id = "open"
 [node name="OpenSFX" parent="StateMachine/Open" instance=ExtResource( 9 )]
 _audio_bus = "Interactives"
 _audio_references = [ ExtResource( 7 ) ]
-_db_volumes = [ -15.0 ]
+_db_volumes = [ -2.0 ]
 _pitch_scales = [ [ 2.0 ] ]
 
 [node name="Closed" type="Node" parent="StateMachine"]
@@ -39,7 +39,7 @@ state_id = "closed"
 [node name="ClosedSFX" parent="StateMachine/Closed" instance=ExtResource( 9 )]
 _audio_bus = "Interactives"
 _audio_references = [ ExtResource( 8 ) ]
-_db_volumes = [ -15.0 ]
+_db_volumes = [ -2.0 ]
 _pitch_scales = [ [ 2.0 ] ]
 
 [node name="Rail" type="Sprite" parent="."]

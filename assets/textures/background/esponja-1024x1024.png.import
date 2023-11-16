@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Space Background.png-1fc03521fdefdb11e40c0749c45636f6.stex"
+path="res://.import/esponja-1024x1024.png-ed21f98d3ad446339917c09af9d57c89.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/textures/background/Space Background.png"
-dest_files=[ "res://.import/Space Background.png-1fc03521fdefdb11e40c0749c45636f6.stex" ]
+source_file="res://assets/textures/background/esponja-1024x1024.png"
+dest_files=[ "res://.import/esponja-1024x1024.png-ed21f98d3ad446339917c09af9d57c89.stex" ]
 
 [params]
 
@@ -20,7 +20,7 @@ compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
-flags/filter=false
+flags/filter=true
 flags/mipmaps=false
 flags/anisotropic=false
 flags/srgb=2
