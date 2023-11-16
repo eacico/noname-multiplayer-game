@@ -1,6 +1,6 @@
 extends AbstractState
 
-onready var body = $"../../Body"
+onready var body = $"../../BodyPivot"
 onready var ghost_body = $"../../GhostBody"
 onready var respawn_actionable = $"../../RespawnActionable"
 

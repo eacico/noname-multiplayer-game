@@ -1,5 +1,7 @@
 extends AbstractState
 
+onready var land_sfx: AudioHandler = $"%LandSFX"
+
 # Al entrar se activa primero la animación "idle"
 func enter() -> void:
 	#print("%s.enter(%s - idle)" % [get_parent().get_parent().name, get_parent().character.name])
@@ -26,6 +28,8 @@ func update(delta: float) -> void:
 		
 		# Y aplicamos la animación apropiada, ya sea idle o saltar/caer
 		if character.is_on_floor():
+			if character.get_current_animation() in ["fall", "jump"]:
+				land_sfx.play()
 			character._play_animation("idle")
 		else:
 			if character.velocity.y > 0:

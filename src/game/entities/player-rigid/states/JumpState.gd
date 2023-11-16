@@ -1,6 +1,8 @@
 extends AbstractState
 
 onready var starting_timer = $StartingTimer
+onready var jump_sfx: AudioHandler = $JumpSFX
+onready var land_sfx: AudioHandler = $"%LandSFX"
 
 export (int) var jumps_limit: int = 2
 
@@ -14,7 +16,8 @@ func enter() -> void:
 	starting_timer.start()
 	#character.apply_central_impulse(Vector2.UP * character.jump_force)
 	character.added_velocity.y = -character.jump_speed - character.linear_velocity.y
-	character._play_animation("jump") 
+	character._play_animation("jump")
+	jump_sfx.play()
 	detached_from_wall = false
 
 func exit() -> void:
@@ -26,7 +29,8 @@ func handle_input(event: InputEvent) -> void:
 		#character.velocity.y -= character.jump_speed
 		#character.apply_central_impulse(Vector2.UP * character.jump_force)
 		character.added_velocity.y = -character.jump_speed - character.linear_velocity.y
-		character._play_animation("jump") 
+		character._play_animation("jump")
+		jump_sfx.play()
 	
 func update(delta: float) -> void:
 	var character_is_on_wall = character.is_on_wall()
@@ -41,6 +45,7 @@ func update(delta: float) -> void:
 			emit_signal("finished", "idle")
 		else:
 			emit_signal("finished", "walk")
+		land_sfx.play()
 	elif character_is_on_wall and starting_timer.is_stopped() and detached_from_wall:
 		emit_signal("finished", "wall_slide")
 	else:

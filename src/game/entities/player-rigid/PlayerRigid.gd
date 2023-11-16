@@ -12,10 +12,13 @@ const SLOPE_THRESHOLD: float = deg2rad(46)
 
 onready var floor_raycasts: Array = $FloorRaycasts.get_children()
 onready var wall_raycasts: Array  = $WallRaycast.get_children()
-onready var budy_color = $Body/ColorSprite
 onready var ghost_body_color = $GhostBody/ColorSprite
 onready var actionable_finder = $ActionableFinder
-onready var action_alert = $Body/ActionAlert
+onready var action_alert = $BodyPivot/ActionAlert
+onready var body_animations = $BodyAnimations
+onready var body_color = $"%ColorSprite"
+onready var body_pivot = $BodyPivot
+onready var alert_sfx = $"%AlertSFX"
 
 ## Estas variables de exportación podríamos abstraerlas a cada
 ## estado correspondiente de la state machine, pero como queremos
@@ -50,7 +53,7 @@ var dead: bool = false
 
 
 func _ready() -> void:
-	budy_color.modulate = color
+	body_color.modulate = color
 	ghost_body_color.modulate = color
 
 func get_class(): return "Player"
@@ -60,7 +63,10 @@ func get_class(): return "Player"
 ## a una función para ser llamada apropiadamente desde la state machine
 func _handle_horizontal_move_input() -> void:
 	move_direction = int(Input.is_action_pressed("p"+id+"_move_right")) - int(Input.is_action_pressed("p"+id+"_move_left"))
-	#if move_direction != 0:
+	
+	if move_direction != 0: 
+		body_pivot.scale.x = 1 - 2 * float(move_direction < 0)
+	
 	added_velocity.x = move_direction * (ACCELERATION if is_on_floor() else AIR_ACCELERATION)
 
 
@@ -140,8 +146,15 @@ func _remove() -> void:
 ## Wrapper sobre el llamado a animación para tener un solo punto de entrada controlable
 ## (en el caso de que necesitemos expandir la lógica o debuggear, por ejemplo)
 func _play_animation(animation: String) -> void:
-	pass
+	if body_animations.has_animation(animation) and body_animations.get_assigned_animation() != animation:
+		body_animations.play(animation)
 
+func get_current_animation() -> String:
+	return body_animations.current_animation
+
+func _on_animation_finished(anim_name: String = "") -> void:
+	if anim_name == "action":
+		_play_animation("idle")
 
 var nearest_actionable: Actionable = null
 onready var own_respawn_actionable = $RespawnActionable
@@ -152,6 +165,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		get_viewport().set_input_as_handled()
 		
 		if is_instance_valid(nearest_actionable):
+			_play_animation("action")
 			nearest_actionable.emit_signal("actioned", self)
 
 
@@ -166,6 +180,7 @@ func _on_Player_nearest_actionable_changed(actionable: Node):
 	if actionable != null:
 		#print("nearest_actionable changed!! [%s]" % [actionable.name])
 		action_alert.show()
+		alert_sfx.play()
 	else:
 		action_alert.hide()
 	nearest_actionable = actionable

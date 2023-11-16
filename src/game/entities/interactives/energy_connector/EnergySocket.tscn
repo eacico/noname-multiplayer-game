@@ -1,7 +1,10 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://src/game/partials/Actionable.gd" type="Script" id=1]
 [ext_resource path="res://src/game/entities/interactives/energy_connector/EnergySocket.gd" type="Script" id=2]
+[ext_resource path="res://assets/sound/sfx/actionable/energy_socket_disconnected.wav" type="AudioStream" id=3]
+[ext_resource path="res://assets/sound/sfx/actionable/energy_socket_connected.wav" type="AudioStream" id=4]
+[ext_resource path="res://src/game/utils/AudioHandler.tscn" type="PackedScene" id=5]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 3, 3 )
@@ -10,7 +13,6 @@ extents = Vector2( 3, 3 )
 extents = Vector2( 4, 4 )
 
 [node name="EnergySocket" type="RigidBody2D"]
-z_index = -1
 collision_layer = 16
 collision_mask = 0
 mode = 1
@@ -27,7 +29,7 @@ shape = SubResource( 1 )
 
 [node name="Polygon2D2" type="Polygon2D" parent="."]
 position = Vector2( -8, 0 )
-color = Color( 0.360784, 0.372549, 0.223529, 1 )
+color = Color( 0.980392, 1, 0.729412, 1 )
 polygon = PoolVector2Array( 3, -2, 6, -5, 10, -5, 13, -2, 13, 2, 10, 5, 6, 5, 3, 2 )
 
 [node name="Polygon2D" type="Polygon2D" parent="."]
@@ -48,5 +50,17 @@ polygon = PoolVector2Array( 7, -2, 7, 2, 6, 2, 6, -2 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false
 shape = SubResource( 2 )
+
+[node name="PluggedSFX" parent="." instance=ExtResource( 5 )]
+_audio_bus = "Interactives"
+_audio_references = [ ExtResource( 4 ) ]
+_db_volumes = [ -15.0 ]
+_pitch_scales = [ [ 2.0 ] ]
+
+[node name="UnpluggedSFX" parent="." instance=ExtResource( 5 )]
+_audio_bus = "Interactives"
+_audio_references = [ ExtResource( 3 ) ]
+_db_volumes = [ -15.0 ]
+_pitch_scales = [ [ 2.0 ] ]
 
 [connection signal="actioned" from="Actionable" to="." method="_on_EnergySocket_actioned"]

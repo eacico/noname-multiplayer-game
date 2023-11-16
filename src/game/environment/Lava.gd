@@ -1,7 +1,8 @@
 extends Area2D
 
+onready var tumbler_sfx = $TumblerSFX
 
-export (float) var VELOCITY:float = 10.0
+export (float) var VELOCITY:float = 10.0 setget set_velocity
 
 var direction:Vector2 = Vector2.UP
 
@@ -20,3 +21,8 @@ func _on_body_entered(body):
 		print("Player " + body.id + " pierde!!")
 		body.notify_death()
 
+
+func set_velocity(_velocity:float) -> void:
+	VELOCITY = _velocity
+	if VELOCITY > 0:
+		tumbler_sfx.play()

@@ -1,5 +1,6 @@
 extends AbstractState
 
+onready var land_sfx: AudioHandler = $"%LandSFX"
 
 # Al entrar se activa primero la animación "walk"
 func enter() -> void:
@@ -25,6 +26,8 @@ func update(delta: float) -> void:
 	else:
 		# O aplicamos la animación que corresponde
 		if character.is_on_floor():
+			if character.get_current_animation() in ["fall", "jump"]:
+				land_sfx.play()
 			character._play_animation("walk")
 		elif character.is_on_wall():
 			emit_signal("finished", "wall_slide")
