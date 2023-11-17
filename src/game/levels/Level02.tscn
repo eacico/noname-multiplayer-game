@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://src/game/levels/LevelDefault.gd" type="Script" id=1]
 [ext_resource path="res://src/game/environment/Lava.tscn" type="PackedScene" id=2]
@@ -13,6 +13,7 @@
 [ext_resource path="res://src/game/ui/PauseMenu.tscn" type="PackedScene" id=11]
 [ext_resource path="res://src/game/levels/UILayer.gd" type="Script" id=12]
 [ext_resource path="res://assets/textures/background/tower_back_wall.png" type="Texture" id=13]
+[ext_resource path="res://src/game/environment/DefaultBackground.tscn" type="PackedScene" id=14]
 
 [sub_resource type="ConvexPolygonShape2D" id=54]
 points = PoolVector2Array( 16, 1, 0, 1, 0, 0, 16, 0 )
@@ -394,6 +395,8 @@ visible = false
 visible = false
 
 [node name="BackgroundLayer" type="Node" parent="."]
+
+[node name="ParallaxBackground" parent="BackgroundLayer" instance=ExtResource( 14 )]
 
 [node name="Polygon2D" type="Polygon2D" parent="BackgroundLayer"]
 light_mask = 0

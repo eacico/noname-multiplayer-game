@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://src/game/levels/LevelDefault.gd" type="Script" id=1]
 [ext_resource path="res://src/game/environment/Lava.tscn" type="PackedScene" id=2]
@@ -15,6 +15,7 @@
 [ext_resource path="res://assets/sound/textures/desert-ambient.wav" type="AudioStream" id=13]
 [ext_resource path="res://src/game/ui/PauseMenu.tscn" type="PackedScene" id=14]
 [ext_resource path="res://src/game/ui/GUI.tscn" type="PackedScene" id=15]
+[ext_resource path="res://src/game/environment/DefaultBackground.tscn" type="PackedScene" id=16]
 
 [sub_resource type="TileSet" id=56]
 0/name = "switch_connector_tileset.png 0"
@@ -444,6 +445,8 @@ visible = false
 visible = false
 
 [node name="BackgroundLayer" type="Node" parent="."]
+
+[node name="ParallaxBackground" parent="BackgroundLayer" instance=ExtResource( 16 )]
 
 [node name="Polygon2D" type="Polygon2D" parent="BackgroundLayer"]
 light_mask = 0
