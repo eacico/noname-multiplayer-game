@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=2]
+[gd_scene load_steps=39 format=2]
 
 [ext_resource path="res://src/game/entities/player-rigid/states/DeadState.gd" type="Script" id=1]
 [ext_resource path="res://src/game/entities/player-rigid/states/WallSlideState.gd" type="Script" id=2]
@@ -9,8 +9,6 @@
 [ext_resource path="res://src/game/entities/player-rigid/PlayerRigidStateMachine.gd" type="Script" id=7]
 [ext_resource path="res://src/game/entities/player-rigid/states/WalkState.gd" type="Script" id=8]
 [ext_resource path="res://src/game/entities/player-rigid/states/JumpState.gd" type="Script" id=9]
-[ext_resource path="res://assets/textures/player/player_ghost.png" type="Texture" id=10]
-[ext_resource path="res://assets/textures/player/player_ghost_body_color.png" type="Texture" id=11]
 [ext_resource path="res://src/game/partials/Actionable.gd" type="Script" id=12]
 [ext_resource path="res://assets/textures/player/player_action_alert.png" type="Texture" id=13]
 [ext_resource path="res://assets/sound/sfx/movement/16_human_walk_stone_1.wav" type="AudioStream" id=14]
@@ -178,6 +176,30 @@ tracks/0/keys = {
 "transitions": PoolRealArray( 1, 1 ),
 "update": 1,
 "values": [ 56, 57 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("ColorSprite:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 56, 57 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0.490196 ) ]
 }
 
 [sub_resource type="Animation" id=10]
@@ -467,18 +489,6 @@ vframes = 8
 position = Vector2( -7, -32 )
 z_index = 1
 texture = ExtResource( 13 )
-
-[node name="GhostBody" type="Node2D" parent="."]
-visible = false
-modulate = Color( 1, 1, 1, 0.490196 )
-
-[node name="ColorSprite" type="Sprite" parent="GhostBody"]
-position = Vector2( 0, -21 )
-texture = ExtResource( 11 )
-
-[node name="BodySprite" type="Sprite" parent="GhostBody"]
-position = Vector2( 0, -21 )
-texture = ExtResource( 10 )
 
 [node name="FloorRaycasts" type="Node2D" parent="."]
 

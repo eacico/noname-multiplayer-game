@@ -1,7 +1,5 @@
 extends AbstractState
 
-onready var body = $"../../BodyPivot"
-onready var ghost_body = $"../../GhostBody"
 onready var respawn_actionable = $"../../RespawnActionable"
 
 enum Mode {
@@ -18,9 +16,7 @@ enum Mode {
 func enter() -> void:
 	GameState.notify_player_death(character)
 	character.emit_signal("dead")
-	character._play_animation("die")
-	body.hide()
-	ghost_body.show()
+	character._play_animation("ghost")
 	respawn_actionable.set_deferred("monitorable", true)
 	character.set_deferred("mode", Mode.MODE_STATIC)
 
@@ -34,16 +30,15 @@ func update(delta) -> void:
 
 
 func _on_animation_finished(anim_name:String) -> void:
-	character._remove()
+	print("Respawned!!")
+	GameState.notify_player_respawn(character)
+	character.notify_respawn()
+	respawn_actionable.set_deferred("monitorable", false)
+	character.set_deferred("mode", Mode.MODE_CHARACTER)
+	emit_signal("finished", "idle")
 
 
 func _on_RespawnActionable_actioned(player):
 	if character.dead:
-		print("Respawned!!")
-		GameState.notify_player_respawn(character)
-		character.notify_respawn()
-		body.show()
-		ghost_body.hide()
-		respawn_actionable.set_deferred("monitorable", false)
-		character.set_deferred("mode", Mode.MODE_CHARACTER)
-		emit_signal("finished", "idle")
+		character._play_animation("RESET")
+		
