@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://src/game/levels/LevelDefault.gd" type="Script" id=1]
 [ext_resource path="res://src/game/environment/Lava.tscn" type="PackedScene" id=2]
@@ -16,6 +16,7 @@
 [ext_resource path="res://assets/sound/textures/desert-ambient.wav" type="AudioStream" id=14]
 [ext_resource path="res://src/game/ui/PauseMenu.tscn" type="PackedScene" id=15]
 [ext_resource path="res://src/game/levels/UILayer.gd" type="Script" id=16]
+[ext_resource path="res://src/game/ui/GUI.tscn" type="PackedScene" id=17]
 
 [sub_resource type="TileSet" id=57]
 0/name = "switch_connector_tileset.png 0"
@@ -411,6 +412,8 @@ script = ExtResource( 1 )
 
 [node name="UILayer" type="CanvasLayer" parent="."]
 script = ExtResource( 16 )
+
+[node name="GUI" parent="UILayer" instance=ExtResource( 17 )]
 
 [node name="EndGameMenu" parent="UILayer" instance=ExtResource( 3 )]
 visible = false

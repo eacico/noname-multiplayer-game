@@ -1,9 +1,10 @@
-[gd_scene load_steps=71 format=2]
+[gd_scene load_steps=72 format=2]
 
 [ext_resource path="res://src/game/levels/LevelDefault.gd" type="Script" id=1]
 [ext_resource path="res://src/game/environment/Lava.tscn" type="PackedScene" id=2]
 [ext_resource path="res://src/game/ui/EndGameMenu.tscn" type="PackedScene" id=3]
 [ext_resource path="res://src/game/environment/Goal.tscn" type="PackedScene" id=4]
+[ext_resource path="res://src/game/ui/GUI.tscn" type="PackedScene" id=5]
 [ext_resource path="res://assets/textures/tileset/basic_tileset.png" type="Texture" id=6]
 [ext_resource path="res://assets/textures/tileset/platforms.png" type="Texture" id=7]
 [ext_resource path="res://assets/textures/tileset/switch_connector_tileset.png" type="Texture" id=8]
@@ -581,6 +582,8 @@ points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
 script = ExtResource( 1 )
 
 [node name="UILayer" type="CanvasLayer" parent="."]
+
+[node name="GUI" parent="UILayer" instance=ExtResource( 5 )]
 
 [node name="EndGameMenu" parent="UILayer" instance=ExtResource( 3 )]
 visible = false
