@@ -398,6 +398,7 @@ polygon = PoolVector2Array( 15, 607, 18, 128, 309, 103, 511, 96, 514, 605 )
 
 [node name="Foley" type="AudioStreamPlayer" parent="BGM"]
 stream = ExtResource( 10 )
+volume_db = -12.0
 autoplay = true
 bus = "Foley"
 
