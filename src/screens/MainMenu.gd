@@ -8,13 +8,15 @@ export (int) var level_to_test = 0
 export (int) var level_tutorial_01_id = 1
 export (int) var level_01_id = 5
 
+onready var start_tutorial_button = $CanvasLayer/Control/Container/StartTutorialButton
+
 func _ready() -> void:
 	if SceneSwitcher.get_param("start_on_test_scene") != null:
 		start_on_test_scene = SceneSwitcher.get_param("start_on_test_scene")
 	#Input.set_custom_mouse_cursor(mouse_cursor)
 	if start_on_test_scene:
 		SceneSwitcher.change_scene(level_manager_scene.resource_path, {"level": level_to_test})
-
+	start_tutorial_button.grab_focus()
 
 
 func _unhandled_input(event: InputEvent) -> void:
