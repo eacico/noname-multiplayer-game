@@ -202,6 +202,18 @@ tracks/0/keys = {
 "update": 1,
 "values": [ 24 ]
 }
+tracks/1/type = "value"
+tracks/1/path = NodePath("ColorSprite:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.1 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 24 ]
+}
 
 [sub_resource type="Animation" id=17]
 resource_name = "spin"
@@ -359,7 +371,7 @@ _pitch_scales = [ [ 2.0 ], [ 2.0 ] ]
 unique_name_in_owner = true
 _audio_bus = "Player"
 _audio_references = [ ExtResource( 22 ) ]
-_db_volumes = [ -15.0 ]
+_db_volumes = [ -10.0 ]
 _pitch_scales = [ [ 2.0 ] ]
 
 [node name="PlayerSFX" type="AudioStreamPlayer" parent="."]
