@@ -29,5 +29,5 @@ func _on_body_entered(body):
 
 func set_velocity(_velocity:float) -> void:
 	VELOCITY = _velocity
-	if VELOCITY > 0:
+	if VELOCITY > 0 and tumbler_sfx:
 		tumbler_sfx.play()
