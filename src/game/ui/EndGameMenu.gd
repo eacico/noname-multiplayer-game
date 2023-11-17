@@ -5,6 +5,8 @@ signal goto_next_level()
 signal goto_main_menu()
 
 onready var next_level_button = $Panel/VBoxContainer/NextLevelButton
+onready var restart_button = $Panel/VBoxContainer/RestartButton
+onready var label = $Panel/Label
 
 
 # Called when the node enters the scene tree for the first time.
@@ -15,11 +17,15 @@ func _ready():
 
 
 func _on_level_won() -> void:
+	label.text = "Success"
+	next_level_button.disabled = false
+	next_level_button.show()
 	show()
 	
 func _on_level_lost() -> void:
-	show()
+	label.text = "Game Over"
 	next_level_button.hide()
+	show()
 
 
 func _on_RestartButton_pressed():
@@ -38,6 +44,10 @@ func _on_MainMenuButton_pressed():
 func show() -> void:
 	.show()
 	get_tree().paused = true
+	if next_level_button.visible:
+		next_level_button.grab_focus()
+	else:
+		restart_button.grab_focus()
 
 
 func hide() -> void:

@@ -14,17 +14,13 @@ signal next_level_requested()
 
 
 func _ready() -> void:
-	GameState.players = [player_1.id, player_2.id]
+	GameState.players = [player_1, player_2]
 	player_1.connect("dead", self, "_on_player_dead", [player_1])
 	player_1.connect("respawn", self, "_on_player_respawn", [player_1])
 	player_2.connect("dead", self, "_on_player_dead", [player_2])
 	player_2.connect("respawn", self, "_on_player_respawn", [player_2])
 	randomize()
-
-
-# Funciones que hacen de interfaz para las señales
-func _on_level_won() -> void:
-	emit_signal("next_level_requested")
+	_ease_volume_on_start()
 
 
 func _on_restart_requested() -> void:
@@ -42,3 +38,19 @@ func _on_player_dead(player: Player) -> void:
 	
 func _on_player_respawn(player: Player) -> void:
 	print("_on_player_respawn")
+
+
+func _ease_volume_on_start():
+	var bus_name = "SFX"
+	var bus_id = AudioServer.get_bus_index(bus_name)
+	var bus_start_volume = AudioServer.get_bus_volume_db(bus_id)
+	
+	var timer = Timer.new()
+	timer.connect("timeout",AudioServer,"set_bus_volume_db",[bus_id, bus_start_volume]) 
+	timer.wait_time = 0.5
+	timer.one_shot = true
+	add_child(timer)
+
+	AudioServer.set_bus_volume_db(bus_id, -80.0)
+	timer.start()
+	

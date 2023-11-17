@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=2]
+[gd_scene load_steps=39 format=2]
 
 [ext_resource path="res://src/game/entities/player-rigid/states/DeadState.gd" type="Script" id=1]
 [ext_resource path="res://src/game/entities/player-rigid/states/WallSlideState.gd" type="Script" id=2]
@@ -9,8 +9,6 @@
 [ext_resource path="res://src/game/entities/player-rigid/PlayerRigidStateMachine.gd" type="Script" id=7]
 [ext_resource path="res://src/game/entities/player-rigid/states/WalkState.gd" type="Script" id=8]
 [ext_resource path="res://src/game/entities/player-rigid/states/JumpState.gd" type="Script" id=9]
-[ext_resource path="res://assets/textures/player/player_ghost.png" type="Texture" id=10]
-[ext_resource path="res://assets/textures/player/player_ghost_body_color.png" type="Texture" id=11]
 [ext_resource path="res://src/game/partials/Actionable.gd" type="Script" id=12]
 [ext_resource path="res://assets/textures/player/player_action_alert.png" type="Texture" id=13]
 [ext_resource path="res://assets/sound/sfx/movement/16_human_walk_stone_1.wav" type="AudioStream" id=14]
@@ -22,6 +20,7 @@
 [ext_resource path="res://assets/sound/sfx/jump/12_human_jump_1.wav" type="AudioStream" id=20]
 [ext_resource path="res://assets/sound/sfx/jump/12_human_jump_3.wav" type="AudioStream" id=21]
 [ext_resource path="res://assets/sound/sfx/actionable/actionable_found.wav" type="AudioStream" id=22]
+[ext_resource path="res://src/game/entities/player-rigid/states/WinState.gd" type="Script" id=23]
 
 [sub_resource type="PhysicsMaterial" id=9]
 friction = 0.0
@@ -52,10 +51,23 @@ tracks/1/keys = {
 "update": 0,
 "values": [ 9 ]
 }
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
 
 [sub_resource type="Animation" id=12]
 resource_name = "action"
 length = 0.32
+step = 0.08
 tracks/0/type = "value"
 tracks/0/path = NodePath("BodySprite:frame")
 tracks/0/interp = 1
@@ -63,6 +75,18 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
+"times": PoolRealArray( 0, 0.08, 0.16, 0.24 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 41, 42, 43, 44 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("ColorSprite:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
 "times": PoolRealArray( 0, 0.08, 0.16, 0.24 ),
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 1,
@@ -83,6 +107,30 @@ tracks/0/keys = {
 "transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1 ),
 "update": 1,
 "values": [ 48, 49, 50, 51, 52, 53, 54, 55 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("ColorSprite:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 48, 49, 50, 51, 52, 53, 54, 55 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0.4, 0.8 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 0.239216, 0.239216, 0.239216, 0.607843 ) ]
 }
 
 [sub_resource type="Animation" id=18]
@@ -128,6 +176,30 @@ tracks/0/keys = {
 "transitions": PoolRealArray( 1, 1 ),
 "update": 1,
 "values": [ 56, 57 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("ColorSprite:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 56, 57 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0.490196 ) ]
 }
 
 [sub_resource type="Animation" id=10]
@@ -324,7 +396,7 @@ gravity = 1
 script = ExtResource( 7 )
 character_path = NodePath("..")
 START_STATE = NodePath("Idle")
-STATES_LIST = [ NodePath("Idle"), NodePath("Walk"), NodePath("Jump"), NodePath("Dead"), NodePath("WallSlide") ]
+STATES_LIST = [ NodePath("Idle"), NodePath("Walk"), NodePath("Jump"), NodePath("Dead"), NodePath("WallSlide"), NodePath("Win") ]
 
 [node name="Idle" type="Node" parent="StateMachine"]
 script = ExtResource( 5 )
@@ -359,6 +431,10 @@ state_id = "wall_slide"
 [node name="DetachTimer" type="Timer" parent="StateMachine/WallSlide"]
 wait_time = 0.3
 one_shot = true
+
+[node name="Win" type="Node" parent="StateMachine"]
+script = ExtResource( 23 )
+state_id = "win"
 
 [node name="LandSFX" parent="." instance=ExtResource( 16 )]
 unique_name_in_owner = true
@@ -413,18 +489,6 @@ vframes = 8
 position = Vector2( -7, -32 )
 z_index = 1
 texture = ExtResource( 13 )
-
-[node name="GhostBody" type="Node2D" parent="."]
-visible = false
-modulate = Color( 1, 1, 1, 0.490196 )
-
-[node name="ColorSprite" type="Sprite" parent="GhostBody"]
-position = Vector2( 0, -21 )
-texture = ExtResource( 11 )
-
-[node name="BodySprite" type="Sprite" parent="GhostBody"]
-position = Vector2( 0, -21 )
-texture = ExtResource( 10 )
 
 [node name="FloorRaycasts" type="Node2D" parent="."]
 
@@ -515,4 +579,5 @@ position = Vector2( 0, -14 )
 [connection signal="nearest_actionable_changed" from="." to="." method="_on_Player_nearest_actionable_changed"]
 [connection signal="timeout" from="StateMachine/WallSlide/DetachTimer" to="StateMachine/WallSlide" method="_on_DetachTimer_timeout"]
 [connection signal="animation_finished" from="BodyAnimations" to="." method="_on_animation_finished"]
+[connection signal="animation_finished" from="BodyAnimations" to="StateMachine" method="_on_animation_finished"]
 [connection signal="actioned" from="RespawnActionable" to="StateMachine/Dead" method="_on_RespawnActionable_actioned"]

@@ -2,6 +2,7 @@ extends Area2D
 
 onready var tumbler_sfx = $TumblerSFX
 onready var filler = $Sprite/Filler
+onready var sprite = $Sprite
 
 export (float) var VELOCITY:float = 10.0 setget set_velocity
 
@@ -10,6 +11,7 @@ var direction:Vector2 = Vector2.UP
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	connect("body_entered", self, "_on_body_entered")
+	sprite.get_material().set_shader_param("enabled", true)
 
 
 func _physics_process(delta):
@@ -27,5 +29,5 @@ func _on_body_entered(body):
 
 func set_velocity(_velocity:float) -> void:
 	VELOCITY = _velocity
-	if VELOCITY > 0:
+	if VELOCITY > 0 and tumbler_sfx:
 		tumbler_sfx.play()

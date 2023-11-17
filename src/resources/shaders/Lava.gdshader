@@ -23,65 +23,69 @@ uniform sampler2D mask_texture;
 uniform vec2 time_factor = vec2(1.0, 2.0);
 uniform vec2 offset_factor = vec2(5.0, 2.0);
 uniform vec2 amplitude = vec2(0.02, 0.02);
+uniform bool enabled = false;
 
 void fragment() {
-    vec2 uv = UV / -.1;//((UV / -0.10)) + vec2(1.25,1.25);
+	if (enabled) {
+		
+	    vec2 uv = UV / -.1;//((UV / -0.10)) + vec2(1.25,1.25);
 
-    float
-		//sdf=length(uv),
-		//c=1.0,//step(sdf,.85),
+	    float
+			//sdf=length(uv),
+			//c=1.0,//step(sdf,.85),
 
-        vB=smoothstep(.1,.9,sin(uv.x+(PI*.5))-.3),
-		vBA=vB*sin(TIME*4.)*.08,
+	        vB=smoothstep(.1,.9,sin(uv.x+(PI*.5))-.3),
+			vBA=vB*sin(TIME*4.)*.08,
 
-        fW=(sin(((TIME*2.)+uv.x)*2.)*.05)+vBA,
-		bW=(sin(((TIME*-2.)+uv.x)*2.+PI)*.05)-vBA,
+	        fW=(sin(((TIME*2.)+uv.x)*2.)*.05)+vBA,
+			bW=(sin(((TIME*-2.)+uv.x)*2.+PI)*.05)-vBA,
 
-        fA=(sin(TIME*4.)*.05)*vB,
+	        fA=(sin(TIME*4.)*.05)*vB,
 
-        fP=(sin((TIME)*PI)*.1) - 0.2,
+	        fP=(sin((TIME)*PI)*.1) - 0.2,
 
-        fF=step(uv.y,(fA+fW)+fP),//fF=step(uv.y,(fA+fW)+fP)*c,
-		bF=step(uv.y,(-fA+bW)+fP);//bF=step(uv.y,(-fA+bW)+fP)*c;
+	        fF=step(uv.y,(fA+fW)+fP),//fF=step(uv.y,(fA+fW)+fP)*c,
+			bF=step(uv.y,(-fA+bW)+fP);//bF=step(uv.y,(-fA+bW)+fP)*c;
 
-//    COLOR =
-//		vec4(
-//			0.12//(step(sdf,1.)-step(sdf,.9)) 
-//			+ (fF+(clamp(bF-fF,0.,1.)*.8))
-//			+ clamp(pow((.01) * ((1.-(fF+bF))),5.), //+ clamp(pow((sdf+.01) * ((1.-(fF+bF))),5.), //+ clamp(pow((sdf+.01) * ((1.-(fF+bF))*c),5.), 
-//		0., 
-//		1.));
+	//    COLOR =
+	//		vec4(
+	//			0.12//(step(sdf,1.)-step(sdf,.9)) 
+	//			+ (fF+(clamp(bF-fF,0.,1.)*.8))
+	//			+ clamp(pow((.01) * ((1.-(fF+bF))),5.), //+ clamp(pow((sdf+.01) * ((1.-(fF+bF))),5.), //+ clamp(pow((sdf+.01) * ((1.-(fF+bF))*c),5.), 
+	//		0., 
+	//		1.));
 
-//	COLOR.a = 0.12//(step(sdf,1.)-step(sdf,.9)) 
-//			+ (fF+(clamp(bF-fF,0.,1.)*.8))
-//			+ clamp(pow((.01) * ((1.-(fF+bF))),5.), //+ clamp(pow((sdf+.01) * ((1.-(fF+bF))),5.), //+ clamp(pow((sdf+.01) * ((1.-(fF+bF))*c),5.), 
-//		0., 
-//		1.);
+	//	COLOR.a = 0.12//(step(sdf,1.)-step(sdf,.9)) 
+	//			+ (fF+(clamp(bF-fF,0.,1.)*.8))
+	//			+ clamp(pow((.01) * ((1.-(fF+bF))),5.), //+ clamp(pow((sdf+.01) * ((1.-(fF+bF))),5.), //+ clamp(pow((sdf+.01) * ((1.-(fF+bF))*c),5.), 
+	//		0., 
+	//		1.);
 
 
 
+		
+		vec2 tiled_uvs = UV;// * tile_factor;
+		//tiled_uvs.y *= aspect_ratio;
+		
+		vec2 wave_uv_offset;
+		wave_uv_offset.x += sin(TIME * time_factor.x + (tiled_uvs.x + tiled_uvs.y) * offset_factor.x);
+		wave_uv_offset.y += cos(TIME * time_factor.y + (tiled_uvs.x + tiled_uvs.y) * offset_factor.y);
+		
+		//COLOR = texture(TEXTURE, tiled_uvs + wave_uv_offset * amplitude);
+
+
+		vec4 colour = texture(TEXTURE, tiled_uvs + wave_uv_offset * amplitude);
+
+		//vec4 colour = texture(TEXTURE, UV);
+		colour.a *= 0.//(step(sdf,1.)-step(sdf,.9)) 
+				+ (fF+(clamp(bF-fF,0.,1.)*.58))
+				+ clamp(pow((.01) * ((1.-(fF+bF))),5.), //+ clamp(pow((sdf+.01) * ((1.-(fF+bF))),5.), //+ clamp(pow((sdf+.01) * ((1.-(fF+bF))*c),5.), 
+			0., 
+			1.);
+
+		COLOR = colour;
 	
-	vec2 tiled_uvs = UV;// * tile_factor;
-	//tiled_uvs.y *= aspect_ratio;
-	
-	vec2 wave_uv_offset;
-	wave_uv_offset.x += sin(TIME * time_factor.x + (tiled_uvs.x + tiled_uvs.y) * offset_factor.x);
-	wave_uv_offset.y += cos(TIME * time_factor.y + (tiled_uvs.x + tiled_uvs.y) * offset_factor.y);
-	
-	//COLOR = texture(TEXTURE, tiled_uvs + wave_uv_offset * amplitude);
-
-
-	vec4 colour = texture(TEXTURE, tiled_uvs + wave_uv_offset * amplitude);
-
-	//vec4 colour = texture(TEXTURE, UV);
-	colour.a *= 0.//(step(sdf,1.)-step(sdf,.9)) 
-			+ (fF+(clamp(bF-fF,0.,1.)*.58))
-			+ clamp(pow((.01) * ((1.-(fF+bF))),5.), //+ clamp(pow((sdf+.01) * ((1.-(fF+bF))),5.), //+ clamp(pow((sdf+.01) * ((1.-(fF+bF))*c),5.), 
-		0., 
-		1.);
-
-	COLOR = colour;
-	
+	}
 	
 }
 

@@ -12,13 +12,13 @@ const SLOPE_THRESHOLD: float = deg2rad(46)
 
 onready var floor_raycasts: Array = $FloorRaycasts.get_children()
 onready var wall_raycasts: Array  = $WallRaycast.get_children()
-onready var ghost_body_color = $GhostBody/ColorSprite
 onready var actionable_finder = $ActionableFinder
 onready var action_alert = $BodyPivot/ActionAlert
 onready var body_animations = $BodyAnimations
 onready var body_color = $"%ColorSprite"
 onready var body_pivot = $BodyPivot
 onready var alert_sfx = $"%AlertSFX"
+onready var state_machine = $StateMachine
 
 ## Estas variables de exportación podríamos abstraerlas a cada
 ## estado correspondiente de la state machine, pero como queremos
@@ -53,11 +53,13 @@ var dead: bool = false
 
 
 func _ready() -> void:
-	body_color.modulate = color
-	ghost_body_color.modulate = color
+	set_body_color(color)
 
 func get_class(): return "Player"
 
+func set_body_color(_color: Color):
+	color = _color
+	body_color.modulate = _color
 
 ## Se extrae el comportamiento del manejo del movimiento horizontal
 ## a una función para ser llamada apropiadamente desde la state machine
@@ -99,6 +101,9 @@ func _apply_ghost_movement(delta: float) -> void:
 	velocity.x = lerp(velocity.x, 0, FRICTION_WEIGHT) if abs(velocity.x) > 1 else 0
 	velocity.y = lerp(velocity.y, 0, FRICTION_WEIGHT) if abs(velocity.y) > 1 else 0
 	
+	if ghost_move_direction.x != 0: 
+		body_pivot.scale.x = 1 - 2 * float(ghost_move_direction.x < 0)
+	
 	position += velocity * delta
 		
 
@@ -130,6 +135,9 @@ func notify_respawn() -> void:
 	dead = false
 	emit_signal("respawn")
 
+func notify_goal_reached() -> void:
+	state_machine.current_state.emit_signal("finished", "win")
+
 
 
 func _handle_death() -> void:
@@ -148,6 +156,8 @@ func _remove() -> void:
 func _play_animation(animation: String) -> void:
 	if body_animations.has_animation(animation) and body_animations.get_assigned_animation() != animation:
 		body_animations.play(animation)
+	if !body_animations.has_animation(animation):
+		print("animation not found: '%s'." % [animation])
 
 func get_current_animation() -> String:
 	return body_animations.current_animation
@@ -166,6 +176,9 @@ func _unhandled_input(event: InputEvent) -> void:
 		
 		if is_instance_valid(nearest_actionable):
 			_play_animation("action")
+			
+			body_pivot.scale.x = 1 - 2 * float((position - nearest_actionable.position).x > 0)
+			
 			nearest_actionable.emit_signal("actioned", self)
 
 

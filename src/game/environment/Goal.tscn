@@ -4,7 +4,7 @@
 [ext_resource path="res://assets/textures/exit_open.png" type="Texture" id=2]
 
 [sub_resource type="CircleShape2D" id=1]
-radius = 24.0208
+radius = 11.1803
 
 [node name="Goal" type="Area2D"]
 collision_layer = 0
@@ -15,6 +15,5 @@ position = Vector2( 0, -24 )
 texture = ExtResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
 position = Vector2( 1, -21 )
 shape = SubResource( 1 )

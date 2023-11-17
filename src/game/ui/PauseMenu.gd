@@ -7,6 +7,7 @@ signal return_selected()
 signal restart_selected()
 
 onready var options_menu: Control = $OptionsMenu
+onready var resume_button = $Panel/VBoxContainer/ResumeButton
 
 
 func _ready() -> void:
@@ -17,6 +18,7 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_released("pause_menu") && !options_menu.visible:
 		visible = !visible
 		get_tree().paused = visible
+		resume_button.grab_focus()
 
 
 func _on_ReturnButton_pressed() -> void:
