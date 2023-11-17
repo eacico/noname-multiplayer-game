@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=2]
+[gd_scene load_steps=41 format=2]
 
 [ext_resource path="res://src/game/entities/player-rigid/states/DeadState.gd" type="Script" id=1]
 [ext_resource path="res://src/game/entities/player-rigid/states/WallSlideState.gd" type="Script" id=2]
@@ -22,6 +22,7 @@
 [ext_resource path="res://assets/sound/sfx/jump/12_human_jump_1.wav" type="AudioStream" id=20]
 [ext_resource path="res://assets/sound/sfx/jump/12_human_jump_3.wav" type="AudioStream" id=21]
 [ext_resource path="res://assets/sound/sfx/actionable/actionable_found.wav" type="AudioStream" id=22]
+[ext_resource path="res://src/game/entities/player-rigid/states/WinState.gd" type="Script" id=23]
 
 [sub_resource type="PhysicsMaterial" id=9]
 friction = 0.0
@@ -51,6 +52,18 @@ tracks/1/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 0,
 "values": [ 9 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
 }
 
 [sub_resource type="Animation" id=12]
@@ -96,6 +109,30 @@ tracks/0/keys = {
 "transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1 ),
 "update": 1,
 "values": [ 48, 49, 50, 51, 52, 53, 54, 55 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("ColorSprite:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 48, 49, 50, 51, 52, 53, 54, 55 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0.4, 0.8 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 0.239216, 0.239216, 0.239216, 0.607843 ) ]
 }
 
 [sub_resource type="Animation" id=18]
@@ -337,7 +374,7 @@ gravity = 1
 script = ExtResource( 7 )
 character_path = NodePath("..")
 START_STATE = NodePath("Idle")
-STATES_LIST = [ NodePath("Idle"), NodePath("Walk"), NodePath("Jump"), NodePath("Dead"), NodePath("WallSlide") ]
+STATES_LIST = [ NodePath("Idle"), NodePath("Walk"), NodePath("Jump"), NodePath("Dead"), NodePath("WallSlide"), NodePath("Win") ]
 
 [node name="Idle" type="Node" parent="StateMachine"]
 script = ExtResource( 5 )
@@ -372,6 +409,10 @@ state_id = "wall_slide"
 [node name="DetachTimer" type="Timer" parent="StateMachine/WallSlide"]
 wait_time = 0.3
 one_shot = true
+
+[node name="Win" type="Node" parent="StateMachine"]
+script = ExtResource( 23 )
+state_id = "win"
 
 [node name="LandSFX" parent="." instance=ExtResource( 16 )]
 unique_name_in_owner = true
@@ -528,4 +569,5 @@ position = Vector2( 0, -14 )
 [connection signal="nearest_actionable_changed" from="." to="." method="_on_Player_nearest_actionable_changed"]
 [connection signal="timeout" from="StateMachine/WallSlide/DetachTimer" to="StateMachine/WallSlide" method="_on_DetachTimer_timeout"]
 [connection signal="animation_finished" from="BodyAnimations" to="." method="_on_animation_finished"]
+[connection signal="animation_finished" from="BodyAnimations" to="StateMachine" method="_on_animation_finished"]
 [connection signal="actioned" from="RespawnActionable" to="StateMachine/Dead" method="_on_RespawnActionable_actioned"]

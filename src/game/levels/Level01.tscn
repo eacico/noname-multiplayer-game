@@ -655,6 +655,9 @@ format = 1
 
 [node name="Entities" type="Node2D" parent="Environment"]
 
+[node name="Goal" parent="Environment/Entities" instance=ExtResource( 4 )]
+position = Vector2( 472, -816 )
+
 [node name="Characters" type="Node2D" parent="Environment/Entities"]
 position = Vector2( -365, 656 )
 
@@ -687,9 +690,6 @@ tile_data = PoolIntArray( -3801072, 1, 0, -3801071, 1, 2, -3801069, 1, 0, -38010
 position = Vector2( 264, 750 )
 scale = Vector2( 16, 5.913 )
 VELOCITY = 0.0
-
-[node name="Goal" parent="Environment/Entities" instance=ExtResource( 4 )]
-position = Vector2( 472, -816 )
 
 [node name="StartGate" parent="Environment/Entities" instance=ExtResource( 12 )]
 position = Vector2( 16, 556 )

@@ -14,17 +14,12 @@ signal next_level_requested()
 
 
 func _ready() -> void:
-	GameState.players = [player_1.id, player_2.id]
+	GameState.players = [player_1, player_2]
 	player_1.connect("dead", self, "_on_player_dead", [player_1])
 	player_1.connect("respawn", self, "_on_player_respawn", [player_1])
 	player_2.connect("dead", self, "_on_player_dead", [player_2])
 	player_2.connect("respawn", self, "_on_player_respawn", [player_2])
 	randomize()
-
-
-# Funciones que hacen de interfaz para las señales
-func _on_level_won() -> void:
-	emit_signal("next_level_requested")
 
 
 func _on_restart_requested() -> void:

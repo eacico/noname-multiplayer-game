@@ -19,6 +19,7 @@ onready var body_animations = $BodyAnimations
 onready var body_color = $"%ColorSprite"
 onready var body_pivot = $BodyPivot
 onready var alert_sfx = $"%AlertSFX"
+onready var state_machine = $StateMachine
 
 ## Estas variables de exportación podríamos abstraerlas a cada
 ## estado correspondiente de la state machine, pero como queremos
@@ -53,11 +54,14 @@ var dead: bool = false
 
 
 func _ready() -> void:
-	body_color.modulate = color
-	ghost_body_color.modulate = color
+	set_body_color(color)
 
 func get_class(): return "Player"
 
+func set_body_color(_color: Color):
+	color = _color
+	body_color.modulate = _color
+	ghost_body_color.modulate = _color
 
 ## Se extrae el comportamiento del manejo del movimiento horizontal
 ## a una función para ser llamada apropiadamente desde la state machine
@@ -129,6 +133,9 @@ func notify_death() -> void:
 func notify_respawn() -> void:
 	dead = false
 	emit_signal("respawn")
+
+func notify_goal_reached() -> void:
+	state_machine.current_state.emit_signal("finished", "win")
 
 
 
