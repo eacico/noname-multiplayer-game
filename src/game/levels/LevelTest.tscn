@@ -1,10 +1,9 @@
-[gd_scene load_steps=72 format=2]
+[gd_scene load_steps=71 format=2]
 
 [ext_resource path="res://src/game/levels/LevelDefault.gd" type="Script" id=1]
 [ext_resource path="res://src/game/environment/Lava.tscn" type="PackedScene" id=2]
 [ext_resource path="res://src/game/ui/EndGameMenu.tscn" type="PackedScene" id=3]
 [ext_resource path="res://src/game/environment/Goal.tscn" type="PackedScene" id=4]
-[ext_resource path="res://assets/textures/lava.png" type="Texture" id=5]
 [ext_resource path="res://assets/textures/tileset/basic_tileset.png" type="Texture" id=6]
 [ext_resource path="res://assets/textures/tileset/platforms.png" type="Texture" id=7]
 [ext_resource path="res://assets/textures/tileset/switch_connector_tileset.png" type="Texture" id=8]
@@ -729,13 +728,6 @@ current = true
 position = Vector2( 266, 599 )
 scale = Vector2( 16, 5.913 )
 VELOCITY = 0.0
-
-[node name="Polygon2D" type="Polygon2D" parent="Environment/Lava"]
-position = Vector2( 0.374998, 19.7869 )
-scale = Vector2( 1.25, 1.01471 )
-z_index = -1
-texture = ExtResource( 5 )
-polygon = PoolVector2Array( -35.25, -27.5, 30.1, -27.5, 30, 22.3333, -35.25, 22.3333 )
 
 [node name="TowerTilesPlatfors" type="TileMap" parent="Environment"]
 tile_set = SubResource( 59 )

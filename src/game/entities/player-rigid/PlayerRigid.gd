@@ -166,6 +166,9 @@ func _unhandled_input(event: InputEvent) -> void:
 		
 		if is_instance_valid(nearest_actionable):
 			_play_animation("action")
+			
+			body_pivot.scale.x = 1 - 2 * float((position - nearest_actionable.position).x > 0)
+			
 			nearest_actionable.emit_signal("actioned", self)
 
 

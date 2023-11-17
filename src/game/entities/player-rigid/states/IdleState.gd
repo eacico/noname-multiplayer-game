@@ -30,7 +30,7 @@ func update(delta: float) -> void:
 		if character.is_on_floor():
 			if character.get_current_animation() in ["fall", "jump"]:
 				land_sfx.play()
-			character._play_animation("idle")
+			#character._play_animation("idle")
 		else:
 			if character.velocity.y > 0:
 				character._play_animation("fall")
