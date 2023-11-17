@@ -5,6 +5,7 @@ signal goto_next_level()
 signal goto_main_menu()
 
 onready var next_level_button = $Panel/VBoxContainer/NextLevelButton
+onready var label = $Panel/Label
 
 
 # Called when the node enters the scene tree for the first time.
@@ -15,9 +16,13 @@ func _ready():
 
 
 func _on_level_won() -> void:
+	label.text = "Success"
 	show()
+	next_level_button.disabled = false
+	next_level_button.show()
 	
 func _on_level_lost() -> void:
+	label.text = "Game Over"
 	show()
 	next_level_button.hide()
 

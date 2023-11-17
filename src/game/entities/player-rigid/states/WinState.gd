@@ -2,7 +2,7 @@ extends AbstractState
 
 
 func enter() -> void:
-	var goal = character.get_parent().get_node("Goal")
+	var goal = character.get_node("../../Goal")
 	character.set_deferred("mode", 1) #MODE_STATIC
 	character.global_position = goal.global_position
 	character._play_animation("enter")
