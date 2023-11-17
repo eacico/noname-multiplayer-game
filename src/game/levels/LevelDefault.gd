@@ -20,6 +20,7 @@ func _ready() -> void:
 	player_2.connect("dead", self, "_on_player_dead", [player_2])
 	player_2.connect("respawn", self, "_on_player_respawn", [player_2])
 	randomize()
+	_ease_volume_on_start()
 
 
 func _on_restart_requested() -> void:
@@ -37,3 +38,19 @@ func _on_player_dead(player: Player) -> void:
 	
 func _on_player_respawn(player: Player) -> void:
 	print("_on_player_respawn")
+
+
+func _ease_volume_on_start():
+	var bus_name = "SFX"
+	var bus_id = AudioServer.get_bus_index(bus_name)
+	var bus_start_volume = AudioServer.get_bus_volume_db(bus_id)
+	
+	var timer = Timer.new()
+	timer.connect("timeout",AudioServer,"set_bus_volume_db",[bus_id, bus_start_volume]) 
+	timer.wait_time = 0.5
+	timer.one_shot = true
+	add_child(timer)
+
+	AudioServer.set_bus_volume_db(bus_id, -80.0)
+	timer.start()
+	
