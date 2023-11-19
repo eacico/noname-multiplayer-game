@@ -9,6 +9,24 @@ onready var action_key_button: Button = $"%ActionKeyButton"
 export (String) var action: String
 export (String) var action_name: String setget _set_action_name
 
+var joypad_button_desc = [
+	"Cross",
+	"Circle",
+	"Square",
+	"Triangle",
+	"L1",
+	"R1",
+	"L2",
+	"R2",
+	"L3",
+	"R3",
+	"Select",
+	"Start",
+	"D-Pad Up",
+	"D-Pad Down",
+	"D-Pad Left",
+	"D-Pad Right"
+]
 
 func _ready() -> void:
 	set_process_input(false)
@@ -35,10 +53,15 @@ func _input(event: InputEvent) -> void:
 
 
 func _set_event(event: InputEvent) -> void:
+	action_key_button.text = event.as_text()
+	
 	if event is InputEventMouseButton:
 		action_key_button.text = event.as_text().get_slice(":", 1).get_slice(",", 0).get_slice("=", 1)
-	else:
-		action_key_button.text = event.as_text()
+	elif event is InputEventJoypadButton:
+		var event_button_id = event.get_button_index()
+		if event_button_id in range(joypad_button_desc.size()):
+			action_key_button.text = "Joy%s - %s" % [event.device + 1,joypad_button_desc[event_button_id]]
+		
 
 
 func _set_action_name(nm: String) -> void:

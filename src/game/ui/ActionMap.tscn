@@ -23,8 +23,7 @@ text = "a"
 unique_name_in_owner = true
 margin_left = 23.0
 margin_top = 3.0
-margin_right = 61.0
+margin_right = 23.0
 margin_bottom = 17.0
-text = "lorem"
 
 [connection signal="pressed" from="HBoxContainer/ActionKeyButton" to="." method="_on_ActionKeyButton_pressed"]

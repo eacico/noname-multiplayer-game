@@ -3,6 +3,7 @@ extends Node
 signal level_won()
 signal game_over()
 signal current_players_changed()
+signal input_map_changed()
 
 
 var players: Array = [] setget set_players
@@ -41,3 +42,8 @@ func set_players(_players: Array) -> void:
 		if range(player_colors.size()).has(i):
 			players[i].set_body_color(player_colors[i])
 	emit_signal("current_players_changed")
+
+
+
+func notify_input_map_changed() -> void:
+	emit_signal("input_map_changed")
