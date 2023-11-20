@@ -30,7 +30,7 @@ var joypad_button_desc = [
 
 func _ready() -> void:
 	set_process_input(false)
-	if !Engine.editor_hint && InputMap.has_action(action):
+	if !Engine.editor_hint && InputMap.has_action(action) && InputMap.get_action_list(action).size() > 0:
 		var event: InputEvent = InputMap.get_action_list(action)[0]
 		_set_event(event)
 

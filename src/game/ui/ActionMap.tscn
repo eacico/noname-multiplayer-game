@@ -5,6 +5,7 @@
 [node name="ActionMap" type="PanelContainer"]
 margin_right = 804.0
 margin_bottom = 14.0
+focus_mode = 2
 script = ExtResource( 1 )
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
@@ -15,15 +16,16 @@ margin_bottom = 27.0
 
 [node name="ActionKeyButton" type="Button" parent="HBoxContainer"]
 unique_name_in_owner = true
-margin_right = 19.0
+margin_right = 36.0
 margin_bottom = 20.0
-text = "a"
+text = "N/A"
 
 [node name="ActionNameLabel" type="Label" parent="HBoxContainer"]
 unique_name_in_owner = true
-margin_left = 23.0
+margin_left = 40.0
 margin_top = 3.0
-margin_right = 23.0
+margin_right = 40.0
 margin_bottom = 17.0
 
+[connection signal="focus_entered" from="." to="HBoxContainer/ActionKeyButton" method="grab_focus"]
 [connection signal="pressed" from="HBoxContainer/ActionKeyButton" to="." method="_on_ActionKeyButton_pressed"]

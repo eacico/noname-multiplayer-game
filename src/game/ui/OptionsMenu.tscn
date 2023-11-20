@@ -323,3 +323,4 @@ bus_name = "UI"
 
 [connection signal="visibility_changed" from="." to="." method="_on_OptionsMenu_visibility_changed"]
 [connection signal="pressed" from="Panel/ReturnButton" to="." method="_on_ReturnButton_pressed"]
+[connection signal="tab_changed" from="Panel/Panel" to="." method="_on_Panel_tab_changed"]
