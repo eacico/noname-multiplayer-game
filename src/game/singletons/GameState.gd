@@ -10,7 +10,7 @@ var players: Array = [] setget set_players
 var players_in_goal: Array = []
 var players_dead: Array = []
 
-var player_colors: Array = [Color(0.92549, 0.717647, 0)
+var player_palette: Array = [Color(0.92549, 0.717647, 0)
 							,Color(0.533333, 0.776471, 0.364706)]
 
 
@@ -39,10 +39,28 @@ func notify_player_respawn(player: Player) -> void:
 func set_players(_players: Array) -> void:
 	players = _players
 	for i in range(players.size()):
-		if range(player_colors.size()).has(i):
-			players[i].set_body_color(player_colors[i])
+		if range(player_palette.size()).has(i):
+			players[i].set_body_color(player_palette[i])
 	emit_signal("current_players_changed")
 
+func change_player_palette(player_id: String, color: Color):
+	var player_position = get_player_array_position(player_id)
+	if player_position >= 0:
+		player_palette[player_position] = color
+		players[player_position].set_body_color(color)
+
+func get_player_palette(player_id: String) -> Color:
+	var player_position = get_player_array_position(player_id)
+	if player_position >= 0:
+		return player_palette[player_position]
+	return Color.white
+
+func get_player_array_position(player_id: String) -> int:
+	var player_position
+	for i in range(players.size()):
+		if players[i].id == player_id:
+			return i
+	return -1
 
 
 func notify_input_map_changed() -> void:

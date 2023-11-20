@@ -35,6 +35,7 @@ export (int) var gravity: int = 10
 export (Color) var color: Color = Color.white
 export (String) var id: String = "1"
 export (float) var wall_slide_speed: float = 50.0
+export (bool) var evaluate_inputs: bool = true
 
 
 
@@ -64,6 +65,8 @@ func set_body_color(_color: Color):
 ## Se extrae el comportamiento del manejo del movimiento horizontal
 ## a una función para ser llamada apropiadamente desde la state machine
 func _handle_horizontal_move_input() -> void:
+	if !evaluate_inputs: return
+	
 	move_direction = int(Input.is_action_pressed("p"+id+"_move_right")) - int(Input.is_action_pressed("p"+id+"_move_left"))
 	
 	if move_direction != 0: 
@@ -90,6 +93,7 @@ func _integrate_forces(state: Physics2DDirectBodyState) -> void:
 
 
 func _apply_ghost_movement(delta: float) -> void:
+	if !evaluate_inputs: return
 	
 	ghost_move_direction.x = int(Input.is_action_pressed("p"+id+"_move_right")) - int(Input.is_action_pressed("p"+id+"_move_left"))
 	ghost_move_direction.y = int(Input.is_action_pressed("p"+id+"_move_down")) - int(Input.is_action_pressed("p"+id+"_move_up"))
@@ -171,6 +175,7 @@ onready var own_respawn_actionable = $RespawnActionable
 signal nearest_actionable_changed(actionable)
 
 func _unhandled_input(event: InputEvent) -> void:
+	if !evaluate_inputs: return
 	if event.is_action_pressed("p"+id+"_action"):
 		get_viewport().set_input_as_handled()
 		
