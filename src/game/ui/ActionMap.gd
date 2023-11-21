@@ -30,9 +30,12 @@ var joypad_button_desc = [
 
 func _ready() -> void:
 	set_process_input(false)
-	if !Engine.editor_hint && InputMap.has_action(action) && InputMap.get_action_list(action).size() > 0:
-		var event: InputEvent = InputMap.get_action_list(action)[0]
-		_set_event(event)
+	if !Engine.editor_hint && InputMap.has_action(action):
+		for event in InputMap.get_action_list(action):
+			if event is InputEventKey:
+				_set_event(event)
+				break
+		
 
 
 func _on_ActionKeyButton_pressed() -> void:
@@ -42,8 +45,9 @@ func _on_ActionKeyButton_pressed() -> void:
 
 
 func _input(event: InputEvent) -> void:
-	if !event is InputEventMouseMotion:
-		InputMap.action_erase_events(action)
+	#if !event is InputEventMouseMotion:
+	if event is InputEventKey:
+		action_erase_events(action)
 		InputMap.action_add_event(action, event)
 		_set_event(event)
 		set_process_input(false)
@@ -51,6 +55,10 @@ func _input(event: InputEvent) -> void:
 		yield(get_tree().create_timer(0.1), "timeout")
 		action_key_button.grab_focus()
 
+func action_erase_events(action: String):
+	for event in InputMap.get_action_list(action):
+		if event is InputEventKey:
+			InputMap.action_erase_event(action, event)
 
 func _set_event(event: InputEvent) -> void:
 	action_key_button.text = event.as_text()

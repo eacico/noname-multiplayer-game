@@ -163,6 +163,50 @@ scale = Vector2( 1.5, 1.5 )
 position = Vector2( 234, 2 )
 scale = Vector2( 1.5, 1.5 )
 
+[node name="Separator" type="HSeparator" parent="Panel/Panel/Game"]
+margin_top = 112.0
+margin_right = 804.0
+margin_bottom = 116.0
+
+[node name="HBoxContainerJoy1" type="HBoxContainer" parent="Panel/Panel/Game"]
+margin_top = 120.0
+margin_right = 804.0
+margin_bottom = 140.0
+
+[node name="Label" type="Label" parent="Panel/Panel/Game/HBoxContainerJoy1"]
+margin_top = 3.0
+margin_right = 101.0
+margin_bottom = 17.0
+text = "Player1 - Joypad"
+
+[node name="ItemList" type="OptionButton" parent="Panel/Panel/Game/HBoxContainerJoy1"]
+margin_left = 105.0
+margin_right = 145.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 40, 0 )
+
+[node name="HBoxContainerJoy2" type="HBoxContainer" parent="Panel/Panel/Game"]
+margin_top = 144.0
+margin_right = 804.0
+margin_bottom = 164.0
+
+[node name="Label" type="Label" parent="Panel/Panel/Game/HBoxContainerJoy2"]
+margin_top = 3.0
+margin_right = 101.0
+margin_bottom = 17.0
+text = "Player1 - Joypad"
+
+[node name="ItemList" type="OptionButton" parent="Panel/Panel/Game/HBoxContainerJoy2"]
+margin_left = 105.0
+margin_right = 145.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 40, 0 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/Panel/Game"]
+margin_top = 168.0
+margin_right = 804.0
+margin_bottom = 168.0
+
 [node name="Controls" type="ScrollContainer" parent="Panel/Panel"]
 visible = false
 anchor_right = 1.0
@@ -324,3 +368,5 @@ bus_name = "UI"
 [connection signal="visibility_changed" from="." to="." method="_on_OptionsMenu_visibility_changed"]
 [connection signal="pressed" from="Panel/ReturnButton" to="." method="_on_ReturnButton_pressed"]
 [connection signal="tab_changed" from="Panel/Panel" to="." method="_on_Panel_tab_changed"]
+[connection signal="toggled" from="Panel/Panel/Game/HBoxContainerJoy1/ItemList" to="." method="_on_connected_joypad_toggled" binds= [ "1" ]]
+[connection signal="toggled" from="Panel/Panel/Game/HBoxContainerJoy2/ItemList" to="." method="_on_connected_joypad_toggled" binds= [ "2" ]]

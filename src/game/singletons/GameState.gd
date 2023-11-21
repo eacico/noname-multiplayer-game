@@ -53,13 +53,15 @@ func get_player_palette(player_id: String) -> Color:
 	var player_position = get_player_array_position(player_id)
 	if player_position >= 0:
 		return player_palette[player_position]
+	elif int(player_id):
+		return player_palette[int(player_id) - 1]
 	return Color.white
 
 func get_player_array_position(player_id: String) -> int:
-	var player_position
-	for i in range(players.size()):
-		if players[i].id == player_id:
-			return i
+	if players != null:
+		for i in range(players.size()):
+			if is_instance_valid(players[i]) and players[i].id == player_id:
+				return i
 	return -1
 
 
