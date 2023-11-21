@@ -48,6 +48,8 @@ func change_player_palette(player_id: String, color: Color):
 	if player_position >= 0:
 		player_palette[player_position] = color
 		players[player_position].set_body_color(color)
+	elif int(player_id):
+		player_palette[int(player_id) - 1] = color
 
 func get_player_palette(player_id: String) -> Color:
 	var player_position = get_player_array_position(player_id)
