@@ -24,13 +24,14 @@ onready var state_machine = $StateMachine
 ## estado correspondiente de la state machine, pero como queremos
 ## poder modificar estos valores desde afuera de la escena del Player,
 ## los exponemos desde el script de Player.
-export (float) var ACCELERATION: float = 30.0
+export (float) var ACCELERATION: float = 18.0
 export (float) var AIR_ACCELERATION: float = 13.0
-export (float) var H_SPEED_LIMIT: float = 250.0
+export (float) var H_SPEED_LIMIT: float = 230.0
+export (float) var GHOST_SPEED_LIMIT: float = 150.0
 export (int) var jump_speed: int = 300
 export (float) var JUMP_SPEED_LIMIT: float = 350.0
 export (float) var FALL_SPEED_LIMIT: float = 850.0
-export (float) var FRICTION_WEIGHT: float = 0.20
+export (float) var FRICTION_WEIGHT: float = 0.25
 export (int) var gravity: int = 10
 export (Color) var color: Color = Color.white
 export (String) var id: String = "1"
@@ -98,12 +99,13 @@ func _apply_ghost_movement(delta: float) -> void:
 	ghost_move_direction.x = int(Input.is_action_pressed("p"+id+"_move_right")) - int(Input.is_action_pressed("p"+id+"_move_left"))
 	ghost_move_direction.y = int(Input.is_action_pressed("p"+id+"_move_down")) - int(Input.is_action_pressed("p"+id+"_move_up"))
 	if ghost_move_direction.x != 0:
-		velocity.x = clamp(velocity.x + (ghost_move_direction.x * ACCELERATION), -H_SPEED_LIMIT, H_SPEED_LIMIT)
+		velocity.x = clamp(velocity.x + (ghost_move_direction.x * ACCELERATION), -GHOST_SPEED_LIMIT, GHOST_SPEED_LIMIT)
+	else:
+		velocity.x = lerp(velocity.x, 0, FRICTION_WEIGHT) if abs(velocity.x) > 1 else 0	
 	if ghost_move_direction.y != 0:
-		velocity.y = clamp(velocity.y + (ghost_move_direction.y * ACCELERATION), -H_SPEED_LIMIT, H_SPEED_LIMIT)
-		
-	velocity.x = lerp(velocity.x, 0, FRICTION_WEIGHT) if abs(velocity.x) > 1 else 0
-	velocity.y = lerp(velocity.y, 0, FRICTION_WEIGHT) if abs(velocity.y) > 1 else 0
+		velocity.y = clamp(velocity.y + (ghost_move_direction.y * ACCELERATION), -GHOST_SPEED_LIMIT, GHOST_SPEED_LIMIT)
+	else:
+		velocity.y = lerp(velocity.y, 0, FRICTION_WEIGHT) if abs(velocity.y) > 1 else 0
 	
 	if ghost_move_direction.x != 0: 
 		body_pivot.scale.x = 1 - 2 * float(ghost_move_direction.x < 0)
@@ -182,7 +184,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		if is_instance_valid(nearest_actionable):
 			_play_animation("action")
 			
-			body_pivot.scale.x = 1 - 2 * float((position - nearest_actionable.position).x > 0)
+			body_pivot.scale.x = 1 - 2 * float((global_position - nearest_actionable.global_position).x > 0)
 			
 			nearest_actionable.emit_signal("actioned", self)
 
