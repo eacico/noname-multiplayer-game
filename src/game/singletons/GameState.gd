@@ -3,13 +3,14 @@ extends Node
 signal level_won()
 signal game_over()
 signal current_players_changed()
+signal input_map_changed()
 
 
 var players: Array = [] setget set_players
 var players_in_goal: Array = []
 var players_dead: Array = []
 
-var player_colors: Array = [Color(0.92549, 0.717647, 0)
+var player_palette: Array = [Color(0.92549, 0.717647, 0)
 							,Color(0.533333, 0.776471, 0.364706)]
 
 
@@ -38,6 +39,31 @@ func notify_player_respawn(player: Player) -> void:
 func set_players(_players: Array) -> void:
 	players = _players
 	for i in range(players.size()):
-		if range(player_colors.size()).has(i):
-			players[i].set_body_color(player_colors[i])
+		if range(player_palette.size()).has(i):
+			players[i].set_body_color(player_palette[i])
 	emit_signal("current_players_changed")
+
+func change_player_palette(player_id: String, color: Color):
+	var player_position = get_player_array_position(player_id)
+	if player_position >= 0:
+		player_palette[player_position] = color
+		players[player_position].set_body_color(color)
+
+func get_player_palette(player_id: String) -> Color:
+	var player_position = get_player_array_position(player_id)
+	if player_position >= 0:
+		return player_palette[player_position]
+	elif int(player_id):
+		return player_palette[int(player_id) - 1]
+	return Color.white
+
+func get_player_array_position(player_id: String) -> int:
+	if players != null:
+		for i in range(players.size()):
+			if is_instance_valid(players[i]) and players[i].id == player_id:
+				return i
+	return -1
+
+
+func notify_input_map_changed() -> void:
+	emit_signal("input_map_changed")

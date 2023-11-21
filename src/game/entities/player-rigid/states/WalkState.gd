@@ -8,6 +8,7 @@ func enter() -> void:
 
 
 func handle_input(event:InputEvent) -> void:
+	if !character.evaluate_inputs: return
 	if event.is_action_pressed("p"+character.id+"_jump") && character.is_on_floor():
 		emit_signal("finished", "jump")
 

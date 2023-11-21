@@ -9,12 +9,33 @@ onready var action_key_button: Button = $"%ActionKeyButton"
 export (String) var action: String
 export (String) var action_name: String setget _set_action_name
 
+var joypad_button_desc = [
+	"Cross",
+	"Circle",
+	"Square",
+	"Triangle",
+	"L1",
+	"R1",
+	"L2",
+	"R2",
+	"L3",
+	"R3",
+	"Select",
+	"Start",
+	"D-Pad Up",
+	"D-Pad Down",
+	"D-Pad Left",
+	"D-Pad Right"
+]
 
 func _ready() -> void:
 	set_process_input(false)
 	if !Engine.editor_hint && InputMap.has_action(action):
-		var event: InputEvent = InputMap.get_action_list(action)[0]
-		_set_event(event)
+		for event in InputMap.get_action_list(action):
+			if event is InputEventKey:
+				_set_event(event)
+				break
+		
 
 
 func _on_ActionKeyButton_pressed() -> void:
@@ -24,8 +45,9 @@ func _on_ActionKeyButton_pressed() -> void:
 
 
 func _input(event: InputEvent) -> void:
-	if !event is InputEventMouseMotion:
-		InputMap.action_erase_events(action)
+	#if !event is InputEventMouseMotion:
+	if event is InputEventKey:
+		action_erase_events(action)
 		InputMap.action_add_event(action, event)
 		_set_event(event)
 		set_process_input(false)
@@ -33,12 +55,21 @@ func _input(event: InputEvent) -> void:
 		yield(get_tree().create_timer(0.1), "timeout")
 		action_key_button.grab_focus()
 
+func action_erase_events(action: String):
+	for event in InputMap.get_action_list(action):
+		if event is InputEventKey:
+			InputMap.action_erase_event(action, event)
 
 func _set_event(event: InputEvent) -> void:
+	action_key_button.text = event.as_text()
+	
 	if event is InputEventMouseButton:
 		action_key_button.text = event.as_text().get_slice(":", 1).get_slice(",", 0).get_slice("=", 1)
-	else:
-		action_key_button.text = event.as_text()
+	elif event is InputEventJoypadButton:
+		var event_button_id = event.get_button_index()
+		if event_button_id in range(joypad_button_desc.size()):
+			action_key_button.text = "Joy%s - %s" % [event.device + 1,joypad_button_desc[event_button_id]]
+		
 
 
 func _set_action_name(nm: String) -> void:

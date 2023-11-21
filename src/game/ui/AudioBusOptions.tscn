@@ -5,6 +5,7 @@
 [node name="AudioBusOptions" type="PanelContainer"]
 margin_right = 264.0
 margin_bottom = 23.0
+focus_mode = 2
 script = ExtResource( 1 )
 bus_name = "General"
 
@@ -57,5 +58,6 @@ size_flags_horizontal = 3
 min_value = -80.0
 max_value = 0.0
 
+[connection signal="focus_entered" from="." to="HBoxContainer/VBoxContainer/SoundSlider" method="grab_focus"]
 [connection signal="toggled" from="HBoxContainer/HBoxContainer/MuteButton" to="." method="_on_MuteButton_toggled"]
 [connection signal="value_changed" from="HBoxContainer/VBoxContainer/SoundSlider" to="." method="_on_SoundSlider_value_changed"]

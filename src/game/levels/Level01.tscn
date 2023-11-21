@@ -608,7 +608,6 @@ position = Vector2( 388, -489 )
 Connection_TileMap = NodePath("../InteractionTiles2")
 
 [node name="InteractionTiles3" type="TileMap" parent="Environment/Puzzles/Puzzle2"]
-z_index = -1
 tile_set = SubResource( 58 )
 cell_size = Vector2( 8, 8 )
 cell_quadrant_size = 8

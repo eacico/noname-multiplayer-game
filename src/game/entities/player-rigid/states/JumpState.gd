@@ -24,6 +24,7 @@ func exit() -> void:
 	jumps = 0
 	
 func handle_input(event: InputEvent) -> void:
+	if !character.evaluate_inputs: return
 	if event.is_action_pressed("p"+character.id+"_jump") && jumps < jumps_limit:
 		jumps += 1
 		#character.velocity.y -= character.jump_speed
