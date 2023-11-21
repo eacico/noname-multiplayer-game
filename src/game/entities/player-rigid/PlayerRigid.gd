@@ -32,6 +32,7 @@ export (int) var jump_speed: int = 300
 export (float) var JUMP_SPEED_LIMIT: float = 350.0
 export (float) var FALL_SPEED_LIMIT: float = 850.0
 export (float) var FRICTION_WEIGHT: float = 0.25
+export (float) var AIR_FRICTION_WEIGHT: float = 0.08
 export (int) var gravity: int = 10
 export (Color) var color: Color = Color.white
 export (String) var id: String = "1"
@@ -79,7 +80,7 @@ func _handle_horizontal_move_input() -> void:
 ## Se extrae el comportamiento del manejo de la aplicación de fricción
 ## a una función para ser llamada apropiadamente desde la state machine
 func _handle_deacceleration() -> void:
-	added_velocity.x = -linear_velocity.x + lerp(linear_velocity.x, 0, FRICTION_WEIGHT) if abs(linear_velocity.x) > 1 else -linear_velocity.x
+	added_velocity.x = -linear_velocity.x + lerp(linear_velocity.x, 0, FRICTION_WEIGHT if is_on_floor() else AIR_FRICTION_WEIGHT) if abs(linear_velocity.x) > 1 else -linear_velocity.x
 
 
 func _integrate_forces(state: Physics2DDirectBodyState) -> void:

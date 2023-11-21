@@ -3,6 +3,7 @@ extends AbstractState
 onready var detach_timer = $DetachTimer
 onready var left_wall_ray_cast = $"../../WallRaycast/LeftRayCast2D"
 onready var right_wall_ray_cast = $"../../WallRaycast/RightRayCast2D"
+onready var jump = $"../Jump"
 
 var wall_side: Vector2 = Vector2.ZERO
 
@@ -16,9 +17,10 @@ func exit() -> void:
 	
 func handle_input(event: InputEvent) -> void:
 	if !character.evaluate_inputs: return
-	if event.is_action_pressed("p"+character.id+"_jump") && player_is_detaching():
+	if event.is_action_pressed("p"+character.id+"_jump"): # && player_is_detaching():
 		detach_timer.stop()
-		character.velocity.x = character.H_SPEED_LIMIT * 0.75 * jump_direction()
+		jump.jumps = 1
+		character.added_velocity.x = character.H_SPEED_LIMIT * -wall_side.x# * 0.75 * jump_direction()
 		emit_signal("finished", "jump")
 	
 func update(delta: float) -> void:

@@ -47,7 +47,7 @@ func update(delta: float) -> void:
 		else:
 			emit_signal("finished", "walk")
 		land_sfx.play()
-	elif character_is_on_wall and starting_timer.is_stopped() and detached_from_wall:
+	elif character_is_on_wall and starting_timer.is_stopped(): # and detached_from_wall:
 		emit_signal("finished", "wall_slide")
 	else:
 		if character.velocity.y > 0:
