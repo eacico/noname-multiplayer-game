@@ -222,8 +222,9 @@ func set_ghost_movement_area(node_path: NodePath):
 	get_ghost_movement_area_polygon()
 
 func get_ghost_movement_area_polygon():
-	var ghost_movement_area: Polygon2D = get_node(ghost_movement_area_path)
-	if ghost_movement_area:
-		ghost_movement_area_polygon = ghost_movement_area.polygon
+	if has_node(ghost_movement_area_path):
+		var ghost_movement_area: Polygon2D = get_node(ghost_movement_area_path)
+		if ghost_movement_area:
+			ghost_movement_area_polygon = ghost_movement_area.polygon
 	
 	

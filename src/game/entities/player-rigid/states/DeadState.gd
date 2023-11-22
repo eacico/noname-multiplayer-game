@@ -1,6 +1,7 @@
 extends AbstractState
 
 onready var respawn_actionable = $"../../RespawnActionable"
+onready var respawn_body = $"../../RespawnBody"
 
 enum Mode {
 	MODE_RIGID = 0
@@ -41,4 +42,5 @@ func _on_animation_finished(anim_name:String) -> void:
 func _on_RespawnActionable_actioned(player):
 	if character.dead:
 		character._play_animation("RESET")
+		character.global_position = respawn_body.global_position
 		

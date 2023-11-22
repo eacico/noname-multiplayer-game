@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=2]
+[gd_scene load_steps=42 format=2]
 
 [ext_resource path="res://src/game/entities/player-rigid/states/DeadState.gd" type="Script" id=1]
 [ext_resource path="res://src/game/entities/player-rigid/states/WallSlideState.gd" type="Script" id=2]
@@ -9,7 +9,8 @@
 [ext_resource path="res://src/game/entities/player-rigid/PlayerRigidStateMachine.gd" type="Script" id=7]
 [ext_resource path="res://src/game/entities/player-rigid/states/WalkState.gd" type="Script" id=8]
 [ext_resource path="res://src/game/entities/player-rigid/states/JumpState.gd" type="Script" id=9]
-[ext_resource path="res://src/game/partials/Actionable.gd" type="Script" id=12]
+[ext_resource path="res://src/game/partials/Actionable.tscn" type="PackedScene" id=10]
+[ext_resource path="res://assets/textures/player/respawn-flame.png" type="Texture" id=11]
 [ext_resource path="res://assets/textures/player/player_action_alert.png" type="Texture" id=13]
 [ext_resource path="res://assets/sound/sfx/movement/16_human_walk_stone_1.wav" type="AudioStream" id=14]
 [ext_resource path="res://assets/sound/sfx/movement/16_human_walk_stone_2.wav" type="AudioStream" id=15]
@@ -24,6 +25,11 @@
 
 [sub_resource type="PhysicsMaterial" id=9]
 friction = 0.0
+
+[sub_resource type="PhysicsMaterial" id=21]
+friction = 0.0
+
+[sub_resource type="CircleShape2D" id=20]
 
 [sub_resource type="Animation" id=11]
 length = 0.001
@@ -62,6 +68,30 @@ tracks/2/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 0,
 "values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("../RespawnBody/RespawnSprite:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0 ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("../RespawnBody/RespawnSprite:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
 }
 
 [sub_resource type="Animation" id=12]
@@ -199,7 +229,31 @@ tracks/2/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Color( 1, 1, 1, 0.490196 ) ]
+"values": [ Color( 1, 1, 1, 0.588235 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("../RespawnBody/RespawnSprite:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 3 ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("../RespawnBody/RespawnSprite:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
 }
 
 [sub_resource type="Animation" id=10]
@@ -383,8 +437,7 @@ length = 4.0
 length = 4.0
 
 [node name="Player" type="RigidBody2D"]
-collision_layer = 25
-collision_mask = 0
+collision_mask = 12
 mode = 2
 mass = 50.0
 physics_material_override = SubResource( 9 )
@@ -455,6 +508,30 @@ stream = ExtResource( 15 )
 volume_db = -5.0
 bus = "Player"
 
+[node name="PinJoint2D" type="PinJoint2D" parent="."]
+position = Vector2( 0, -14 )
+node_a = NodePath("..")
+node_b = NodePath("../RespawnBody")
+bias = 0.1
+softness = 16.0
+
+[node name="RespawnBody" type="RigidBody2D" parent="."]
+position = Vector2( 0, -14 )
+collision_layer = 32
+collision_mask = 12
+physics_material_override = SubResource( 21 )
+gravity_scale = 0.0
+linear_damp = 4.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RespawnBody"]
+shape = SubResource( 20 )
+
+[node name="RespawnSprite" type="Sprite" parent="RespawnBody"]
+visible = false
+modulate = Color( 1, 1, 1, 0.588235 )
+texture = ExtResource( 11 )
+hframes = 4
+
 [node name="BodyAnimations" type="AnimationPlayer" parent="."]
 root_node = NodePath("../BodyPivot")
 anims/RESET = SubResource( 11 )
@@ -519,15 +596,11 @@ position = Vector2( 6, -14 )
 cast_to = Vector2( 3, 0 )
 collision_mask = 4
 
-[node name="RespawnActionable" type="Area2D" parent="."]
-visible = false
-collision_layer = 16
-collision_mask = 0
+[node name="RespawnActionable" parent="." instance=ExtResource( 10 )]
 monitorable = false
-script = ExtResource( 12 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RespawnActionable"]
-position = Vector2( 0, -21 )
+position = Vector2( 0, -15 )
 shape = SubResource( 2 )
 
 [node name="ActionableFinder" type="Area2D" parent="."]
