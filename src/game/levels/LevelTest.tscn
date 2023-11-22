@@ -721,12 +721,14 @@ position = Vector2( 471, 64 )
 unique_name_in_owner = true
 position = Vector2( 251, 527 )
 color = Color( 0.92549, 0.717647, 0, 1 )
+ghost_movement_area_path = NodePath("../../../../BackgroundLayer/Polygon2D")
 
 [node name="Player2" parent="Environment/Entities/Characters" instance=ExtResource( 14 )]
 unique_name_in_owner = true
 position = Vector2( 349, 525 )
 color = Color( 0.533333, 0.776471, 0.364706, 1 )
 id = "2"
+ghost_movement_area_path = NodePath("../../../../BackgroundLayer/Polygon2D")
 
 [node name="Camera2D" type="Camera2D" parent="Environment/Entities/Characters/Player2"]
 position = Vector2( -51, -124 )

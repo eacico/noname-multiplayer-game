@@ -38,6 +38,8 @@ export (Color) var color: Color = Color.white
 export (String) var id: String = "1"
 export (float) var wall_slide_speed: float = 50.0
 export (bool) var evaluate_inputs: bool = true
+export (NodePath) var ghost_movement_area_path: NodePath setget set_ghost_movement_area
+
 
 
 
@@ -50,6 +52,7 @@ var is_wall_sliding: bool = false
 var ghost_move_direction: Vector2 = Vector2.ZERO
 var carrying: Array = []
 var recognizable_actionables = [ "Player", "Switch", "EnergyPlug" ]
+var ghost_movement_area_polygon: PoolVector2Array 
 
 ## Flag de ayuda para saber identificar el estado de actividad
 var dead: bool = false
@@ -57,6 +60,7 @@ var dead: bool = false
 
 func _ready() -> void:
 	set_body_color(color)
+	get_ghost_movement_area_polygon()
 
 func get_class(): return "Player"
 
@@ -111,8 +115,14 @@ func _apply_ghost_movement(delta: float) -> void:
 	if ghost_move_direction.x != 0: 
 		body_pivot.scale.x = 1 - 2 * float(ghost_move_direction.x < 0)
 	
-	position += velocity * delta
-		
+	var calculated_position = position + (velocity * delta)
+	if Geometry.is_point_in_polygon(calculated_position, ghost_movement_area_polygon):
+		position = calculated_position
+	elif  Geometry.is_point_in_polygon(Vector2(position.x, calculated_position.y), ghost_movement_area_polygon):
+		position.y = calculated_position.y
+	elif  Geometry.is_point_in_polygon(Vector2(calculated_position.x, position.y), ghost_movement_area_polygon):
+		position.x = calculated_position.x
+	
 
 ## Función que pisa la función is_on_floor() ya existente
 ## y le agrega el chequeo de raycasts para expandir la ventana
@@ -206,3 +216,14 @@ func _on_Player_nearest_actionable_changed(actionable: Node):
 		action_alert.hide()
 	nearest_actionable = actionable
 
+
+func set_ghost_movement_area(node_path: NodePath):
+	ghost_movement_area_path = node_path
+	get_ghost_movement_area_polygon()
+
+func get_ghost_movement_area_polygon():
+	var ghost_movement_area: Polygon2D = get_node(ghost_movement_area_path)
+	if ghost_movement_area:
+		ghost_movement_area_polygon = ghost_movement_area.polygon
+	
+	
