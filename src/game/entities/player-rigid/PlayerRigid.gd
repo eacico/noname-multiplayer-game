@@ -13,7 +13,8 @@ const SLOPE_THRESHOLD: float = deg2rad(46)
 onready var floor_raycasts: Array = $FloorRaycasts.get_children()
 onready var wall_raycasts: Array  = $WallRaycast.get_children()
 onready var actionable_finder = $ActionableFinder
-onready var action_alert = $BodyPivot/ActionAlert
+onready var action_alert = $ActionAlert
+onready var help_alert = $HelpAlert
 onready var body_animations = $BodyAnimations
 onready var body_color = $"%ColorSprite"
 onready var body_pivot = $BodyPivot
@@ -226,5 +227,7 @@ func get_ghost_movement_area_polygon():
 		var ghost_movement_area: Polygon2D = get_node(ghost_movement_area_path)
 		if ghost_movement_area:
 			ghost_movement_area_polygon = ghost_movement_area.polygon
-	
-	
+
+func set_aid_alert_visibility(visible: bool):
+	help_alert.visible = visible
+

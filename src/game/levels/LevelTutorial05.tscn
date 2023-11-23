@@ -466,6 +466,10 @@ position = Vector2( 306, 232 )
 rotation = 3.14159
 switches = [ NodePath("../Switch") ]
 
+[node name="SliderGate3" parent="Environment/Puzzles/Puzzle1" instance=ExtResource( 10 )]
+position = Vector2( 129, 232 )
+scale = Vector2( 1.04, 1 )
+
 [node name="InteractionTiles" type="TileMap" parent="Environment/Puzzles/Puzzle1"]
 tile_set = SubResource( 57 )
 cell_size = Vector2( 8, 8 )

@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=2]
+[gd_scene load_steps=43 format=2]
 
 [ext_resource path="res://src/game/entities/player-rigid/states/DeadState.gd" type="Script" id=1]
 [ext_resource path="res://src/game/entities/player-rigid/states/WallSlideState.gd" type="Script" id=2]
@@ -11,6 +11,7 @@
 [ext_resource path="res://src/game/entities/player-rigid/states/JumpState.gd" type="Script" id=9]
 [ext_resource path="res://src/game/partials/Actionable.tscn" type="PackedScene" id=10]
 [ext_resource path="res://assets/textures/player/respawn-flame.png" type="Texture" id=11]
+[ext_resource path="res://assets/textures/player/player_help_alert.png" type="Texture" id=12]
 [ext_resource path="res://assets/textures/player/player_action_alert.png" type="Texture" id=13]
 [ext_resource path="res://assets/sound/sfx/movement/16_human_walk_stone_1.wav" type="AudioStream" id=14]
 [ext_resource path="res://assets/sound/sfx/movement/16_human_walk_stone_2.wav" type="AudioStream" id=15]
@@ -528,7 +529,7 @@ shape = SubResource( 20 )
 
 [node name="RespawnSprite" type="Sprite" parent="RespawnBody"]
 visible = false
-modulate = Color( 1, 1, 1, 0.588235 )
+modulate = Color( 0.313726, 0.760784, 0.760784, 0.784314 )
 texture = ExtResource( 11 )
 hframes = 4
 
@@ -544,6 +545,17 @@ anims/jump = SubResource( 14 )
 anims/slide = SubResource( 16 )
 anims/spin = SubResource( 17 )
 anims/walk = SubResource( 15 )
+
+[node name="ActionAlert" type="Sprite" parent="."]
+position = Vector2( -7, -32 )
+scale = Vector2( 1, 0.8 )
+texture = ExtResource( 13 )
+
+[node name="HelpAlert" type="Sprite" parent="."]
+visible = false
+position = Vector2( 8, -32 )
+scale = Vector2( 0.8, 0.8 )
+texture = ExtResource( 12 )
 
 [node name="BodyPivot" type="Node2D" parent="."]
 
@@ -561,11 +573,6 @@ position = Vector2( -1, -19 )
 texture = ExtResource( 3 )
 hframes = 8
 vframes = 8
-
-[node name="ActionAlert" type="Sprite" parent="BodyPivot"]
-position = Vector2( -7, -32 )
-z_index = 1
-texture = ExtResource( 13 )
 
 [node name="FloorRaycasts" type="Node2D" parent="."]
 
