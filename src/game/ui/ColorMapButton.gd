@@ -9,9 +9,10 @@ export (NodePath) var demo_player: NodePath
 
 
 func _ready():
-	if color:
-		color_rect.modulate = color
-	set_demo_player_color()
+	if !Engine.editor_hint:
+		if color:
+			color_rect.modulate = color
+		set_demo_player_color()
 
 func _set_color(_color) -> void:
 	color = _color
@@ -20,7 +21,7 @@ func _set_color(_color) -> void:
 
 
 func _on_ColorMapButton_pressed():
-	GameState.change_player_palette(player_id,color)
+	GameState.change_player_palette(player_id, color)
 	set_demo_player_color()
 
 func set_demo_player_color():

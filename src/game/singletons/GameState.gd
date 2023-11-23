@@ -22,7 +22,7 @@ func notify_player_reached_goal(player_id: String) -> void:
 	if players.size() == players_in_goal.size():
 		emit_signal("level_won")
 
-func notify_player_death(player: Player) -> void:
+func notify_player_death(player) -> void:
 	print("notify_player_death("+player.id+")")
 	if !players_dead.has(player.id):
 		players_dead.append(player.id)
@@ -30,7 +30,7 @@ func notify_player_death(player: Player) -> void:
 	if players.size() == players_dead.size():
 		emit_signal("game_over")
 	
-func notify_player_respawn(player: Player) -> void:
+func notify_player_respawn(player) -> void:
 	print("notify_player_respawn("+player.id+")")
 	if players_dead.has(player.id):
 		players_dead.erase(player.id)
