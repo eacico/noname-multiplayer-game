@@ -115,13 +115,13 @@ func _apply_ghost_movement(delta: float) -> void:
 	if ghost_move_direction.x != 0: 
 		body_pivot.scale.x = 1 - 2 * float(ghost_move_direction.x < 0)
 	
-	var calculated_position = position + (velocity * delta)
+	var calculated_position = global_position + (velocity * delta)
 	if Geometry.is_point_in_polygon(calculated_position, ghost_movement_area_polygon):
-		position = calculated_position
-	elif  Geometry.is_point_in_polygon(Vector2(position.x, calculated_position.y), ghost_movement_area_polygon):
-		position.y = calculated_position.y
-	elif  Geometry.is_point_in_polygon(Vector2(calculated_position.x, position.y), ghost_movement_area_polygon):
-		position.x = calculated_position.x
+		global_position = calculated_position
+	elif  Geometry.is_point_in_polygon(Vector2(global_position.x, calculated_position.y), ghost_movement_area_polygon):
+		global_position.y = calculated_position.y
+	elif  Geometry.is_point_in_polygon(Vector2(calculated_position.x, global_position.y), ghost_movement_area_polygon):
+		global_position.x = calculated_position.x
 	
 
 ## Función que pisa la función is_on_floor() ya existente
