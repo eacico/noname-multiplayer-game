@@ -20,6 +20,9 @@ func _input(event):
 	elif event.is_action_released("ui_tab_prev"):
 		panel.set_current_tab((panel_tabs_size + panel.current_tab - 1) % panel_tabs_size)
 
+func show():
+	.show()
+	load_connected_joypads()
 
 func _on_OptionsMenu_visibility_changed():
 	var dummy_player_1 = $Panel/Panel/Game/ViewportContainer/DummyPlayer1
@@ -55,6 +58,8 @@ func load_connected_joypads():
 	var p1_Joypad_list = $Panel/Panel/Game/HBoxContainerJoy1/ItemList
 	var p2_Joypad_list = $Panel/Panel/Game/HBoxContainerJoy2/ItemList
 	
+	p1_Joypad_list.clear()
+	p2_Joypad_list.clear()
 	p1_Joypad_list.add_item("n/a", -1)
 	p2_Joypad_list.add_item("n/a", -1)
 	
@@ -76,7 +81,7 @@ func get_player_device_id(player_id: int) -> int:
 	
 	if InputMap.has_action(action):
 		for event in InputMap.get_action_list(action):
-			if event is InputEventJoypadButton:
+			if event is InputEventJoypadButton or event is InputEventJoypadMotion:
 				return event.device
 	return -1
 
@@ -85,7 +90,7 @@ func set_player_device_id(player_id: String, device_id: int):
 		var action = "p%s_%s" % [player_id,input]
 		if InputMap.has_action(action):
 			for event in InputMap.get_action_list(action):
-				if event is InputEventJoypadButton:
+				if event is InputEventJoypadButton or event is InputEventJoypadMotion:
 					event.device = device_id
 
 func _on_connected_joypad_toggled(button_pressed, player_id: String):
