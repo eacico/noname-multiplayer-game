@@ -6,7 +6,7 @@ export (PackedScene) var level_manager_scene: PackedScene
 export (bool) var start_on_test_scene: bool = false
 export (int) var level_to_test = 0
 export (int) var level_tutorial_01_id = 1
-export (int) var level_01_id = 5
+export (int) var level_01_id = 6
 
 onready var start_tutorial_button = $CanvasLayer/Control/Container/StartTutorialButton
 

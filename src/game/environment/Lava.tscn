@@ -12,7 +12,7 @@ extents = Vector2( 14.9937, 10.704 )
 [node name="Lava" type="Area2D"]
 position = Vector2( -2.38419e-07, 0 )
 scale = Vector2( 14.6061, 11.9348 )
-collision_layer = 0
+collision_layer = 32
 script = ExtResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -36,4 +36,4 @@ polygon = PoolVector2Array( -2.95626, -27.3677, 30.7935, -27.3677, 30.7935, -26.
 _audio_bus = "Player"
 _audio_references = [ ExtResource( 5 ) ]
 _db_volumes = [ -12.0 ]
-_pitch_scales = [ [ 0.0 ] ]
+_pitch_scales = [ [ 1.0 ] ]

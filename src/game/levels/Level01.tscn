@@ -747,6 +747,7 @@ tile_data = PoolIntArray( -3801072, 1, 0, -3801071, 1, 2, -3801069, 1, 0, -38010
 
 [node name="TriggerArea" parent="Environment/Triggers" instance=ExtResource( 9 )]
 position = Vector2( 264, 432 )
+collision_mask = 1
 nodes_affected = [ NodePath("../../Entities/Characters/Camera2D"), NodePath("../..") ]
 methods_list = [ PoolStringArray( "map_left_margin", "map_right_margin" ), PoolStringArray( "_players_reached_start" ) ]
 parameters = [ [ [ 32.0 ], [ 490.0 ] ], [ [  ] ] ]
@@ -757,6 +758,7 @@ shape = SubResource( 56 )
 
 [node name="TriggerArea2" parent="Environment/Triggers" instance=ExtResource( 9 )]
 position = Vector2( 264, -233 )
+collision_mask = 1
 nodes_affected = [ NodePath("../../Entities/Lava"), NodePath("../..") ]
 methods_list = [ PoolStringArray( "VELOCITY" ), PoolStringArray( "_play_track" ) ]
 parameters = [ [ [ 0.0 ] ], [ [ ExtResource( 20 ), -5.0, 1.0, 5.0 ] ] ]
