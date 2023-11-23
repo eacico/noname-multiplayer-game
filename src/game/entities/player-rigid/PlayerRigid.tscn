@@ -597,6 +597,7 @@ cast_to = Vector2( 3, 0 )
 collision_mask = 4
 
 [node name="RespawnActionable" parent="." instance=ExtResource( 10 )]
+monitoring = false
 monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RespawnActionable"]
@@ -607,6 +608,7 @@ shape = SubResource( 2 )
 visible = false
 collision_layer = 0
 collision_mask = 16
+monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ActionableFinder"]
 position = Vector2( -2, -20 )
