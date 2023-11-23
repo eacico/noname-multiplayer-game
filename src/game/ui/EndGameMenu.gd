@@ -8,6 +8,8 @@ onready var next_level_button = $Panel/VBoxContainer/NextLevelButton
 onready var restart_button = $Panel/VBoxContainer/RestartButton
 onready var label = $Panel/Label
 
+export (bool) var is_last_level: bool = false
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -18,7 +20,7 @@ func _ready():
 
 func _on_level_won() -> void:
 	label.text = "Success"
-	next_level_button.disabled = false
+	next_level_button.disabled = is_last_level
 	next_level_button.show()
 	show()
 	

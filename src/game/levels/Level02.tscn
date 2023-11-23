@@ -390,6 +390,7 @@ script = ExtResource( 12 )
 
 [node name="EndGameMenu" parent="UILayer" instance=ExtResource( 3 )]
 visible = false
+is_last_level = true
 
 [node name="PauseMenu" parent="UILayer" instance=ExtResource( 11 )]
 visible = false
