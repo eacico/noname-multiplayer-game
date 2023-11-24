@@ -1,4 +1,4 @@
-[gd_scene load_steps=44 format=2]
+[gd_scene load_steps=45 format=2]
 
 [ext_resource path="res://src/game/levels/level-scripts/LevelDefault.gd" type="Script" id=1]
 [ext_resource path="res://src/game/environment/Lava.tscn" type="PackedScene" id=2]
@@ -26,6 +26,7 @@
 [ext_resource path="res://assets/textures/background/pietra-pomommica-grigia - shader_mask.png" type="Texture" id=24]
 [ext_resource path="res://src/game/levels/level-scripts/Lvl01Checkpoints.gd" type="Script" id=25]
 [ext_resource path="res://src/game/levels/level-scripts/Lvl01Puzzle1.gd" type="Script" id=26]
+[ext_resource path="res://src/game/ui/GUI.tscn" type="PackedScene" id=27]
 
 [sub_resource type="TileSet" id=57]
 0/name = "switch_connector_tileset.png 0"
@@ -494,6 +495,8 @@ region = Rect2( 2.05287, 0.404434, 607.543, 167.892 )
 script = ExtResource( 1 )
 
 [node name="UILayer" type="CanvasLayer" parent="."]
+
+[node name="GUI" parent="UILayer" instance=ExtResource( 27 )]
 
 [node name="EndGameMenu" parent="UILayer" instance=ExtResource( 3 )]
 visible = false

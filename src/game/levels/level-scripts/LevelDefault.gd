@@ -3,7 +3,6 @@ class_name GameLevel
 
 onready var player_1 = $"%Player1"
 onready var player_2 = $"%Player2"
-onready var camera_2d = $"%Camera2D"
 
 
 # Regresa al menu principal
@@ -24,6 +23,7 @@ func _ready() -> void:
 	player_2.connect("respawn", self, "_on_player_respawn", [player_2])
 	randomize()
 	_ease_volume_on_start()
+	get_node("UILayer/GUI").setup_controls()
 
 
 func _on_restart_requested() -> void:
@@ -66,5 +66,6 @@ func load_checkpoint():
 	if checkpoint.size() > 1:
 		player_1.global_position = checkpoint[0]
 		player_2.global_position = checkpoint[1]
-		camera_2d.global_position = checkpoint[0] + (checkpoint[1] - checkpoint[0])
+		var camera = $"%Camera2D"
+		camera.global_position = checkpoint[0] + (checkpoint[1] - checkpoint[0])
 

@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://src/game/ui/GUIManager.gd" type="Script" id=1]
+[ext_resource path="res://assets/textures/ui/buttons.png" type="Texture" id=2]
 
 [sub_resource type="Theme" id=2]
 
@@ -31,83 +32,76 @@ anchor_right = 1.0
 margin_right = 67.0
 margin_bottom = 48.0
 
-[node name="MainShadow" type="Panel" parent="ControlsContainer/FadeElements/Player1Container"]
-margin_left = -6.0
-margin_top = -12.0
-margin_right = 69.0
-margin_bottom = 50.0
+[node name="Sprite" type="Sprite" parent="ControlsContainer/FadeElements/Player1Container"]
+position = Vector2( 67, 36 )
+texture = ExtResource( 2 )
+
+[node name="MainShadow" type="Panel" parent="ControlsContainer/FadeElements/Player1Container/Sprite"]
+show_behind_parent = true
+margin_left = -63.0
+margin_top = -31.0
+margin_right = 64.0
+margin_bottom = 33.0
 mouse_filter = 2
 custom_styles/panel = SubResource( 1 )
 
-[node name="Label" type="Label" parent="ControlsContainer/FadeElements/Player1Container"]
-modulate = Color( 0.745098, 0.745098, 0.745098, 1 )
-margin_left = 5.0
-margin_top = 4.0
-margin_right = 45.0
-margin_bottom = 18.0
-text = "P1"
-
-[node name="ActionPolygon2D" type="Polygon2D" parent="ControlsContainer/FadeElements/Player1Container"]
-modulate = Color( 1, 1, 1, 0.572549 )
-position = Vector2( 55, 12 )
-color = Color( 0.760784, 0.760784, 0.760784, 1 )
-polygon = PoolVector2Array( -8, 4, -8, -4, -5, -7, 4, -7, 7, -4, 7, 4, 4, 7, -5, 7 )
-
-[node name="Label" type="Label" parent="ControlsContainer/FadeElements/Player1Container/ActionPolygon2D"]
-modulate = Color( 0, 0, 0, 1 )
-margin_left = -14.0
-margin_top = -6.0
-margin_right = 14.0
-margin_bottom = 8.0
-text = "E"
-align = 1
-valign = 1
-
-[node name="JumpPolygon2D" type="Polygon2D" parent="ControlsContainer/FadeElements/Player1Container"]
-modulate = Color( 1, 1, 1, 0.572549 )
-position = Vector2( 33, 25 )
-color = Color( 0.760784, 0.760784, 0.760784, 1 )
-polygon = PoolVector2Array( -9, 6, -8, -4, -5, -8, 4, -8, 7, -4, 8, 6 )
-
-[node name="Label" type="Label" parent="ControlsContainer/FadeElements/Player1Container/JumpPolygon2D"]
-modulate = Color( 0, 0, 0, 1 )
-margin_left = -14.0
-margin_top = -6.0
-margin_right = 14.0
-margin_bottom = 8.0
-text = "W"
-align = 1
-valign = 1
-
-[node name="LeftPolygon2D" type="Polygon2D" parent="ControlsContainer/FadeElements/Player1Container"]
-modulate = Color( 1, 1, 1, 0.572549 )
-position = Vector2( 17, 34 )
-color = Color( 0.760784, 0.760784, 0.760784, 1 )
-polygon = PoolVector2Array( -5, 7, -9, 4, -9, -5, -5, -8, 5, -9, 5, 8 )
-
-[node name="Label" type="Label" parent="ControlsContainer/FadeElements/Player1Container/LeftPolygon2D"]
-modulate = Color( 0, 0, 0, 1 )
-margin_left = -14.0
+[node name="Label_move_left" type="Label" parent="ControlsContainer/FadeElements/Player1Container/Sprite"]
+margin_left = -56.0
 margin_top = -7.0
-margin_right = 14.0
-margin_bottom = 7.0
-text = "A"
+margin_right = -38.0
+margin_bottom = 9.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "-"
 align = 1
 valign = 1
 
-[node name="RightPolygon2D" type="Polygon2D" parent="ControlsContainer/FadeElements/Player1Container"]
-modulate = Color( 1, 1, 1, 0.572549 )
-position = Vector2( 49, 34 )
-color = Color( 0.760784, 0.760784, 0.760784, 1 )
-polygon = PoolVector2Array( -6, 8, -6, -9, 4, -8, 8, -5, 8, 4, 4, 7 )
-
-[node name="Label" type="Label" parent="ControlsContainer/FadeElements/Player1Container/RightPolygon2D"]
-modulate = Color( 0, 0, 0, 1 )
-margin_left = -15.0
+[node name="Label_move_right" type="Label" parent="ControlsContainer/FadeElements/Player1Container/Sprite"]
+margin_left = -24.0
 margin_top = -7.0
-margin_right = 13.0
-margin_bottom = 7.0
-text = "D"
+margin_right = -6.0
+margin_bottom = 9.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "-"
+align = 1
+valign = 1
+
+[node name="Label_move_up" type="Label" parent="ControlsContainer/FadeElements/Player1Container/Sprite"]
+margin_left = -40.0
+margin_top = -24.0
+margin_right = -22.0
+margin_bottom = -8.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "-"
+align = 1
+valign = 1
+
+[node name="Label_move_down" type="Label" parent="ControlsContainer/FadeElements/Player1Container/Sprite"]
+margin_left = -40.0
+margin_top = 9.0
+margin_right = -22.0
+margin_bottom = 25.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "-"
+align = 1
+valign = 1
+
+[node name="Label_jump" type="Label" parent="ControlsContainer/FadeElements/Player1Container/Sprite"]
+margin_left = 22.0
+margin_top = 8.0
+margin_right = 40.0
+margin_bottom = 24.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "-"
+align = 1
+valign = 1
+
+[node name="Label_action" type="Label" parent="ControlsContainer/FadeElements/Player1Container/Sprite"]
+margin_left = 6.0
+margin_top = -7.0
+margin_right = 24.0
+margin_bottom = 9.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "-"
 align = 1
 valign = 1
 
@@ -117,84 +111,75 @@ anchor_right = 1.0
 margin_left = -67.0
 margin_bottom = 48.0
 
-[node name="MainShadow" type="Panel" parent="ControlsContainer/FadeElements/Player2Container"]
-margin_left = -6.0
-margin_top = -12.0
-margin_right = 69.0
-margin_bottom = 50.0
+[node name="Sprite" type="Sprite" parent="ControlsContainer/FadeElements/Player2Container"]
+position = Vector2( -1, 36 )
+texture = ExtResource( 2 )
+
+[node name="MainShadow" type="Panel" parent="ControlsContainer/FadeElements/Player2Container/Sprite"]
+show_behind_parent = true
+margin_left = -63.0
+margin_top = -31.0
+margin_right = 64.0
+margin_bottom = 33.0
 mouse_filter = 2
 custom_styles/panel = SubResource( 1 )
 
-[node name="Label" type="Label" parent="ControlsContainer/FadeElements/Player2Container"]
-modulate = Color( 0.745098, 0.745098, 0.745098, 1 )
-margin_left = 20.0
-margin_top = 4.0
-margin_right = 60.0
-margin_bottom = 18.0
-text = "P2"
-align = 2
-
-[node name="ActionPolygon2D" type="Polygon2D" parent="ControlsContainer/FadeElements/Player2Container"]
-modulate = Color( 1, 1, 1, 0.572549 )
-position = Vector2( 11, 12 )
-color = Color( 0.760784, 0.760784, 0.760784, 1 )
-polygon = PoolVector2Array( -8, 4, -8, -4, -5, -7, 4, -7, 7, -4, 7, 4, 4, 7, -5, 7 )
-
-[node name="Label" type="Label" parent="ControlsContainer/FadeElements/Player2Container/ActionPolygon2D"]
-modulate = Color( 0, 0, 0, 1 )
-margin_left = -11.0
-margin_top = -4.0
-margin_right = 17.0
-margin_bottom = 10.0
-rect_scale = Vector2( 0.8, 0.8 )
-text = "ctrl"
-align = 1
-valign = 1
-
-[node name="JumpPolygon2D" type="Polygon2D" parent="ControlsContainer/FadeElements/Player2Container"]
-modulate = Color( 1, 1, 1, 0.572549 )
-position = Vector2( 33, 25 )
-color = Color( 0.760784, 0.760784, 0.760784, 1 )
-polygon = PoolVector2Array( -9, 6, -8, -4, -5, -8, 4, -8, 7, -4, 8, 6 )
-
-[node name="Label" type="Label" parent="ControlsContainer/FadeElements/Player2Container/JumpPolygon2D"]
-modulate = Color( 0, 0, 0, 1 )
-margin_left = -14.0
-margin_top = -6.0
-margin_right = 14.0
-margin_bottom = 8.0
-text = "^"
-align = 1
-valign = 1
-
-[node name="LeftPolygon2D" type="Polygon2D" parent="ControlsContainer/FadeElements/Player2Container"]
-modulate = Color( 1, 1, 1, 0.572549 )
-position = Vector2( 17, 34 )
-color = Color( 0.760784, 0.760784, 0.760784, 1 )
-polygon = PoolVector2Array( -5, 7, -9, 4, -9, -5, -5, -8, 5, -9, 5, 8 )
-
-[node name="Label" type="Label" parent="ControlsContainer/FadeElements/Player2Container/LeftPolygon2D"]
-modulate = Color( 0, 0, 0, 1 )
-margin_left = -14.0
+[node name="Label_move_left" type="Label" parent="ControlsContainer/FadeElements/Player2Container/Sprite"]
+margin_left = -56.0
 margin_top = -7.0
-margin_right = 14.0
-margin_bottom = 7.0
-text = "<"
+margin_right = -38.0
+margin_bottom = 9.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "-"
 align = 1
 valign = 1
 
-[node name="RightPolygon2D" type="Polygon2D" parent="ControlsContainer/FadeElements/Player2Container"]
-modulate = Color( 1, 1, 1, 0.572549 )
-position = Vector2( 49, 34 )
-color = Color( 0.760784, 0.760784, 0.760784, 1 )
-polygon = PoolVector2Array( -6, 8, -6, -9, 4, -8, 8, -5, 8, 4, 4, 7 )
-
-[node name="Label" type="Label" parent="ControlsContainer/FadeElements/Player2Container/RightPolygon2D"]
-modulate = Color( 0, 0, 0, 1 )
-margin_left = -15.0
+[node name="Label_move_right" type="Label" parent="ControlsContainer/FadeElements/Player2Container/Sprite"]
+margin_left = -24.0
 margin_top = -7.0
-margin_right = 13.0
-margin_bottom = 7.0
-text = ">"
+margin_right = -6.0
+margin_bottom = 9.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "-"
+align = 1
+valign = 1
+
+[node name="Label_move_up" type="Label" parent="ControlsContainer/FadeElements/Player2Container/Sprite"]
+margin_left = -40.0
+margin_top = -24.0
+margin_right = -22.0
+margin_bottom = -8.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "-"
+align = 1
+valign = 1
+
+[node name="Label_move_down" type="Label" parent="ControlsContainer/FadeElements/Player2Container/Sprite"]
+margin_left = -40.0
+margin_top = 9.0
+margin_right = -22.0
+margin_bottom = 25.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "-"
+align = 1
+valign = 1
+
+[node name="Label_jump" type="Label" parent="ControlsContainer/FadeElements/Player2Container/Sprite"]
+margin_left = 22.0
+margin_top = 8.0
+margin_right = 40.0
+margin_bottom = 24.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "-"
+align = 1
+valign = 1
+
+[node name="Label_action" type="Label" parent="ControlsContainer/FadeElements/Player2Container/Sprite"]
+margin_left = 6.0
+margin_top = -7.0
+margin_right = 24.0
+margin_bottom = 9.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "-"
 align = 1
 valign = 1

@@ -24,6 +24,12 @@ func show():
 	.show()
 	load_connected_joypads()
 
+func hide():
+	.hide()
+	var gui = get_parent().get_parent().get_node("GUI")
+	if gui:
+		gui.setup_controls()
+
 func _on_OptionsMenu_visibility_changed():
 	var dummy_player_1 = $Panel/Panel/Game/ViewportContainer/DummyPlayer1
 	var dummy_player_2 = $Panel/Panel/Game/ViewportContainer/DummyPlayer2
