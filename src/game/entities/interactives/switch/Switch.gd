@@ -1,4 +1,4 @@
-extends Actionable
+extends Area2D
 class_name Switch
 
 signal switched(state)

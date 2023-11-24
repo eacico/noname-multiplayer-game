@@ -194,7 +194,7 @@ margin_bottom = 164.0
 margin_top = 3.0
 margin_right = 101.0
 margin_bottom = 17.0
-text = "Player1 - Joypad"
+text = "Player2 - Joypad"
 
 [node name="ItemList" type="OptionButton" parent="Panel/Panel/Game/HBoxContainerJoy2"]
 margin_left = 105.0

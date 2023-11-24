@@ -13,7 +13,8 @@ const SLOPE_THRESHOLD: float = deg2rad(46)
 onready var floor_raycasts: Array = $FloorRaycasts.get_children()
 onready var wall_raycasts: Array  = $WallRaycast.get_children()
 onready var actionable_finder = $ActionableFinder
-onready var action_alert = $BodyPivot/ActionAlert
+onready var action_alert = $ActionAlert
+onready var help_alert = $HelpAlert
 onready var body_animations = $BodyAnimations
 onready var body_color = $"%ColorSprite"
 onready var body_pivot = $BodyPivot
@@ -24,18 +25,22 @@ onready var state_machine = $StateMachine
 ## estado correspondiente de la state machine, pero como queremos
 ## poder modificar estos valores desde afuera de la escena del Player,
 ## los exponemos desde el script de Player.
-export (float) var ACCELERATION: float = 30.0
+export (float) var ACCELERATION: float = 18.0
 export (float) var AIR_ACCELERATION: float = 13.0
-export (float) var H_SPEED_LIMIT: float = 250.0
+export (float) var H_SPEED_LIMIT: float = 230.0
+export (float) var GHOST_SPEED_LIMIT: float = 150.0
 export (int) var jump_speed: int = 300
 export (float) var JUMP_SPEED_LIMIT: float = 350.0
 export (float) var FALL_SPEED_LIMIT: float = 850.0
-export (float) var FRICTION_WEIGHT: float = 0.20
+export (float) var FRICTION_WEIGHT: float = 0.25
+export (float) var AIR_FRICTION_WEIGHT: float = 0.08
 export (int) var gravity: int = 10
 export (Color) var color: Color = Color.white
 export (String) var id: String = "1"
 export (float) var wall_slide_speed: float = 50.0
 export (bool) var evaluate_inputs: bool = true
+export (NodePath) var ghost_movement_area_path: NodePath setget set_ghost_movement_area
+
 
 
 
@@ -48,6 +53,7 @@ var is_wall_sliding: bool = false
 var ghost_move_direction: Vector2 = Vector2.ZERO
 var carrying: Array = []
 var recognizable_actionables = [ "Player", "Switch", "EnergyPlug" ]
+var ghost_movement_area_polygon: PoolVector2Array 
 
 ## Flag de ayuda para saber identificar el estado de actividad
 var dead: bool = false
@@ -55,6 +61,7 @@ var dead: bool = false
 
 func _ready() -> void:
 	set_body_color(color)
+	get_ghost_movement_area_polygon()
 
 func get_class(): return "Player"
 
@@ -78,7 +85,7 @@ func _handle_horizontal_move_input() -> void:
 ## Se extrae el comportamiento del manejo de la aplicación de fricción
 ## a una función para ser llamada apropiadamente desde la state machine
 func _handle_deacceleration() -> void:
-	added_velocity.x = -linear_velocity.x + lerp(linear_velocity.x, 0, FRICTION_WEIGHT) if abs(linear_velocity.x) > 1 else -linear_velocity.x
+	added_velocity.x = -linear_velocity.x + lerp(linear_velocity.x, 0, FRICTION_WEIGHT if is_on_floor() else AIR_FRICTION_WEIGHT) if abs(linear_velocity.x) > 1 else -linear_velocity.x
 
 
 func _integrate_forces(state: Physics2DDirectBodyState) -> void:
@@ -98,18 +105,25 @@ func _apply_ghost_movement(delta: float) -> void:
 	ghost_move_direction.x = int(Input.is_action_pressed("p"+id+"_move_right")) - int(Input.is_action_pressed("p"+id+"_move_left"))
 	ghost_move_direction.y = int(Input.is_action_pressed("p"+id+"_move_down")) - int(Input.is_action_pressed("p"+id+"_move_up"))
 	if ghost_move_direction.x != 0:
-		velocity.x = clamp(velocity.x + (ghost_move_direction.x * ACCELERATION), -H_SPEED_LIMIT, H_SPEED_LIMIT)
+		velocity.x = clamp(velocity.x + (ghost_move_direction.x * ACCELERATION), -GHOST_SPEED_LIMIT, GHOST_SPEED_LIMIT)
+	else:
+		velocity.x = lerp(velocity.x, 0, FRICTION_WEIGHT) if abs(velocity.x) > 1 else 0	
 	if ghost_move_direction.y != 0:
-		velocity.y = clamp(velocity.y + (ghost_move_direction.y * ACCELERATION), -H_SPEED_LIMIT, H_SPEED_LIMIT)
-		
-	velocity.x = lerp(velocity.x, 0, FRICTION_WEIGHT) if abs(velocity.x) > 1 else 0
-	velocity.y = lerp(velocity.y, 0, FRICTION_WEIGHT) if abs(velocity.y) > 1 else 0
+		velocity.y = clamp(velocity.y + (ghost_move_direction.y * ACCELERATION), -GHOST_SPEED_LIMIT, GHOST_SPEED_LIMIT)
+	else:
+		velocity.y = lerp(velocity.y, 0, FRICTION_WEIGHT) if abs(velocity.y) > 1 else 0
 	
 	if ghost_move_direction.x != 0: 
 		body_pivot.scale.x = 1 - 2 * float(ghost_move_direction.x < 0)
 	
-	position += velocity * delta
-		
+	var calculated_position = global_position + (velocity * delta)
+	if Geometry.is_point_in_polygon(calculated_position, ghost_movement_area_polygon):
+		global_position = calculated_position
+	elif  Geometry.is_point_in_polygon(Vector2(global_position.x, calculated_position.y), ghost_movement_area_polygon):
+		global_position.y = calculated_position.y
+	elif  Geometry.is_point_in_polygon(Vector2(calculated_position.x, global_position.y), ghost_movement_area_polygon):
+		global_position.x = calculated_position.x
+	
 
 ## Función que pisa la función is_on_floor() ya existente
 ## y le agrega el chequeo de raycasts para expandir la ventana
@@ -182,7 +196,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		if is_instance_valid(nearest_actionable):
 			_play_animation("action")
 			
-			body_pivot.scale.x = 1 - 2 * float((position - nearest_actionable.position).x > 0)
+			body_pivot.scale.x = 1 - 2 * float((global_position - nearest_actionable.global_position).x > 0)
 			
 			nearest_actionable.emit_signal("actioned", self)
 
@@ -202,4 +216,18 @@ func _on_Player_nearest_actionable_changed(actionable: Node):
 	else:
 		action_alert.hide()
 	nearest_actionable = actionable
+
+
+func set_ghost_movement_area(node_path: NodePath):
+	ghost_movement_area_path = node_path
+	get_ghost_movement_area_polygon()
+
+func get_ghost_movement_area_polygon():
+	if has_node(ghost_movement_area_path):
+		var ghost_movement_area: Polygon2D = get_node(ghost_movement_area_path)
+		if ghost_movement_area:
+			ghost_movement_area_polygon = ghost_movement_area.polygon
+
+func set_aid_alert_visibility(visible: bool):
+	help_alert.visible = visible
 

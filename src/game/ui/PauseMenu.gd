@@ -5,6 +5,7 @@ extends Control
 
 signal return_selected()
 signal restart_selected()
+signal retry_selected()
 
 onready var options_menu: Control = $OptionsMenu
 onready var resume_button = $Panel/VBoxContainer/ResumeButton
@@ -29,6 +30,10 @@ func _on_ReturnButton_pressed() -> void:
 func _on_RestartButton_pressed() -> void:
 	hide()
 	emit_signal("restart_selected")
+
+func _on_RetryButton_pressed() -> void:
+	hide()
+	emit_signal("retry_selected")
 
 
 func _on_ResumeButton_pressed() -> void:

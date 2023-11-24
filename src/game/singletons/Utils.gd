@@ -8,14 +8,14 @@ func check_nearest_actionable(caller, recognizable_actionables: Array) -> void:
 
 	var areas: Array = []
 	for area in caller.actionable_finder.get_overlapping_areas():
-		if is_recognizable_actionable(area, recognizable_actionables):
+		if is_recognizable_actionable(area.get_parent(), recognizable_actionables):
 			areas.append(area)
-	for body in caller.actionable_finder.get_overlapping_bodies():
-		if is_recognizable_actionable(body, recognizable_actionables):
-			for body_child in body.get_children():
-				if body_child is Actionable:
-					areas.append(body_child)
-					break
+#	for body in caller.actionable_finder.get_overlapping_bodies():
+#		if is_recognizable_actionable(body, recognizable_actionables):
+#			for body_child in body.get_children():
+#				if body_child is Actionable:
+#					areas.append(body_child)
+#					break
 	
 	var shortest_distance: float = INF
 	var next_nearest_actionable: Actionable = null

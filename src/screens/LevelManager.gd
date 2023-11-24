@@ -38,12 +38,14 @@ func _setup_level(id: int) -> void:
 		level_instance.connect("main_menu_requested", self, "_main_menu_called")
 		level_instance.connect("restart_requested", self, "_restart_called")
 		level_instance.connect("next_level_requested", self, "_next_called")
+		level_instance.connect("retry_level_requested", self, "_retry_called")
 
 
 # Callback de regreso al MainMenu.
 func _main_menu_called() -> void:
 	GameState.players_in_goal = []
 	GameState.players_dead = []
+	GameState.checkpoint = []
 	get_tree().paused = false
 	#get_tree().change_scene(main_menu_path)
 	SceneSwitcher.change_scene(main_menu_path, {"start_on_test_scene": false})
@@ -53,13 +55,19 @@ func _main_menu_called() -> void:
 func _restart_called() -> void:
 	GameState.players_in_goal = []
 	GameState.players_dead = []
+	GameState.checkpoint = []
 	_setup_level(level)
 
+func _retry_called() -> void:
+	GameState.players_in_goal = []
+	GameState.players_dead = []
+	_setup_level(level)
 
 # Callback de nivel siguiente.
 func _next_called() -> void:
 	GameState.players_in_goal = []
 	GameState.players_dead = []
+	GameState.checkpoint = []
 	level = min(level + 1, levels.size() - 1)
 	_setup_level(level)
 

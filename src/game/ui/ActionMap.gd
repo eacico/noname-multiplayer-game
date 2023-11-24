@@ -68,7 +68,7 @@ func _set_event(event: InputEvent) -> void:
 	elif event is InputEventJoypadButton:
 		var event_button_id = event.get_button_index()
 		if event_button_id in range(joypad_button_desc.size()):
-			action_key_button.text = "Joy%s - %s" % [event.device + 1,joypad_button_desc[event_button_id]]
+			action_key_button.text = "JPad_%s" % [event.device + 1,joypad_button_desc[event_button_id]]
 		
 
 

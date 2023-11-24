@@ -53,3 +53,9 @@ func evaluate_switches_state():
 		var switch = get_node(switches[i])
 		if switch is EnergySocket:
 			switch.evaluate_energy_state()
+
+#Funciones para usar externamente
+func set_open():
+	state_machine.current_state.handle_event("open")
+func set_closed():
+	state_machine.current_state.handle_event("close")

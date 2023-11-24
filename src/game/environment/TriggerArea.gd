@@ -34,6 +34,11 @@ func _on_body_entered(body: Node) -> void:
 			else:
 				console_log("  method '%s' NOT FOUND!!" % [method])
 
+func _on_TriggerArea_area_entered(area):
+	_on_body_entered(area)
+	
 func console_log(message, available = false):
 	if available:
 		print(message)
+
+

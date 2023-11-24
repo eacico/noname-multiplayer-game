@@ -1,6 +1,6 @@
 [gd_scene load_steps=72 format=2]
 
-[ext_resource path="res://src/game/levels/LevelDefault.gd" type="Script" id=1]
+[ext_resource path="res://src/game/levels/level-scripts/LevelDefault.gd" type="Script" id=1]
 [ext_resource path="res://src/game/environment/Lava.tscn" type="PackedScene" id=2]
 [ext_resource path="res://src/game/ui/EndGameMenu.tscn" type="PackedScene" id=3]
 [ext_resource path="res://src/game/environment/Goal.tscn" type="PackedScene" id=4]
@@ -721,12 +721,14 @@ position = Vector2( 471, 64 )
 unique_name_in_owner = true
 position = Vector2( 251, 527 )
 color = Color( 0.92549, 0.717647, 0, 1 )
+ghost_movement_area_path = NodePath("../../../../BackgroundLayer/Polygon2D")
 
 [node name="Player2" parent="Environment/Entities/Characters" instance=ExtResource( 14 )]
 unique_name_in_owner = true
 position = Vector2( 349, 525 )
 color = Color( 0.533333, 0.776471, 0.364706, 1 )
 id = "2"
+ghost_movement_area_path = NodePath("../../../../BackgroundLayer/Polygon2D")
 
 [node name="Camera2D" type="Camera2D" parent="Environment/Entities/Characters/Player2"]
 position = Vector2( -51, -124 )
@@ -757,5 +759,7 @@ tile_data = PoolIntArray( -131072, 1, 0, -131071, 1, 1, -131070, 1, 1, -131069, 
 [connection signal="goto_main_menu" from="UILayer/EndGameMenu" to="." method="_on_goto_main_menu_requested"]
 [connection signal="goto_next_level" from="UILayer/EndGameMenu" to="." method="_on_goto_next_level_requested"]
 [connection signal="restart_game" from="UILayer/EndGameMenu" to="." method="_on_restart_requested"]
+[connection signal="retry_level" from="UILayer/EndGameMenu" to="." method="_on_retry_level_requested"]
 [connection signal="restart_selected" from="UILayer/PauseMenu" to="." method="_on_restart_requested"]
+[connection signal="retry_selected" from="UILayer/PauseMenu" to="." method="_on_retry_level_requested"]
 [connection signal="return_selected" from="UILayer/PauseMenu" to="." method="_on_goto_main_menu_requested"]

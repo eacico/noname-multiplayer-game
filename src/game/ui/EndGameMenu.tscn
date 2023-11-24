@@ -50,18 +50,25 @@ margin_right = 100.0
 margin_bottom = 20.0
 text = "Next Level"
 
-[node name="RestartButton" type="Button" parent="Panel/VBoxContainer"]
+[node name="RetryButton" type="Button" parent="Panel/VBoxContainer"]
 margin_top = 24.0
 margin_right = 100.0
 margin_bottom = 44.0
-text = "Restart"
+text = "Retry"
 
-[node name="MainMenuButton" type="Button" parent="Panel/VBoxContainer"]
+[node name="RestartButton" type="Button" parent="Panel/VBoxContainer"]
 margin_top = 48.0
 margin_right = 100.0
 margin_bottom = 68.0
+text = "Restart"
+
+[node name="MainMenuButton" type="Button" parent="Panel/VBoxContainer"]
+margin_top = 72.0
+margin_right = 100.0
+margin_bottom = 92.0
 text = "Main Menu"
 
 [connection signal="pressed" from="Panel/VBoxContainer/NextLevelButton" to="." method="_on_NextLevelButton_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/RetryButton" to="." method="_on_RetryButton_pressed"]
 [connection signal="pressed" from="Panel/VBoxContainer/RestartButton" to="." method="_on_RestartButton_pressed"]
 [connection signal="pressed" from="Panel/VBoxContainer/MainMenuButton" to="." method="_on_MainMenuButton_pressed"]
