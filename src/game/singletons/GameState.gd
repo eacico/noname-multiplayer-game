@@ -9,6 +9,7 @@ signal input_map_changed()
 var players: Array = [] setget set_players
 var players_in_goal: Array = []
 var players_dead: Array = []
+var checkpoint: Array = []
 
 var player_palette: Array = [Color(0.92549, 0.717647, 0)
 							,Color(0.533333, 0.776471, 0.364706)]

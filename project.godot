@@ -52,7 +52,7 @@ _global_script_classes=[ {
 "base": "Node",
 "class": "GameLevel",
 "language": "GDScript",
-"path": "res://src/game/levels/LevelDefault.gd"
+"path": "res://src/game/levels/level-scripts/LevelDefault.gd"
 }, {
 "base": "RigidBody2D",
 "class": "Player",
@@ -311,6 +311,7 @@ test_level={
 2d_physics/layer_4="Gate"
 2d_physics/layer_5="Actionable"
 2d_physics/layer_6="Lava"
+2d_physics/layer_7="Respawn Orb"
 
 [physics]
 

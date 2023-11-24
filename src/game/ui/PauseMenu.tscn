@@ -22,7 +22,7 @@ anchor_bottom = 0.5
 margin_left = -100.0
 margin_top = -90.0
 margin_right = 100.0
-margin_bottom = 50.0
+margin_bottom = 86.0
 
 [node name="Label" type="Label" parent="Panel"]
 anchor_left = 0.5
@@ -38,9 +38,9 @@ valign = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
 anchor_left = 0.5
-anchor_top = 0.7
+anchor_top = 0.6
 anchor_right = 0.5
-anchor_bottom = 0.7
+anchor_bottom = 0.6
 margin_left = -50.0
 margin_top = -58.0
 margin_right = 50.0
@@ -57,16 +57,22 @@ margin_right = 100.0
 margin_bottom = 44.0
 text = "Options"
 
-[node name="RestartButton" type="Button" parent="Panel/VBoxContainer"]
+[node name="RetryButton" type="Button" parent="Panel/VBoxContainer"]
 margin_top = 48.0
 margin_right = 100.0
 margin_bottom = 68.0
-text = "Restart"
+text = "Retry"
 
-[node name="MainMenuButton" type="Button" parent="Panel/VBoxContainer"]
+[node name="RestartButton" type="Button" parent="Panel/VBoxContainer"]
 margin_top = 72.0
 margin_right = 100.0
 margin_bottom = 92.0
+text = "Restart"
+
+[node name="MainMenuButton" type="Button" parent="Panel/VBoxContainer"]
+margin_top = 96.0
+margin_right = 100.0
+margin_bottom = 116.0
 text = "Main Menu"
 
 [node name="OptionsMenu" parent="." instance=ExtResource( 2 )]
@@ -74,5 +80,6 @@ visible = false
 
 [connection signal="pressed" from="Panel/VBoxContainer/ResumeButton" to="." method="_on_ResumeButton_pressed"]
 [connection signal="pressed" from="Panel/VBoxContainer/OptionsButton" to="OptionsMenu" method="show"]
+[connection signal="pressed" from="Panel/VBoxContainer/RetryButton" to="." method="_on_RetryButton_pressed"]
 [connection signal="pressed" from="Panel/VBoxContainer/RestartButton" to="." method="_on_RestartButton_pressed"]
 [connection signal="pressed" from="Panel/VBoxContainer/MainMenuButton" to="." method="_on_ReturnButton_pressed"]

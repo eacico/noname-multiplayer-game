@@ -1,20 +1,20 @@
-[gd_scene load_steps=38 format=2]
+[gd_scene load_steps=44 format=2]
 
-[ext_resource path="res://src/game/levels/LevelDefault.gd" type="Script" id=1]
+[ext_resource path="res://src/game/levels/level-scripts/LevelDefault.gd" type="Script" id=1]
 [ext_resource path="res://src/game/environment/Lava.tscn" type="PackedScene" id=2]
 [ext_resource path="res://src/game/ui/EndGameMenu.tscn" type="PackedScene" id=3]
 [ext_resource path="res://src/game/environment/Goal.tscn" type="PackedScene" id=4]
 [ext_resource path="res://src/game/entities/player-rigid/PlayerRigid.tscn" type="PackedScene" id=5]
 [ext_resource path="res://assets/textures/tileset/basic_tileset.png" type="Texture" id=6]
 [ext_resource path="res://assets/textures/tileset/platforms.png" type="Texture" id=7]
-[ext_resource path="res://src/game/levels/Camera.gd" type="Script" id=8]
+[ext_resource path="res://src/game/levels/level-scripts/Camera.gd" type="Script" id=8]
 [ext_resource path="res://src/game/environment/TriggerArea.tscn" type="PackedScene" id=9]
 [ext_resource path="res://src/game/entities/interactives/energy_connector/EnergySocket.tscn" type="PackedScene" id=10]
 [ext_resource path="res://src/game/entities/interactives/switch/Switch.tscn" type="PackedScene" id=11]
 [ext_resource path="res://src/game/entities/reactives/SliderGate.tscn" type="PackedScene" id=12]
 [ext_resource path="res://src/game/entities/interactives/energy_connector/EnergyConnector.tscn" type="PackedScene" id=13]
 [ext_resource path="res://assets/textures/tileset/switch_connector_tileset.png" type="Texture" id=14]
-[ext_resource path="res://src/game/levels/Level01Environment.gd" type="Script" id=15]
+[ext_resource path="res://src/game/levels/level-scripts/Lvl01Environment.gd" type="Script" id=15]
 [ext_resource path="res://src/game/environment/DefaultBackground.tscn" type="PackedScene" id=16]
 [ext_resource path="res://assets/textures/background/tower_back_wall.png" type="Texture" id=17]
 [ext_resource path="res://assets/sound/textures/desert-ambient.wav" type="AudioStream" id=18]
@@ -24,6 +24,8 @@
 [ext_resource path="res://assets/textures/background/pietra-pomommica-grigia.png" type="Texture" id=22]
 [ext_resource path="res://assets/textures/background/middle.png" type="Texture" id=23]
 [ext_resource path="res://assets/textures/background/pietra-pomommica-grigia - shader_mask.png" type="Texture" id=24]
+[ext_resource path="res://src/game/levels/level-scripts/Lvl01Checkpoints.gd" type="Script" id=25]
+[ext_resource path="res://src/game/levels/level-scripts/Lvl01Puzzle1.gd" type="Script" id=26]
 
 [sub_resource type="TileSet" id=57]
 0/name = "switch_connector_tileset.png 0"
@@ -439,8 +441,20 @@ points = PoolVector2Array( 16, 16, 0, 16, 0, 0, 16, 0 )
 } ]
 1/z_index = 0
 
+[sub_resource type="RectangleShape2D" id=70]
+extents = Vector2( 218, 17 )
+
 [sub_resource type="RectangleShape2D" id=56]
-extents = Vector2( 231.5, 17 )
+extents = Vector2( 97, 17 )
+
+[sub_resource type="RectangleShape2D" id=68]
+extents = Vector2( 97, 17 )
+
+[sub_resource type="RectangleShape2D" id=69]
+extents = Vector2( 42, 9 )
+
+[sub_resource type="RectangleShape2D" id=67]
+extents = Vector2( 170, 9 )
 
 [sub_resource type="AtlasTexture" id=61]
 atlas = ExtResource( 23 )
@@ -515,6 +529,7 @@ script = ExtResource( 15 )
 [node name="Puzzles" type="Node2D" parent="Environment"]
 
 [node name="Puzzle1" type="Node2D" parent="Environment/Puzzles"]
+script = ExtResource( 26 )
 
 [node name="SliderGate2" parent="Environment/Puzzles/Puzzle1" instance=ExtResource( 12 )]
 position = Vector2( 189, -168 )
@@ -700,19 +715,19 @@ position = Vector2( -365, 656 )
 
 [node name="Player1" parent="Environment/Entities/Characters" instance=ExtResource( 5 )]
 unique_name_in_owner = true
-position = Vector2( -15, -1 )
+position = Vector2( -21, -2 )
 color = Color( 1, 0.913725, 0, 1 )
 ghost_movement_area_path = NodePath("../../../../BackgroundLayer/Polygon2D")
 
 [node name="Player2" parent="Environment/Entities/Characters" instance=ExtResource( 5 )]
 unique_name_in_owner = true
-position = Vector2( 18, -2 )
+position = Vector2( 24, -2 )
 color = Color( 0.25098, 0.737255, 1, 1 )
 id = "2"
 ghost_movement_area_path = NodePath("../../../../BackgroundLayer/Polygon2D")
 
 [node name="Camera2D" type="Camera2D" parent="Environment/Entities/Characters"]
-position = Vector2( 1, -2.38419e-07 )
+unique_name_in_owner = true
 scale = Vector2( 14.0606, 5.91304 )
 current = true
 script = ExtResource( 8 )
@@ -745,26 +760,65 @@ tile_data = PoolIntArray( -3801072, 1, 0, -3801071, 1, 2, -3801069, 1, 0, -38010
 
 [node name="Triggers" type="Node2D" parent="Environment"]
 
-[node name="TriggerArea" parent="Environment/Triggers" instance=ExtResource( 9 )]
+[node name="TriggerArea1" parent="Environment/Triggers" instance=ExtResource( 9 )]
 position = Vector2( 264, 432 )
 collision_mask = 1
 nodes_affected = [ NodePath("../../Entities/Characters/Camera2D"), NodePath("../..") ]
 methods_list = [ PoolStringArray( "map_left_margin", "map_right_margin" ), PoolStringArray( "_players_reached_start" ) ]
 parameters = [ [ [ 32.0 ], [ 490.0 ] ], [ [  ] ] ]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/Triggers/TriggerArea"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/Triggers/TriggerArea1"]
 position = Vector2( 0, 113 )
-shape = SubResource( 56 )
+shape = SubResource( 70 )
 
 [node name="TriggerArea2" parent="Environment/Triggers" instance=ExtResource( 9 )]
-position = Vector2( 264, -233 )
+position = Vector2( 145, -225 )
 collision_mask = 1
+nodes_affected = [ NodePath("../../Puzzles/Puzzle1") ]
+methods_list = [ PoolStringArray( "trigger_reached" ) ]
+parameters = [ [ [ 2 ] ] ]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/Triggers/TriggerArea2"]
+shape = SubResource( 56 )
+
+[node name="TriggerArea3" parent="Environment/Triggers" instance=ExtResource( 9 )]
+position = Vector2( 375, -226 )
+collision_mask = 1
+nodes_affected = [ NodePath("../../Puzzles/Puzzle1") ]
+methods_list = [ PoolStringArray( "trigger_reached" ) ]
+parameters = [ [ [ 3 ] ] ]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/Triggers/TriggerArea3"]
+shape = SubResource( 68 )
+
+[node name="TriggerArea4" parent="Environment/Triggers" instance=ExtResource( 9 )]
+position = Vector2( 268, -152 )
+collision_mask = 32
 nodes_affected = [ NodePath("../../Entities/Lava"), NodePath("../..") ]
 methods_list = [ PoolStringArray( "VELOCITY" ), PoolStringArray( "_play_track" ) ]
 parameters = [ [ [ 0.0 ] ], [ [ ExtResource( 20 ), -5.0, 1.0, 5.0 ] ] ]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/Triggers/TriggerArea2"]
-shape = SubResource( 56 )
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/Triggers/TriggerArea4"]
+shape = SubResource( 69 )
+
+[node name="Checkpoints" type="Node2D" parent="Environment"]
+script = ExtResource( 25 )
+
+[node name="TriggerCheckpoint1" parent="Environment/Checkpoints" instance=ExtResource( 9 )]
+position = Vector2( 264, -206 )
+collision_mask = 1
+nodes_affected = [ NodePath("..") ]
+methods_list = [ PoolStringArray( "checkpoint_reached" ) ]
+parameters = [ [ [ 1 ] ] ]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/Checkpoints/TriggerCheckpoint1"]
+shape = SubResource( 67 )
+
+[node name="P1" type="Position2D" parent="Environment/Checkpoints/TriggerCheckpoint1"]
+position = Vector2( -205, 10 )
+
+[node name="P2" type="Position2D" parent="Environment/Checkpoints/TriggerCheckpoint1"]
+position = Vector2( 198, 12 )
 
 [node name="Decorations" type="Node2D" parent="Environment"]
 
@@ -814,5 +868,7 @@ texture = SubResource( 66 )
 [connection signal="goto_main_menu" from="UILayer/EndGameMenu" to="." method="_on_goto_main_menu_requested"]
 [connection signal="goto_next_level" from="UILayer/EndGameMenu" to="." method="_on_goto_next_level_requested"]
 [connection signal="restart_game" from="UILayer/EndGameMenu" to="." method="_on_restart_requested"]
+[connection signal="retry_level" from="UILayer/EndGameMenu" to="." method="_on_retry_level_requested"]
 [connection signal="restart_selected" from="UILayer/PauseMenu" to="." method="_on_restart_requested"]
+[connection signal="retry_selected" from="UILayer/PauseMenu" to="." method="_on_retry_level_requested"]
 [connection signal="return_selected" from="UILayer/PauseMenu" to="." method="_on_goto_main_menu_requested"]
