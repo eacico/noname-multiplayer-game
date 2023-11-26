@@ -1,5 +1,7 @@
 extends Node
 
+onready var parallax_background = $BackgroundLayer/ParallaxBackground
+
 export (PackedScene) var level_manager_scene: PackedScene
 #export (Texture) var mouse_cursor: Texture
 
@@ -34,3 +36,6 @@ func _on_ExitButton_pressed() -> void:
 
 func _on_StartTutorialButton_pressed():
 	SceneSwitcher.change_scene(level_manager_scene.resource_path, {"level": level_tutorial_01_id})
+
+func _process(delta):
+	parallax_background.scroll_offset.x += -400 * delta
