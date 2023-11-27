@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/lava_rising.ogg-daf5a2fc2ac8c622b5eb7515213b26ba.oggstr"
+
+[deps]
+
+source_file="res://assets/sound/sfx/lava/lava_rising.ogg"
+dest_files=[ "res://.import/lava_rising.ogg-daf5a2fc2ac8c622b5eb7515213b26ba.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

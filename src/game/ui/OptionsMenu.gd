@@ -26,8 +26,8 @@ func show():
 
 func hide():
 	.hide()
-	var gui = get_parent().get_parent().get_node("GUI")
-	if gui:
+	if has_node("../../GUI"):
+		var gui = get_node("../../GUI")
 		gui.setup_controls()
 
 func _on_OptionsMenu_visibility_changed():

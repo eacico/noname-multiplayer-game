@@ -1,4 +1,4 @@
-[gd_scene load_steps=45 format=2]
+[gd_scene load_steps=38 format=2]
 
 [ext_resource path="res://src/game/levels/level-scripts/LevelDefault.gd" type="Script" id=1]
 [ext_resource path="res://src/game/environment/Lava.tscn" type="PackedScene" id=2]
@@ -21,9 +21,7 @@
 [ext_resource path="res://src/game/utils/BGMManager.gd" type="Script" id=19]
 [ext_resource path="res://assets/sound/bgm/Tracks/Ambience 1.ogg" type="AudioStream" id=20]
 [ext_resource path="res://src/game/ui/PauseMenu.tscn" type="PackedScene" id=21]
-[ext_resource path="res://assets/textures/background/pietra-pomommica-grigia.png" type="Texture" id=22]
 [ext_resource path="res://assets/textures/background/middle.png" type="Texture" id=23]
-[ext_resource path="res://assets/textures/background/pietra-pomommica-grigia - shader_mask.png" type="Texture" id=24]
 [ext_resource path="res://src/game/levels/level-scripts/Lvl01Checkpoints.gd" type="Script" id=25]
 [ext_resource path="res://src/game/levels/level-scripts/Lvl01Puzzle1.gd" type="Script" id=26]
 [ext_resource path="res://src/game/ui/GUI.tscn" type="PackedScene" id=27]
@@ -461,36 +459,6 @@ extents = Vector2( 170, 9 )
 atlas = ExtResource( 23 )
 region = Rect2( 61.0331, 90.1979, 134.753, 149.279 )
 
-[sub_resource type="StreamTexture" id=63]
-flags = 4
-load_path = "res://.import/Dungeon Ruins Tileset Day.png-9f69cf0560cfd24ad99681b80c5acd70.stex"
-
-[sub_resource type="AtlasTexture" id=62]
-flags = 4
-atlas = SubResource( 63 )
-region = Rect2( 320.189, 141.787, 191.848, 17.8636 )
-
-[sub_resource type="Shader" id=64]
-code = "shader_type canvas_item;
-
-
-uniform sampler2D mask_texture;
-void fragment() {
-	vec4 colour = texture(TEXTURE, UV);
-	colour.a *= texture(mask_texture, UV).a;
-
-	COLOR = colour;
-}"
-
-[sub_resource type="ShaderMaterial" id=65]
-shader = SubResource( 64 )
-shader_param/mask_texture = ExtResource( 24 )
-
-[sub_resource type="AtlasTexture" id=66]
-flags = 4
-atlas = ExtResource( 22 )
-region = Rect2( 2.05287, 0.404434, 607.543, 167.892 )
-
 [node name="Level" type="Node"]
 script = ExtResource( 1 )
 
@@ -826,47 +794,8 @@ position = Vector2( 198, 12 )
 [node name="Decorations" type="Node2D" parent="Environment"]
 
 [node name="Sprite" type="Sprite" parent="Environment/Decorations"]
-position = Vector2( -429, 690 )
+position = Vector2( -439, 665 )
 texture = SubResource( 61 )
-
-[node name="Sprite3" type="Sprite" parent="Environment/Decorations"]
-modulate = Color( 0.533333, 0.282353, 0.282353, 0.678431 )
-position = Vector2( -299, 726 )
-scale = Vector2( 3.1178, 3.73529 )
-texture = SubResource( 62 )
-
-[node name="Sprite4" type="Sprite" parent="Environment/Decorations"]
-modulate = Color( 0.533333, 0.282353, 0.282353, 0.678431 )
-position = Vector2( -461, 726 )
-scale = Vector2( 3.1178, 3.73529 )
-texture = SubResource( 62 )
-
-[node name="Sprite5" type="Sprite" parent="Environment/Decorations"]
-modulate = Color( 0.32549, 0.294118, 0.294118, 1 )
-material = SubResource( 65 )
-position = Vector2( 11.5143, 783 )
-scale = Vector2( 2.91429, 2.51937 )
-z_index = -1
-texture = SubResource( 66 )
-
-[node name="ColorRect" type="ColorRect" parent="Environment/Decorations"]
-modulate = Color( 0.533333, 0.282353, 0.282353, 0.678431 )
-margin_left = -782.0
-margin_top = 756.0
-margin_right = -2.0
-margin_bottom = 842.0
-color = Color( 0.964706, 0.815686, 0.615686, 1 )
-
-[node name="Sprite2" type="Sprite" parent="Environment/Decorations"]
-position = Vector2( -11, 727 )
-texture = SubResource( 61 )
-
-[node name="Sprite6" type="Sprite" parent="Environment/Decorations"]
-modulate = Color( 0.32549, 0.294118, 0.294118, 1 )
-material = SubResource( 65 )
-position = Vector2( 10, 940 )
-scale = Vector2( 2.91429, 2.51937 )
-texture = SubResource( 66 )
 
 [connection signal="goto_main_menu" from="UILayer/EndGameMenu" to="." method="_on_goto_main_menu_requested"]
 [connection signal="goto_next_level" from="UILayer/EndGameMenu" to="." method="_on_goto_next_level_requested"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=2]
+[gd_scene load_steps=44 format=2]
 
 [ext_resource path="res://src/game/entities/player-rigid/states/DeadState.gd" type="Script" id=1]
 [ext_resource path="res://src/game/entities/player-rigid/states/WallSlideState.gd" type="Script" id=2]
@@ -23,6 +23,7 @@
 [ext_resource path="res://assets/sound/sfx/jump/12_human_jump_3.wav" type="AudioStream" id=21]
 [ext_resource path="res://assets/sound/sfx/actionable/actionable_found.wav" type="AudioStream" id=22]
 [ext_resource path="res://src/game/entities/player-rigid/states/WinState.gd" type="Script" id=23]
+[ext_resource path="res://assets/textures/player/arrow_aid_direction.png" type="Texture" id=24]
 
 [sub_resource type="PhysicsMaterial" id=9]
 friction = 0.0
@@ -545,6 +546,17 @@ anims/jump = SubResource( 14 )
 anims/slide = SubResource( 16 )
 anims/spin = SubResource( 17 )
 anims/walk = SubResource( 15 )
+
+[node name="AidDirectionPivot" type="Node2D" parent="."]
+visible = false
+position = Vector2( 0, -14 )
+
+[node name="AidDirectionSprite" type="Sprite" parent="AidDirectionPivot"]
+modulate = Color( 0.745098, 0.745098, 0.745098, 0.745098 )
+position = Vector2( 0, 16 )
+rotation = 3.14159
+scale = Vector2( 1, 0.8 )
+texture = ExtResource( 24 )
 
 [node name="ActionAlert" type="Sprite" parent="."]
 visible = false

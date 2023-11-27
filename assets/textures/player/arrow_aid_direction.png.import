@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/esponja-1024x1024.png-ed21f98d3ad446339917c09af9d57c89.stex"
+path="res://.import/arrow_aid_direction.png-eb7fd8fde812c91a26fbe53c7b6641c7.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/textures/background/esponja-1024x1024.png"
-dest_files=[ "res://.import/esponja-1024x1024.png-ed21f98d3ad446339917c09af9d57c89.stex" ]
+source_file="res://assets/textures/player/arrow_aid_direction.png"
+dest_files=[ "res://.import/arrow_aid_direction.png-eb7fd8fde812c91a26fbe53c7b6641c7.stex" ]
 
 [params]
 
@@ -19,8 +19,8 @@ compress/lossy_quality=0.7
 compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0
-flags/repeat=2
-flags/filter=true
+flags/repeat=0
+flags/filter=false
 flags/mipmaps=false
 flags/anisotropic=false
 flags/srgb=2

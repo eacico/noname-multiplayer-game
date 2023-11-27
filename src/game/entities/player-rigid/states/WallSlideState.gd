@@ -19,7 +19,7 @@ func handle_input(event: InputEvent) -> void:
 	if !character.evaluate_inputs: return
 	if event.is_action_pressed("p"+character.id+"_jump"): # && player_is_detaching():
 		detach_timer.stop()
-		jump.jumps = 1
+		jump.jumps = 0
 		character.added_velocity.x = character.H_SPEED_LIMIT * -wall_side.x# * 0.75 * jump_direction()
 		emit_signal("finished", "jump")
 	

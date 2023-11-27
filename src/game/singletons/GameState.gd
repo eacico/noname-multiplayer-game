@@ -32,7 +32,7 @@ func notify_player_death(player) -> void:
 		
 		for p in players:
 			if p != player:
-				p.set_aid_alert_visibility(true)
+				p.set_ghost_to_help(player)
 		
 	if players.size() == (players_dead.size() + players_in_goal.size()):
 		emit_signal("game_over")
@@ -43,7 +43,7 @@ func notify_player_respawn(player) -> void:
 		players_dead.erase(player.id)
 		
 	for p in players:
-		p.set_aid_alert_visibility(false)
+		p.set_ghost_to_help(null)
 		
 	print("players muertos: %s" % [players_dead.size()])
 
