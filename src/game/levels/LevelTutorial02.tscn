@@ -420,7 +420,7 @@ position = Vector2( 472, 176 )
 
 [node name="Player1" parent="Environment/Entities/Characters" instance=ExtResource( 5 )]
 unique_name_in_owner = true
-position = Vector2( 426, 362 )
+position = Vector2( 425, 363 )
 color = Color( 1, 0.913725, 0, 1 )
 ghost_movement_area_path = NodePath("../../../../BackgroundLayer/Polygon2D")
 
