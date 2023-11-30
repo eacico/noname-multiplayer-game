@@ -519,6 +519,7 @@ softness = 16.0
 
 [node name="RespawnBody" type="RigidBody2D" parent="."]
 position = Vector2( 0, -14 )
+z_index = 1
 collision_layer = 64
 collision_mask = 12
 physics_material_override = SubResource( 21 )
@@ -566,11 +567,13 @@ texture = ExtResource( 13 )
 
 [node name="HelpAlert" type="Sprite" parent="."]
 visible = false
-position = Vector2( 8, -32 )
+modulate = Color( 1, 1, 1, 0.588235 )
+position = Vector2( 9, -37 )
 scale = Vector2( 0.8, 0.8 )
 texture = ExtResource( 12 )
 
 [node name="BodyPivot" type="Node2D" parent="."]
+z_index = 1
 
 [node name="ColorSprite" type="Sprite" parent="BodyPivot"]
 unique_name_in_owner = true

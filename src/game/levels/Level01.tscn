@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=2]
+[gd_scene load_steps=45 format=2]
 
 [ext_resource path="res://src/game/levels/level-scripts/LevelDefault.gd" type="Script" id=1]
 [ext_resource path="res://src/game/environment/Lava.tscn" type="PackedScene" id=2]
@@ -21,6 +21,7 @@
 [ext_resource path="res://src/game/utils/BGMManager.gd" type="Script" id=19]
 [ext_resource path="res://assets/sound/bgm/Tracks/Ambience 1.ogg" type="AudioStream" id=20]
 [ext_resource path="res://src/game/ui/PauseMenu.tscn" type="PackedScene" id=21]
+[ext_resource path="res://assets/textures/tileset/RPGW_Caves_v2.1/MainLev2.0.png" type="Texture" id=22]
 [ext_resource path="res://assets/textures/background/middle.png" type="Texture" id=23]
 [ext_resource path="res://src/game/levels/level-scripts/Lvl01Checkpoints.gd" type="Script" id=25]
 [ext_resource path="res://src/game/levels/level-scripts/Lvl01Puzzle1.gd" type="Script" id=26]
@@ -455,9 +456,142 @@ extents = Vector2( 42, 9 )
 [sub_resource type="RectangleShape2D" id=67]
 extents = Vector2( 170, 9 )
 
+[sub_resource type="TileSet" id=75]
+0/name = "MainLev2.0.png 0"
+0/texture = ExtResource( 22 )
+0/tex_offset = Vector2( 0, 0 )
+0/modulate = Color( 1, 1, 1, 1 )
+0/region = Rect2( 64, 0, 192, 96 )
+0/tile_mode = 1
+0/autotile/bitmask_mode = 0
+0/autotile/bitmask_flags = [ Vector2( 0, 0 ), 256, Vector2( 0, 1 ), 260, Vector2( 0, 2 ), 4, Vector2( 1, 0 ), 320, Vector2( 1, 1 ), 325, Vector2( 1, 2 ), 5, Vector2( 2, 0 ), 320, Vector2( 2, 1 ), 325, Vector2( 2, 2 ), 5, Vector2( 3, 0 ), 320, Vector2( 3, 1 ), 325, Vector2( 3, 2 ), 5, Vector2( 4, 0 ), 320, Vector2( 4, 1 ), 325, Vector2( 4, 2 ), 5, Vector2( 5, 0 ), 64, Vector2( 5, 1 ), 65, Vector2( 5, 2 ), 1 ]
+0/autotile/icon_coordinate = Vector2( 0, 0 )
+0/autotile/tile_size = Vector2( 32, 32 )
+0/autotile/spacing = 0
+0/autotile/occluder_map = [  ]
+0/autotile/navpoly_map = [  ]
+0/autotile/priority_map = [  ]
+0/autotile/z_index_map = [  ]
+0/occluder_offset = Vector2( 0, 0 )
+0/navigation_offset = Vector2( 0, 0 )
+0/shape_offset = Vector2( 0, 0 )
+0/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+0/shape_one_way = false
+0/shape_one_way_margin = 0.0
+0/shapes = [  ]
+0/z_index = 0
+1/name = "MainLev2.0.png 1"
+1/texture = ExtResource( 22 )
+1/tex_offset = Vector2( 0, 0 )
+1/modulate = Color( 1, 1, 1, 1 )
+1/region = Rect2( 256, 512, 64, 128 )
+1/tile_mode = 1
+1/autotile/bitmask_mode = 0
+1/autotile/bitmask_flags = [ Vector2( 0, 0 ), 256, Vector2( 0, 1 ), 260, Vector2( 0, 2 ), 260, Vector2( 0, 3 ), 4, Vector2( 1, 0 ), 64, Vector2( 1, 1 ), 65, Vector2( 1, 2 ), 65, Vector2( 1, 3 ), 1 ]
+1/autotile/icon_coordinate = Vector2( 0, 0 )
+1/autotile/tile_size = Vector2( 32, 32 )
+1/autotile/spacing = 0
+1/autotile/occluder_map = [  ]
+1/autotile/navpoly_map = [  ]
+1/autotile/priority_map = [  ]
+1/autotile/z_index_map = [  ]
+1/occluder_offset = Vector2( 0, 0 )
+1/navigation_offset = Vector2( 0, 0 )
+1/shape_offset = Vector2( 0, 0 )
+1/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+1/shape_one_way = false
+1/shape_one_way_margin = 0.0
+1/shapes = [  ]
+1/z_index = 0
+2/name = "MainLev2.0.png 2"
+2/texture = ExtResource( 22 )
+2/tex_offset = Vector2( 0, 0 )
+2/modulate = Color( 1, 1, 1, 1 )
+2/region = Rect2( 64, 416, 192, 64 )
+2/tile_mode = 1
+2/autotile/bitmask_mode = 0
+2/autotile/bitmask_flags = [ Vector2( 0, 0 ), 256, Vector2( 0, 1 ), 4, Vector2( 1, 0 ), 320, Vector2( 1, 1 ), 5, Vector2( 2, 0 ), 320, Vector2( 2, 1 ), 5, Vector2( 3, 0 ), 320, Vector2( 3, 1 ), 5, Vector2( 4, 0 ), 320, Vector2( 4, 1 ), 5, Vector2( 5, 0 ), 64, Vector2( 5, 1 ), 1 ]
+2/autotile/icon_coordinate = Vector2( 0, 0 )
+2/autotile/tile_size = Vector2( 32, 32 )
+2/autotile/spacing = 0
+2/autotile/occluder_map = [  ]
+2/autotile/navpoly_map = [  ]
+2/autotile/priority_map = [  ]
+2/autotile/z_index_map = [  ]
+2/occluder_offset = Vector2( 0, 0 )
+2/navigation_offset = Vector2( 0, 0 )
+2/shape_offset = Vector2( 0, 0 )
+2/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+2/shape_one_way = false
+2/shape_one_way_margin = 0.0
+2/shapes = [  ]
+2/z_index = 0
+3/name = "MainLev2.0.png 3"
+3/texture = ExtResource( 22 )
+3/tex_offset = Vector2( 0, 0 )
+3/modulate = Color( 1, 1, 1, 1 )
+3/region = Rect2( 32, 704, 128, 96 )
+3/tile_mode = 1
+3/autotile/bitmask_mode = 0
+3/autotile/bitmask_flags = [ Vector2( 0, 0 ), 256, Vector2( 0, 1 ), 260, Vector2( 0, 2 ), 4, Vector2( 1, 0 ), 320, Vector2( 1, 1 ), 325, Vector2( 1, 2 ), 5, Vector2( 2, 0 ), 320, Vector2( 2, 1 ), 325, Vector2( 2, 2 ), 5, Vector2( 3, 0 ), 64, Vector2( 3, 1 ), 65, Vector2( 3, 2 ), 1 ]
+3/autotile/icon_coordinate = Vector2( 0, 0 )
+3/autotile/tile_size = Vector2( 32, 32 )
+3/autotile/spacing = 0
+3/autotile/occluder_map = [  ]
+3/autotile/navpoly_map = [  ]
+3/autotile/priority_map = [  ]
+3/autotile/z_index_map = [  ]
+3/occluder_offset = Vector2( 0, 0 )
+3/navigation_offset = Vector2( 0, 0 )
+3/shape_offset = Vector2( 0, 0 )
+3/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+3/shape_one_way = false
+3/shape_one_way_margin = 0.0
+3/shapes = [  ]
+3/z_index = 0
+
 [sub_resource type="AtlasTexture" id=61]
 atlas = ExtResource( 23 )
 region = Rect2( 61.0331, 90.1979, 134.753, 149.279 )
+
+[sub_resource type="TileSet" id=76]
+0/name = "MainLev2.0.png 0"
+0/texture = ExtResource( 22 )
+0/tex_offset = Vector2( 0, 0 )
+0/modulate = Color( 1, 1, 1, 1 )
+0/region = Rect2( 1152, 672, 128, 64 )
+0/tile_mode = 1
+0/autotile/bitmask_mode = 0
+0/autotile/bitmask_flags = [ Vector2( 0, 0 ), 320, Vector2( 0, 1 ), 5, Vector2( 1, 0 ), 320, Vector2( 1, 1 ), 5, Vector2( 2, 0 ), 320, Vector2( 2, 1 ), 5, Vector2( 3, 0 ), 320, Vector2( 3, 1 ), 5 ]
+0/autotile/icon_coordinate = Vector2( 0, 0 )
+0/autotile/tile_size = Vector2( 32, 32 )
+0/autotile/spacing = 0
+0/autotile/occluder_map = [  ]
+0/autotile/navpoly_map = [  ]
+0/autotile/priority_map = [  ]
+0/autotile/z_index_map = [  ]
+0/occluder_offset = Vector2( 0, 0 )
+0/navigation_offset = Vector2( 0, 0 )
+0/shape_offset = Vector2( 0, 0 )
+0/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+0/shape_one_way = false
+0/shape_one_way_margin = 0.0
+0/shapes = [  ]
+0/z_index = 0
+
+[sub_resource type="StreamTexture" id=71]
+load_path = "res://.import/decorative.png-b3e6bd4fb3f98de99e566938133419bc.stex"
+
+[sub_resource type="AtlasTexture" id=72]
+atlas = SubResource( 71 )
+region = Rect2( 224.167, 266.544, 97.2766, 118.735 )
+
+[sub_resource type="StreamTexture" id=73]
+load_path = "res://.import/decorative.png-b3e6bd4fb3f98de99e566938133419bc.stex"
+
+[sub_resource type="AtlasTexture" id=74]
+atlas = SubResource( 73 )
+region = Rect2( 127.747, 428.437, 65.0122, 82.636 )
 
 [node name="Level" type="Node"]
 script = ExtResource( 1 )
@@ -793,9 +927,53 @@ position = Vector2( 198, 12 )
 
 [node name="Decorations" type="Node2D" parent="Environment"]
 
+[node name="ColorRect" type="ColorRect" parent="Environment/Decorations"]
+modulate = Color( 0.0392157, 0.0352941, 0.0352941, 1 )
+margin_left = -1062.0
+margin_top = 765.0
+margin_right = 1055.0
+margin_bottom = 1073.0
+
+[node name="ColorRect2" type="ColorRect" parent="Environment/Decorations"]
+modulate = Color( 0.0392157, 0.0352941, 0.0352941, 1 )
+margin_left = -1052.0
+margin_top = 469.0
+margin_right = -476.0
+margin_bottom = 1062.0
+
+[node name="RocksTileMap" type="TileMap" parent="Environment/Decorations"]
+tile_set = SubResource( 75 )
+cell_size = Vector2( 32, 32 )
+cell_custom_transform = Transform2D( 32, 0, 0, 32, 0, 0 )
+format = 1
+tile_data = PoolIntArray( 917471, 2, 0, 917472, 2, 1, 917473, 2, 4, 917474, 2, 4, 917475, 2, 2, 917476, 2, 4, 917477, 2, 2, 917478, 2, 3, 917479, 2, 1, 917480, 2, 2, 917481, 2, 4, 917482, 2, 4, 917483, 2, 2, 917484, 2, 2, 917485, 2, 2, 917486, 2, 2, 917487, 2, 3, 917488, 2, 4, 917489, 2, 5, 983007, 2, 65536, 983008, 2, 65540, 983009, 2, 65539, 983010, 2, 65537, 983011, 2, 65540, 983012, 2, 65538, 983013, 2, 65538, 983014, 2, 65539, 983015, 2, 65538, 983016, 2, 65538, 983017, 2, 65540, 983018, 2, 65539, 983019, 2, 65538, 983020, 2, 65539, 983021, 2, 65538, 983022, 2, 65537, 983023, 2, 65539, 983024, 2, 65540, 983025, 1, 0, 983026, 1, 1, 1048561, 1, 131072, 1048562, 1, 131073, 1114095, 2, 65540, 1114097, 1, 131072, 1114098, 1, 131073, 1179628, 2, 65540, 1179633, 1, 131072, 1179634, 1, 131073, 1245169, 1, 131072, 1245170, 1, 65537, 1310701, 2, 65540, 1310703, 2, 65540, 1310705, 1, 131072, 1310706, 1, 65537, 1376236, 2, 65540, 1376241, 1, 196608, 1376242, 1, 196609, 1441777, 1, 0, 1441778, 0, 0, 1441779, 0, 4, 1441780, 0, 3, 1441781, 0, 4, 1441782, 0, 1, 1441783, 0, 2, 1441784, 0, 2, 1441785, 0, 1, 1441786, 0, 3, 1441787, 0, 1, 1441788, 0, 2, 1441789, 0, 2, 1441790, 0, 1, 1441791, 0, 1, 1376256, 0, 5, 1507300, 0, 65538, 1507301, 0, 65539, 1507302, 0, 65537, 1507303, 0, 65539, 1507304, 0, 65539, 1507305, 0, 65539, 1507306, 0, 65537, 1507307, 0, 65538, 1507310, 0, 65539, 1507311, 0, 65540, 1507312, 0, 2, 1507313, 0, 5, 1507314, 0, 131072, 1507315, 0, 131074, 1507316, 0, 131075, 1507317, 0, 131074, 1507318, 0, 131073, 1507319, 0, 131073, 1507320, 0, 131074, 1507321, 0, 131075, 1507322, 0, 131073, 1507323, 0, 131075, 1507324, 0, 65539, 1507325, 0, 65539, 1507326, 0, 65539, 1507327, 0, 65539, 1441792, 0, 131077, 1572836, 0, 65539, 1572837, 0, 65539, 1572839, 0, 65540, 1572841, 0, 65539, 1572842, 0, 65539, 1572843, 0, 65540, 1572844, 0, 65539, 1572845, 0, 65538, 1572846, 0, 65539, 1572847, 0, 65538, 1572848, 0, 65539, 1572849, 0, 131077, 1572850, 3, 0, 1572851, 3, 3, 1572852, 0, 131072, 1572853, 0, 131075, 1572854, 0, 131073, 1572855, 0, 131074, 1572856, 0, 131073, 1572857, 0, 131076, 1572858, 0, 131075, 1572859, 0, 131073, 1572860, 0, 131073, 1572861, 0, 131074, 1572862, 0, 131076, 1572863, 0, 131075, 1507328, 0, 131077, 1507329, 3, 2, 1507330, 3, 2, 1507331, 3, 2, 1507332, 3, 2, 1507333, 3, 2, 1507334, 3, 1, 1507335, 3, 1, 1507336, 3, 2, 1507337, 3, 2, 1507338, 3, 2, 1507339, 3, 1, 1507340, 3, 2, 1507341, 3, 2, 1507342, 3, 2, 1507343, 3, 3, 1507344, 0, 0, 1507345, 0, 1, 1507346, 0, 1, 1507347, 0, 2, 1507348, 0, 3, 1507349, 0, 4, 1507350, 0, 4, 1507351, 0, 2, 1507352, 0, 3, 1507353, 0, 4, 1507354, 0, 2, 1507355, 0, 5, 1638372, 0, 65540, 1638373, 0, 65538, 1638374, 0, 65540, 1638376, 0, 65537, 1638377, 0, 65538, 1638378, 0, 65540, 1638379, 0, 65539, 1638380, 0, 65537, 1638381, 0, 65538, 1638383, 0, 65540, 1638385, 0, 0, 1638386, 3, 65536, 1638387, 3, 0, 1638388, 3, 1, 1638389, 3, 2, 1638390, 3, 2, 1638391, 3, 2, 1638392, 3, 2, 1638393, 3, 2, 1638394, 3, 1, 1638395, 3, 1, 1638396, 3, 2, 1638397, 3, 2, 1638398, 3, 2, 1638399, 3, 1, 1572864, 3, 1, 1572865, 3, 65538, 1572866, 3, 65538, 1572867, 3, 65538, 1572868, 3, 65538, 1572869, 3, 65537, 1572870, 3, 65537, 1572871, 3, 65538, 1572872, 3, 65537, 1572873, 3, 65538, 1572874, 3, 65538, 1572875, 3, 65538, 1572876, 3, 65538, 1572877, 3, 65538, 1572878, 3, 65538, 1572879, 3, 65539, 1572880, 0, 65536, 1572881, 0, 65540, 1572882, 0, 65540, 1572883, 0, 65540, 1572884, 0, 65537, 1572885, 0, 65539, 1572886, 0, 65538, 1572887, 0, 65538, 1572888, 0, 65539, 1572889, 0, 65540, 1572890, 0, 65539, 1572891, 0, 65541, 1703908, 0, 131075, 1703909, 0, 131075, 1703910, 0, 131075, 1703911, 0, 131073, 1703914, 0, 131075, 1703915, 0, 131075, 1703916, 0, 131073, 1703917, 0, 131074, 1703919, 0, 131075, 1703920, 0, 131074, 1703921, 0, 0, 1703922, 3, 65536, 1703923, 3, 65537, 1703924, 3, 65537, 1703925, 3, 65538, 1703926, 3, 65538, 1703927, 3, 65537, 1703928, 3, 65537, 1703929, 3, 65537, 1703930, 3, 65538, 1703931, 3, 65537, 1703932, 3, 65538, 1703933, 3, 65537, 1703934, 3, 65538, 1703935, 3, 65537, 1638400, 3, 65537, 1638401, 3, 65538, 1638402, 3, 65538, 1638403, 3, 65538, 1638404, 3, 65538, 1638405, 3, 65538, 1638406, 3, 65537, 1638407, 3, 65538, 1638408, 3, 65538, 1638409, 3, 65538, 1638410, 3, 65537, 1638411, 3, 65538, 1638412, 3, 65537, 1638413, 3, 65538, 1638414, 3, 65537, 1638415, 3, 65539, 1638416, 0, 131072, 1638417, 0, 131074, 1638418, 0, 131076, 1638419, 0, 131073, 1638420, 0, 131073, 1638421, 0, 131073, 1638422, 0, 131073, 1638423, 0, 131075, 1638424, 0, 131076, 1638425, 0, 131074, 1638426, 0, 131075, 1638427, 0, 131077, 1769458, 3, 131072, 1769459, 3, 131073, 1769460, 3, 131073, 1769461, 3, 131074, 1769462, 3, 131074, 1769463, 3, 131074, 1769464, 3, 131073, 1769465, 3, 131073, 1769466, 3, 131074, 1769467, 3, 131073, 1769468, 3, 131073, 1769469, 3, 131074, 1769470, 3, 131074, 1769471, 3, 131073, 1703936, 3, 131073, 1703937, 3, 131073, 1703938, 3, 131074, 1703939, 3, 131074, 1703940, 3, 131073, 1703941, 3, 131073, 1703942, 3, 131074, 1703943, 3, 131073, 1703944, 3, 131073, 1703945, 3, 131074, 1703946, 3, 131074, 1703947, 3, 131074, 1703948, 3, 131074, 1703949, 3, 131073, 1703950, 3, 131073, 1703951, 3, 131075 )
+
 [node name="Sprite" type="Sprite" parent="Environment/Decorations"]
-position = Vector2( -439, 665 )
+modulate = Color( 0.694118, 0.694118, 0.694118, 1 )
+position = Vector2( 469, 751 )
 texture = SubResource( 61 )
+
+[node name="RocksTileMap2" type="TileMap" parent="Environment/Decorations"]
+tile_set = SubResource( 76 )
+cell_size = Vector2( 32, 32 )
+cell_custom_transform = Transform2D( 32, 0, 0, 32, 0, 0 )
+format = 1
+tile_data = PoolIntArray( 1638395, 0, 0, 1638396, 0, 0, 1638397, 0, 0, 1638398, 0, 0, 1638399, 0, 0, 1572864, 0, 0, 1572865, 0, 0, 1572866, 0, 0, 1572867, 0, 0, 1572868, 0, 0, 1572869, 0, 0, 1572870, 0, 0, 1572871, 0, 0, 1572872, 0, 0, 1572873, 0, 0, 1572874, 0, 0, 1572875, 0, 0, 1572876, 0, 0, 1572877, 0, 0, 1572878, 0, 0, 1572879, 0, 0, 1572880, 0, 0, 1572881, 0, 2, 1572882, 0, 3, 1572883, 0, 2, 1572884, 0, 1, 1572885, 0, 3, 1572886, 0, 0, 1638400, 0, 0, 1638416, 0, 0, 1638417, 0, 65538, 1638418, 0, 65537, 1638419, 0, 65536, 1638420, 0, 65536, 1638421, 0, 65539, 1638422, 0, 0, 1638423, 0, 0 )
+
+[node name="Sprite2" type="Sprite" parent="Environment/Decorations"]
+position = Vector2( -452, 678 )
+scale = Vector2( 1.5, 1.5 )
+texture = SubResource( 72 )
+
+[node name="Sprite3" type="Sprite" parent="Environment/Decorations"]
+position = Vector2( 19, 710 )
+scale = Vector2( 1.5, 1.5 )
+texture = SubResource( 74 )
+
+[node name="Sprite4" type="Sprite" parent="Environment/Decorations"]
+position = Vector2( -256, 696 )
+scale = Vector2( 1.8, 1.8 )
+texture = SubResource( 74 )
 
 [connection signal="goto_main_menu" from="UILayer/EndGameMenu" to="." method="_on_goto_main_menu_requested"]
 [connection signal="goto_next_level" from="UILayer/EndGameMenu" to="." method="_on_goto_next_level_requested"]
