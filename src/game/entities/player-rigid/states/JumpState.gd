@@ -47,7 +47,7 @@ func update(delta: float) -> void:
 		else:
 			emit_signal("finished", "walk")
 		land_sfx.play()
-	elif character_is_on_wall and starting_timer.is_stopped(): # and detached_from_wall:
+	elif character_is_on_wall and player_move_drection() != 0 and starting_timer.is_stopped(): # and detached_from_wall:
 		emit_signal("finished", "wall_slide")
 	else:
 		if character.velocity.y > 0:
@@ -63,3 +63,6 @@ func handle_event(event: String, value = null) -> void:
 			character._handle_death()
 			if character.dead:
 				emit_signal("finished", "dead")
+
+func player_move_drection() -> int:
+	return int(Input.is_action_pressed("p"+character.id+"_move_right")) - int(Input.is_action_pressed("p"+character.id+"_move_left"))

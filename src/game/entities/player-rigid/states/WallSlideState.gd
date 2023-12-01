@@ -13,6 +13,7 @@ func enter() -> void:
 	character._play_animation("slide") 
 
 func exit() -> void:
+	detach_timer.stop()
 	character.is_wall_sliding = false
 	
 func handle_input(event: InputEvent) -> void:
