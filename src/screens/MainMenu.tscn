@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://src/screens/LevelManager.tscn" type="PackedScene" id=1]
 [ext_resource path="res://src/game/ui/OptionsMenu.tscn" type="PackedScene" id=2]
 [ext_resource path="res://src/game/environment/DefaultBackground.tscn" type="PackedScene" id=3]
 [ext_resource path="res://assets/font/Baskic8.otf" type="DynamicFontData" id=4]
+[ext_resource path="res://src/game/ui/LevelSelectMenu.tscn" type="PackedScene" id=5]
 [ext_resource path="res://src/screens/MainMenu.gd" type="Script" id=7]
 
 [sub_resource type="DynamicFont" id=1]
@@ -65,23 +66,32 @@ margin_right = 160.0
 margin_bottom = 44.0
 text = "Start Game"
 
-[node name="OptionsButton" type="Button" parent="CanvasLayer/Control/Container"]
+[node name="LevelSelectButton" type="Button" parent="CanvasLayer/Control/Container"]
 margin_top = 48.0
 margin_right = 160.0
 margin_bottom = 68.0
-text = "Options"
+text = "Level Select"
 
-[node name="ExitButton" type="Button" parent="CanvasLayer/Control/Container"]
+[node name="OptionsButton" type="Button" parent="CanvasLayer/Control/Container"]
 margin_top = 72.0
 margin_right = 160.0
 margin_bottom = 92.0
+text = "Options"
+
+[node name="ExitButton" type="Button" parent="CanvasLayer/Control/Container"]
+margin_top = 96.0
+margin_right = 160.0
+margin_bottom = 116.0
 disabled = true
 text = "Exit"
 
 [node name="OptionsMenu" parent="CanvasLayer" instance=ExtResource( 2 )]
 visible = false
 
+[node name="LevelSelectMenu" parent="CanvasLayer" instance=ExtResource( 5 )]
+
 [connection signal="pressed" from="CanvasLayer/Control/Container/StartTutorialButton" to="." method="_on_StartTutorialButton_pressed"]
 [connection signal="pressed" from="CanvasLayer/Control/Container/StartButton" to="." method="_on_StartButton_pressed"]
+[connection signal="pressed" from="CanvasLayer/Control/Container/LevelSelectButton" to="CanvasLayer/LevelSelectMenu" method="show"]
 [connection signal="pressed" from="CanvasLayer/Control/Container/OptionsButton" to="CanvasLayer/OptionsMenu" method="show"]
 [connection signal="pressed" from="CanvasLayer/Control/Container/ExitButton" to="." method="_on_ExitButton_pressed"]

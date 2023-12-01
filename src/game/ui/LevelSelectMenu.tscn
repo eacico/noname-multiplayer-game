@@ -1,0 +1,149 @@
+[gd_scene load_steps=12 format=2]
+
+[ext_resource path="res://assets/textures/icons/level_tut_03.png" type="Texture" id=1]
+[ext_resource path="res://src/game/ui/LevelSelecectOption.tscn" type="PackedScene" id=2]
+[ext_resource path="res://src/game/ui/LevelSelectMenu.gd" type="Script" id=3]
+[ext_resource path="res://src/screens/LevelManager.tscn" type="PackedScene" id=4]
+[ext_resource path="res://assets/textures/icons/level_tut_01.png" type="Texture" id=5]
+[ext_resource path="res://assets/textures/icons/level_tut_02.png" type="Texture" id=6]
+[ext_resource path="res://assets/textures/icons/level_tut_05.png" type="Texture" id=7]
+[ext_resource path="res://assets/textures/icons/level_03.png" type="Texture" id=8]
+[ext_resource path="res://assets/textures/icons/level_tut_04.png" type="Texture" id=9]
+[ext_resource path="res://assets/textures/icons/level_02.png" type="Texture" id=10]
+[ext_resource path="res://assets/textures/icons/level_01.png" type="Texture" id=11]
+
+[node name="LevelSelectMenu" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+script = ExtResource( 3 )
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 0.25098 )
+
+[node name="Panel" type="Panel" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 40.0
+margin_top = 20.0
+margin_right = -40.0
+margin_bottom = -20.0
+
+[node name="Label" type="Label" parent="Panel"]
+anchor_right = 1.0
+margin_left = 40.0
+margin_right = -40.0
+margin_bottom = 32.0
+text = "Options"
+align = 1
+valign = 1
+
+[node name="ReturnButton" type="Button" parent="Panel"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -26.0
+margin_top = -28.0
+margin_right = 26.0
+margin_bottom = -5.0
+text = "Return"
+
+[node name="Panel" type="TabContainer" parent="Panel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 2.0
+margin_top = 32.0
+margin_right = -2.0
+margin_bottom = -42.0
+
+[node name="Tutorial" type="VBoxContainer" parent="Panel/Panel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/Panel/Tutorial"]
+margin_right = 804.0
+margin_bottom = 246.0
+
+[node name="LevelSelecectOption1" parent="Panel/Panel/Tutorial/VBoxContainer" instance=ExtResource( 2 )]
+margin_bottom = 46.0
+level_manager_scene = ExtResource( 4 )
+level_image = ExtResource( 5 )
+level_id = 1
+level_name = "Jump"
+
+[node name="LevelSelecectOption2" parent="Panel/Panel/Tutorial/VBoxContainer" instance=ExtResource( 2 )]
+margin_top = 50.0
+margin_bottom = 96.0
+level_manager_scene = ExtResource( 4 )
+level_image = ExtResource( 6 )
+level_id = 2
+level_name = "Double Jump"
+
+[node name="LevelSelecectOption3" parent="Panel/Panel/Tutorial/VBoxContainer" instance=ExtResource( 2 )]
+margin_top = 100.0
+margin_bottom = 146.0
+level_manager_scene = ExtResource( 4 )
+level_image = ExtResource( 1 )
+level_id = 3
+level_name = "Switch"
+
+[node name="LevelSelecectOption4" parent="Panel/Panel/Tutorial/VBoxContainer" instance=ExtResource( 2 )]
+margin_top = 150.0
+margin_bottom = 196.0
+level_manager_scene = ExtResource( 4 )
+level_image = ExtResource( 9 )
+level_id = 4
+level_name = "Energy Connector"
+
+[node name="LevelSelecectOption5" parent="Panel/Panel/Tutorial/VBoxContainer" instance=ExtResource( 2 )]
+margin_top = 200.0
+margin_bottom = 246.0
+level_manager_scene = ExtResource( 4 )
+level_image = ExtResource( 7 )
+level_id = 5
+level_name = "Ghost"
+
+[node name="MainGame" type="VBoxContainer" parent="Panel/Panel"]
+visible = false
+margin_left = 4.0
+margin_top = 32.0
+margin_right = 808.0
+margin_bottom = 520.0
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/Panel/MainGame"]
+margin_top = 250.0
+margin_right = 804.0
+margin_bottom = 496.0
+
+[node name="LevelSelecectOption1" parent="Panel/Panel/MainGame/VBoxContainer" instance=ExtResource( 2 )]
+margin_bottom = 46.0
+level_manager_scene = ExtResource( 4 )
+level_image = ExtResource( 11 )
+level_id = 6
+level_name = "Level01"
+
+[node name="LevelSelecectOption2" parent="Panel/Panel/MainGame/VBoxContainer" instance=ExtResource( 2 )]
+margin_top = 50.0
+margin_bottom = 96.0
+level_manager_scene = ExtResource( 4 )
+level_image = ExtResource( 10 )
+level_id = 7
+level_name = "Level02"
+
+[node name="LevelSelecectOption3" parent="Panel/Panel/MainGame/VBoxContainer" instance=ExtResource( 2 )]
+margin_top = 100.0
+margin_bottom = 146.0
+level_manager_scene = ExtResource( 4 )
+level_image = ExtResource( 8 )
+level_id = 8
+level_name = "Level03"
+
+[connection signal="pressed" from="Panel/ReturnButton" to="." method="_on_ReturnButton_pressed"]
