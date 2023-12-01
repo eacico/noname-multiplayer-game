@@ -95,6 +95,18 @@ tracks/4/keys = {
 "update": 1,
 "values": [ false ]
 }
+tracks/5/type = "value"
+tracks/5/path = NodePath("../RespawnBody/CollisionShape:disabled")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
 
 [sub_resource type="Animation" id=12]
 resource_name = "action"
@@ -256,6 +268,18 @@ tracks/4/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 1,
 "values": [ true ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("../RespawnBody/CollisionShape:disabled")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
 }
 
 [sub_resource type="Animation" id=10]
@@ -526,8 +550,9 @@ physics_material_override = SubResource( 21 )
 gravity_scale = 0.0
 linear_damp = 4.0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="RespawnBody"]
+[node name="CollisionShape" type="CollisionShape2D" parent="RespawnBody"]
 shape = SubResource( 20 )
+disabled = true
 
 [node name="RespawnSprite" type="Sprite" parent="RespawnBody"]
 visible = false
