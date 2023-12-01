@@ -681,6 +681,27 @@ tile_data = PoolIntArray( 2621474, 0, 65537, 2687010, 0, 196611, 2752546, 0, 196
 position = Vector2( 218, 444 )
 Connection_TileMap = NodePath("../InteractionTiles4")
 
+[node name="Puzzle3" type="Node2D" parent="Environment/Puzzles"]
+
+[node name="SliderGate" parent="Environment/Puzzles/Puzzle3" instance=ExtResource( 10 )]
+position = Vector2( 304, 541 )
+rotation = -1.5708
+scale = Vector2( 1.2, 1 )
+switches = [ NodePath("../Switch3") ]
+
+[node name="InteractionTiles3" type="TileMap" parent="Environment/Puzzles/Puzzle3"]
+tile_set = SubResource( 55 )
+cell_size = Vector2( 8, 8 )
+cell_quadrant_size = 8
+collision_layer = 0
+collision_mask = 0
+format = 1
+tile_data = PoolIntArray( 1900583, 0, 196612, 3538983, 0, 1, 3538984, 0, 131075, 3538985, 0, 131075, 3538986, 0, 131075, 3538987, 0, 4, 3604523, 0, 65539, 3604524, 0, 131075, 3604525, 0, 131075, 3604526, 0, 4, 3670062, 0, 196611, 3735598, 0, 196611, 3801134, 0, 196611, 3866669, 0, 3, 3866670, 0, 65540, 3932205, 0, 196611, 3997741, 0, 0 )
+
+[node name="Switch3" parent="Environment/Puzzles/Puzzle3" instance=ExtResource( 9 )]
+position = Vector2( 364, 503 )
+Connection_TileMap = NodePath("../InteractionTiles3")
+
 [node name="Tests" type="Node2D" parent="Environment"]
 
 [node name="InteractionTiles5" type="TileMap" parent="Environment/Tests"]
