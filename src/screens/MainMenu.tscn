@@ -89,6 +89,7 @@ text = "Exit"
 visible = false
 
 [node name="LevelSelectMenu" parent="CanvasLayer" instance=ExtResource( 5 )]
+visible = false
 
 [connection signal="pressed" from="CanvasLayer/Control/Container/StartTutorialButton" to="." method="_on_StartTutorialButton_pressed"]
 [connection signal="pressed" from="CanvasLayer/Control/Container/StartButton" to="." method="_on_StartButton_pressed"]

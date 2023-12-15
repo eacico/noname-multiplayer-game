@@ -23,7 +23,7 @@
 [ext_resource path="res://src/game/ui/PauseMenu.tscn" type="PackedScene" id=21]
 [ext_resource path="res://assets/textures/tileset/RPGW_Caves_v2.1/MainLev2.0.png" type="Texture" id=22]
 [ext_resource path="res://assets/textures/background/middle.png" type="Texture" id=23]
-[ext_resource path="res://src/game/levels/level-scripts/Lvl01Checkpoints.gd" type="Script" id=25]
+[ext_resource path="res://src/game/levels/level-scripts/Checkpoints.gd" type="Script" id=25]
 [ext_resource path="res://src/game/levels/level-scripts/Lvl01Puzzle1.gd" type="Script" id=26]
 [ext_resource path="res://src/game/ui/GUI.tscn" type="PackedScene" id=27]
 
@@ -816,7 +816,7 @@ format = 1
 position = Vector2( 472, -816 )
 
 [node name="Characters" type="Node2D" parent="Environment/Entities"]
-position = Vector2( -365, 656 )
+position = Vector2( -374, 654 )
 
 [node name="Player1" parent="Environment/Entities/Characters" instance=ExtResource( 5 )]
 unique_name_in_owner = true
@@ -926,6 +926,7 @@ position = Vector2( -205, 10 )
 position = Vector2( 198, 12 )
 
 [node name="Decorations" type="Node2D" parent="Environment"]
+z_index = 1
 
 [node name="ColorRect" type="ColorRect" parent="Environment/Decorations"]
 modulate = Color( 0.0392157, 0.0352941, 0.0352941, 1 )
